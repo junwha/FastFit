@@ -10,3 +10,4 @@ RUN apt-get update && \
     apt-get install -y maven
 
 WORKDIR /root/project
+COPY run.sh ./

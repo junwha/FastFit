@@ -1,4 +1,9 @@
 # CSE-364-Software-Engineering
 
-## Milestone 1
-We will start milestone1 soon after reviewing the last class
+## Docker Build and Run
+
+```
+$ docker -t cse364 .
+$ docker run -it cse364
+root@[CONTAINER_ID]:~/project# . run.sh
+```

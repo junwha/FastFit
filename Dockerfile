@@ -9,5 +9,9 @@ RUN apt-get update && \
     apt-get install -y openjdk-11-jdk && \
     apt-get install -y maven
 
+RUN mkdir -p /root/project
+
 WORKDIR /root/project
-COPY run.sh ./
+COPY ./run.sh /root/project/
+
+

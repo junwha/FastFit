@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Movie {
     public ArrayList<Rating> ratings;
     //Fields from file
-    public int id = -1;
-    public String title = null;
-    public String[] genres = null;
+    public int id;
+    public String title;
+    public String[] genres;
 
     Movie(int id, String title, String[] genres){
         this.id = id;

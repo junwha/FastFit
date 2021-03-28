@@ -1,9 +1,9 @@
 package com.github.cse364;
 
 public class Rating {
-    User user = null;
-    int rating = -1;
-    int timestamp = -1;
+    User user;
+    int rating;
+    int timestamp;
 
     Rating(User user, int rating, int timestamp) {
         this.user = user;

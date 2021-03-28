@@ -43,8 +43,6 @@ public class DataLoader {
 
                 String buffer = "";
                 while((buffer = buffReader.readLine()) != null){
-                    System.out.println(buffer);
-
                     contents.get(i).add(buffer);
                 }
 
@@ -55,10 +53,13 @@ public class DataLoader {
 
 
             //preprocess movies
-//            for(String movieData : contents.get(0)){
-//                System.out.println(movieData);
-//            }
-////
+            for(String movieData : contents.get(0)){
+                String[] args = movieData.split("::");
+                movies.add(new Movie(Integer.parseInt(args[0]), args[1], args[2].split("|")));
+//                Movie test = movies.get(movies.size()-1);
+//                System.out.println(test.title);
+            }
+
 //            //preprocess users
 //            for(String userData : contents.get(0)){
 //

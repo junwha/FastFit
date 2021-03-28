@@ -87,11 +87,16 @@ public class DataLoader {
 //                User test = users.get(id);
 //                System.out.println(test.id);
         }
-//
-//        //preprocess ratings
-//        for (String[] args : contents.get(2)) {
-//            //ratings.add()
-//        }
+
+        //preprocess ratings
+        for (String[] args : contents.get(2)) {
+            int movieId = Integer.parseInt(args[1]);
+            movies.get(movieId)
+                    .ratings.add(new Rating(users.get(Integer.parseInt(args[0])), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+//            Movie test = movies.get(movieId);
+//            // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
+//            System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);
+        }
 
     }
 }

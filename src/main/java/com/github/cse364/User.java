@@ -1,4 +1,4 @@
-package com.preprocess;
+package com.github.cse364;
 enum Gender{M, F}
 
 public class User {

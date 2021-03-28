@@ -1,4 +1,4 @@
-package com.preprocess;
+package com.github.cse364;
 
 public class Rating {
     User user = null;

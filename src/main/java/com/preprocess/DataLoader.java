@@ -19,9 +19,9 @@ UserID::MovieID::Rating::Timestamp
  */
 
 public class DataLoader {
-    public ArrayList<Movie> movies = new ArrayList<Movie>(0);
-    public ArrayList<User> users = new ArrayList<User>(0);
-    public ArrayList<Rating> ratings = new ArrayList<Rating>(0);
+    public static ArrayList<Movie> movies = new ArrayList<Movie>(0);
+    public static ArrayList<User> users = new ArrayList<User>(0);
+    public static ArrayList<Rating> ratings = new ArrayList<Rating>(0);
 
     public static void read(){
         try{

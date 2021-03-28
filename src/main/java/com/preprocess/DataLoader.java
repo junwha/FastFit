@@ -22,6 +22,11 @@ public class DataLoader {
     public static ArrayList<Movie> movies = new ArrayList<Movie>(0);
     public static ArrayList<User> users = new ArrayList<User>(0);
     public static ArrayList<Rating> ratings = new ArrayList<Rating>(0);
+    private final String[] occupations = {"other", "academic/educator", "artist",
+            "clerical/admin", "college/grad student", "customer service", "doctor/health care",
+            "executive/managerial", "farmer", "homemaker", "K-12 student" , "lawyer", "programmer",
+            "retired", "sales/marketing", "scientist", "self-employed", "technician/engineer",
+            "tradesman/craftsman", "unemployed", "writer"};
 
     public static void read(){
         try{
@@ -32,18 +37,18 @@ public class DataLoader {
             BufferedReader buffReader; // = new BufferedReader(fileReader);
 
             String[] dirs = {"./data/movies.dat", "./data/users.dat", "./data/ratings.dat"};
-            ArrayList<ArrayList<String>> contents = new ArrayList<ArrayList<String>>(0);
+            ArrayList<ArrayList<String[]>> contents = new ArrayList<ArrayList<String[]>>(0);
 
             //Data Reading
             for(int i=0; i<3; i++){
                 file = new File(dirs[i]);
                 fileReader = new FileReader(file);
                 buffReader = new BufferedReader(fileReader);
-                contents.add(new ArrayList<String>(0));
+                contents.add(new ArrayList<String[]>(0));
 
                 String buffer = "";
                 while((buffer = buffReader.readLine()) != null){
-                    contents.get(i).add(buffer);
+                    contents.get(i).add(buffer.split("::"));
                 }
 
                 fileReader.close();
@@ -53,17 +58,13 @@ public class DataLoader {
 
 
             //preprocess movies
-            for(String movieData : contents.get(0)){
-                String[] args = movieData.split("::");
+            for(String[] args : contents.get(0)){
                 movies.add(new Movie(Integer.parseInt(args[0]), args[1], args[2].split("|")));
-//                Movie test = movies.get(movies.size()-1);
-//                System.out.println(test.title);
+                Movie test = movies.get(movies.size()-1);
+                System.out.println(test.title);
             }
 
-//            //preprocess users
-//            for(String userData : contents.get(0)){
-//
-//            }
+
 //
 //            //preprocess ratings
 //            for(String ratingData : contents.get(0)){

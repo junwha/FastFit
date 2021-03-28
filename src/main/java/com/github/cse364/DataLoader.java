@@ -30,39 +30,39 @@ public class DataLoader {
             "tradesman/craftsman", "unemployed", "writer"};
 
 
-    public static void read() {
-        //File stream
-        File file;
-        //File readers
-        FileReader fileReader;// = new FileReader(ratingFile);
-        BufferedReader buffReader; // = new BufferedReader(fileReader);
-
-        String[] dirs = {"./data/movies.dat", "./data/users.dat", "./data/ratings.dat"};
-        ArrayList<ArrayList<String[]>> contents = new ArrayList<ArrayList<String[]>>(0);
+    private static ArrayList<String[]> parseFile(File file) {
+        ArrayList<String[]> contents = new ArrayList<String[]>();
 
         try {
-            //Data Reading
-            for (int i = 0; i < 3; i++) {
-                file = new File(dirs[i]);
-                fileReader = new FileReader(file);
-                buffReader = new BufferedReader(fileReader);
-                contents.add(new ArrayList<String[]>(0));
+            FileReader fileReader = new FileReader(file);
+            BufferedReader buffReader = new BufferedReader(fileReader);
 
-                String buffer = "";
-                while ((buffer = buffReader.readLine()) != null) {
-                    contents.get(i).add(buffer.split("::"));
-                }
-
-                fileReader.close();
-                buffReader.close();
+            String buffer = "";
+            while ((buffer = buffReader.readLine()) != null) {
+                contents.add(buffer.split("::"));
             }
 
-
+            fileReader.close();
+            buffReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("[!File NOT FOUND] Please clone git again");
         } catch (IOException e) {
             System.out.println("[!File NOT CRASHED] Please clone git again");
         }
+
+        return contents;
+    }
+
+    public static void read() {
+        ArrayList<String[]> movieContents = parseFile(new File("./data/movies.dat"));
+        ArrayList<String[]> userContents = parseFile(new File("./data/users.dat"));
+        ArrayList<String[]> ratingContents = parseFile(new File("./data/ratings.dat"));
+
+        var contents = new ArrayList<ArrayList<String[]>>();
+        contents.add(movieContents);
+        contents.add(userContents);
+        contents.add(ratingContents);
+
         //preprocess movies
         for (String[] args : contents.get(0)) {
             int id = Integer.parseInt(args[0]);

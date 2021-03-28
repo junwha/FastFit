@@ -5,7 +5,7 @@ public class Rating {
     int rating = -1;
     int timestamp = -1;
 
-    Rating(User user, Movie movie, int rating, int timestamp) {
+    Rating(User user, int rating, int timestamp) {
         this.user = user;
         this.rating = rating;
         this.timestamp = timestamp;

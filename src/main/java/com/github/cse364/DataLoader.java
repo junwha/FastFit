@@ -30,7 +30,7 @@ public class DataLoader {
             "tradesman/craftsman", "unemployed", "writer"};
 
 
-    private static ArrayList<String[]> parseFile(File file) {
+    private static ArrayList<String[]> readFileData(File file) {
         ArrayList<String[]> contents = new ArrayList<String[]>();
 
         try {
@@ -53,50 +53,59 @@ public class DataLoader {
         return contents;
     }
 
-    public static void read() {
-        ArrayList<String[]> movieContents = parseFile(new File("./data/movies.dat"));
-        ArrayList<String[]> userContents = parseFile(new File("./data/users.dat"));
-        ArrayList<String[]> ratingContents = parseFile(new File("./data/ratings.dat"));
+    private static void parseMovies(File moviesFile) {
+        ArrayList<String[]> data = readFileData(moviesFile);
 
-        var contents = new ArrayList<ArrayList<String[]>>();
-        contents.add(movieContents);
-        contents.add(userContents);
-        contents.add(ratingContents);
-
-        //preprocess movies
-        for (String[] args : contents.get(0)) {
+        for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
             movies.put(id, new Movie(id, args[1], args[2].split("|")));
-//            Movie test = movies.get(id);
-//            System.out.println(test.title);
+            // Movie test = movies.get(id);
+            // System.out.println(test.title);
         }
+    }
 
-        //preprocess users
-        for (String[] args : contents.get(1)) {
+    private static void parseUsers(File usersFile) {
+        ArrayList<String[]> data = readFileData(usersFile);
+
+        for (String[] args : data) {
             //Allocate genre(enum type)
             Gender g = null;
-            if (args[1].equals('M')) {
+            if (args[1].equals("M")) {
                 g = Gender.M;
-            } else if (args[1].equals(('F'))) {
+            } else if (args[1].equals(("F"))) {
                 g = Gender.F;
             }
 
             int id = Integer.parseInt(args[0]);
-            users.put(id, new User(id, g,
-                    Integer.parseInt(args[2]), occupationTable[Integer.parseInt(args[3])], args[4]));
-//                User test = users.get(id);
-//                System.out.println(test.id);
+            users.put(id, new User(
+                id, g, Integer.parseInt(args[2]),
+                occupationTable[Integer.parseInt(args[3])], args[4]
+            ));
+            // User test = users.get(id);
+            // System.out.println(test.id);
         }
+    }
 
-        //preprocess ratings
-        for (String[] args : contents.get(2)) {
+    private static void parseRatings(File ratingsFile) {
+        ArrayList<String[]> data = readFileData(ratingsFile);
+
+        for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
             movies.get(movieId)
-                    .ratings.add(new Rating(users.get(Integer.parseInt(args[0])), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
-//            Movie test = movies.get(movieId);
-//            // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
-//            System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);
+                .ratings.add(new Rating(
+                    users.get(Integer.parseInt(args[0])),
+                    Integer.parseInt(args[2]),
+                    Integer.parseInt(args[3])
+                ));
+            // Movie test = movies.get(movieId);
+            // // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
+            // System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);
         }
+    }
 
+    public static void read() {
+        parseMovies(new File("./data/movies.dat"));
+        parseUsers(new File("./data/users.dat"));
+        parseRatings(new File("./data/ratings.dat"));
     }
 }

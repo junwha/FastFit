@@ -16,8 +16,8 @@ public class Movie {
         ratings = new ArrayList<Rating>(0);
     }
 
-    //Method to check if this movie is included in given genre
-    public boolean isIncludeGenre(String genre){
+    // Check if this movie has given genre
+    public boolean hasGenre(String genre){
         for(String g : genres){
             if(g.equals(genre)){
                 return true;

@@ -1,4 +1,6 @@
 package com.github.cse364;
+import java.util.Map;
+import java.util.Iterator;
 import com.github.cse364.DataLoader;
 
 // Input format
@@ -33,6 +35,8 @@ public class Main {
 /*-----------------------------------------------------------------------*/
 
         DataLoader.read();
+
+        genre_occupation_average_rating(genres, occu);
     }
 
     public static int occupationCheck(String occupation)
@@ -45,5 +49,36 @@ public class Main {
             }
         }
         return 1;
+    }
+    
+    public static double genre_occupation_average_rating(String[] genres, String occu)
+    {
+        for(Map.Entry<Integer, Movie> Mentry : DataLoader.movies.entrySet())
+        {
+            Movie mov = Mentry.getValue();
+
+            //System.out.println(mov.title);
+
+            int genrecount = 0;
+            for(String genre : genres)
+            {
+                if(mov.hasGenre(genre))
+                {
+                    genrecount++;
+                }
+            }
+
+            if(genrecount < genres.length)
+            {
+                continue;
+            }
+
+            for(Rating rat : mov.ratings)
+            {
+                continue;
+            }
+        }
+
+        return 0;
     }
 }

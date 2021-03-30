@@ -6,18 +6,18 @@ import com.github.cse364.DataLoader;
 // Input format
 // java (filename) genres occupation
 
-// multiple category input temporarily changed to ","(comma)
+// multiple category input "|"(bar)
 
 public class Main {
     public static void main(String[] args){
 
         if(args.length != 2)
         {
-            System.out.println("Error : Input format is 'genre,genre occupation'");
+            System.out.println("Error : Input format is 'genre\\|genre occupation'");
             System.exit(0);
         }
 
-        String[] genres = args[0].split(",");
+        String[] genres = args[0].split("\\|");
         String occu = args[1];
         
         if(occupationCheck(occu)!=0)
@@ -73,10 +73,28 @@ public class Main {
                 continue;
             }
 
+            int howmanyrating = 0;
+            int rating = 0;
             for(Rating rat : mov.ratings)
             {
-                continue;
+                if(rat.user.occupation.equals(occu))
+                {
+                    howmanyrating = howmanyrating + 5;
+                    rating = rating + rat.rating;
+                }
             }
+            
+            double average_rating;
+            if(howmanyrating == 0)
+            {
+                average_rating = -1;
+            }
+            else
+            {
+                average_rating = rating / howmanyrating;
+            }
+
+            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, average_rating);
         }
 
         return 0;

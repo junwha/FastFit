@@ -1,7 +1,7 @@
-package com.github.cse364;
+package com.cse364;
 import java.util.Map;
 import java.util.Iterator;
-import com.github.cse364.DataLoader;
+import com.cse364.DataLoader;
 
 // Input format
 // java (filename) genres occupation

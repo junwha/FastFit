@@ -1,4 +1,4 @@
-package com.github.cse364;
+package com.cse364;
 enum Gender{M, F}
 
 public class User {

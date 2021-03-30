@@ -23,7 +23,7 @@ public class DataLoader {
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
 
-    private final static String[] occupationTable = {"other", "academic/educator", "artist",
+    public final static String[] occupationTable = {"other", "academic/educator", "artist",
             "clerical/admin", "college/grad student", "customer service", "doctor/health care",
             "executive/managerial", "farmer", "homemaker", "K-12 student", "lawyer", "programmer",
             "retired", "sales/marketing", "scientist", "self-employed", "technician/engineer",

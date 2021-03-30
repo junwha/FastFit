@@ -58,7 +58,7 @@ public class DataLoader {
 
         for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
-            movies.put(id, new Movie(id, args[1], args[2].split("|")));
+            movies.put(id, new Movie(id, args[1], args[2].split("\\|")));
             // Movie test = movies.get(id);
             // System.out.println(test.title);
         }

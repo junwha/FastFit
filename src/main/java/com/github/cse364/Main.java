@@ -79,7 +79,7 @@ public class Main {
             {
                 if(rat.user.occupation.equals(occu))
                 {
-                    howmanyrating = howmanyrating + 5;
+                    howmanyrating++;
                     rating = rating + rat.rating;
                 }
             }
@@ -87,11 +87,11 @@ public class Main {
             double average_rating;
             if(howmanyrating == 0)
             {
-                average_rating = -1;
+                average_rating = -1.0;
             }
             else
             {
-                average_rating = rating / howmanyrating;
+                average_rating = Double.valueOf(rating) / Double.valueOf(howmanyrating);
             }
 
             System.out.format("%s rated by %ss : %f average\n", mov.title, occu, average_rating);

@@ -13,7 +13,7 @@ public class Main {
 
         if(args.length != 2)
         {
-            System.out.println("Error : Input format is 'genre\\|genre occupation'");
+            System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
             System.exit(0);
         }
 

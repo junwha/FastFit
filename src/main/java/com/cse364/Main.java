@@ -64,54 +64,56 @@ public class Main {
 
         DataLoader.read();
 
-        averageRatingMovieByOCP(genres, ocp);
+        averageRatingMovieByOCP(genres, ocp, args);
     }
 
-    public static double averageRatingMovieByOCP(String[] genres, String ocp)
+    public static double averageRatingMovieByOCP(String[] genres, String ocp, String[] args)
     {
 
+        int ratSum = 0;
+        int ratCnt = 0;
+
+        //Get each entry from movies Map
         for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
         {
             Movie mov = movEntry.getValue();
             //System.out.println(mov.title);
 
-            int genreCount = 0;
+            int genreCnt = 0;
             for(String genre : genres)
             {
                 if(mov.hasGenre(genre.toLowerCase(Locale.ROOT)))
                 {
-                    genreCount++;
+                    genreCnt++;
                 }
             }
 
-            if(genreCount < genres.length)
+            if(genreCnt < genres.length)
             {
                 continue;
             }
 
-            int ratingCount = 0;
-            int rating = 0;
             for(Rating rat : mov.ratings)
             {
                 if(rat.user.occupation == occupationTable.get(ocp))
                 {
-                    ratingCount++;
-                    rating = rating + rat.rating;
+                    ratCnt++;
+                    ratSum += rat.rating;
                 }
             }
-            
-            double ratingAverage;
-            if(ratingCount == 0)
-            {
-                ratingAverage = -1.0;
-            }
-            else
-            {
-                ratingAverage = Double.valueOf(rating) / Double.valueOf(ratingCount);
-            }
-
-            System.out.format("%s rated by %ss : %f average\n", mov.title, ocp, ratingAverage);
         }
+
+        double ratAvg;
+        if(ratCnt == 0)
+        {
+            ratAvg = -1.0;
+        }
+        else
+        {
+            ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
+        }
+
+        System.out.format("Average of Ratings of Movies(genres: %ss) rated by %ss : %f\n", args[0], args[1], ratAvg);
 
         return 0;
     }

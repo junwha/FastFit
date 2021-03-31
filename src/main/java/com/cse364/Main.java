@@ -36,7 +36,7 @@ public class Main {
 
         DataLoader.read();
 
-        genre_occupation_average_rating(genres, occu);
+        averageRatingGenreOccupation(genres, occu);
     }
 
     public static int occupationCheck(String occupation)
@@ -51,50 +51,50 @@ public class Main {
         return 1;
     }
     
-    public static double genre_occupation_average_rating(String[] genres, String occu)
+    public static double averageRatingGenreOccupation(String[] genres, String occu)
     {
-        for(Map.Entry<Integer, Movie> Mentry : DataLoader.movies.entrySet())
+        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
-            Movie mov = Mentry.getValue();
+            Movie mov = movieEntry.getValue();
 
             //System.out.println(mov.title);
 
-            int genrecount = 0;
+            int genreCount = 0;
             for(String genre : genres)
             {
                 if(mov.hasGenre(genre))
                 {
-                    genrecount++;
+                    genreCount++;
                 }
             }
 
-            if(genrecount < genres.length)
+            if(genreCount < genres.length)
             {
                 continue;
             }
 
-            int howmanyrating = 0;
+            int ratingCount = 0;
             int rating = 0;
             for(Rating rat : mov.ratings)
             {
                 if(rat.user.occupation.equals(occu))
                 {
-                    howmanyrating++;
+                    ratingCount++;
                     rating = rating + rat.rating;
                 }
             }
             
-            double average_rating;
-            if(howmanyrating == 0)
+            double ratingAverage;
+            if(ratingCount == 0)
             {
-                average_rating = -1.0;
+                ratingAverage = -1.0;
             }
             else
             {
-                average_rating = Double.valueOf(rating) / Double.valueOf(howmanyrating);
+                ratingAverage = Double.valueOf(rating) / Double.valueOf(ratingCount);
             }
 
-            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, average_rating);
+            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, ratingAverage);
         }
 
         return 0;

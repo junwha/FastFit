@@ -1,4 +1,4 @@
-package com.github.cse364;
+package com.cse364;
 
 public class Rating {
     User user;

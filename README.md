@@ -8,9 +8,23 @@ $ docker run -it cse364
 root@[CONTAINER_ID]:~/project# . run.sh
 ```
 
-## Build and run
+## Build
 
 ```
 $ mvn package
-$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.github.cse364.Main
+```
+
+## Usage
+
+```
+$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
+```
+
+Example:
+
+```
+$ java ... "Adventure|Children's" artist
+Average rating of movies with genres [adventure, children's]
+rated by people with occupation [artist]
+is [3.177143].
 ```

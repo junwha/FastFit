@@ -41,29 +41,28 @@ public class Main {
         }};
 
     public static void main(String[] args){
+        //Checking Format valid
         if(args.length != 2)
         {
             System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
             System.exit(0);
         }
 
+        //Preprocess genres and occupation
         String[] genres = args[0].toLowerCase().split("\\|");
         String ocp = args[1].toLowerCase(Locale.ROOT);
 
+        //Checking Occupation valid
         if(!occupationTable.containsKey(ocp))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", ocp);
             System.exit(0);
         }
 
-//        for(int i=0; i<genres.length; i++)
-//        {
-//            System.out.println(genres[i]);
-//        }
-//
-
+        //DataLoader will load all date to "HashMap<Integer, Movie> movies" and "HashMap<Integer, User> users" from .dat files
         DataLoader.read();
 
+        //Get and print average
         averageRatingMovieByOCP(genres, ocp, args);
     }
 
@@ -79,6 +78,7 @@ public class Main {
             Movie mov = movEntry.getValue();
             //System.out.println(mov.title);
 
+            //If at least one of given genre is not included in this movie, continue
             int genreCnt = 0;
             for(String genre : genres)
             {
@@ -93,6 +93,7 @@ public class Main {
                 continue;
             }
 
+            //Check occupations of rating
             for(Rating rat : mov.ratings)
             {
                 if(rat.user.occupation == occupationTable.get(ocp))
@@ -103,6 +104,8 @@ public class Main {
             }
         }
 
+
+        //Calculate Average
         double ratAvg;
         if(ratCnt == 0)
         {
@@ -113,6 +116,7 @@ public class Main {
             ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
         }
 
+        //Output
         System.out.format("Average of Ratings of Movies(genres: %ss) rated by %ss : %f\n", args[0], args[1], ratAvg);
 
         return 0;

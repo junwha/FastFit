@@ -20,7 +20,7 @@ public class Main {
         String[] genres = args[0].split("\\|");
         String occu = args[1];
         
-        if(occupationCheck(occu)!=0)
+        if(!occupationCheck(occu))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", occu);
             System.exit(0);
@@ -39,16 +39,16 @@ public class Main {
         averageRatingGenreOccupation(genres, occu);
     }
 
-    public static int occupationCheck(String occupation)
+    public static boolean occupationCheck(String occupation)
     {
         for(int i=0; i<DataLoader.occupationTable.length; i++)
         {
             if(DataLoader.occupationTable[i].equals(occupation))
             {
-                return 0;
+                return true;
             }
         }
-        return 1;
+        return false;
     }
     
     public static double averageRatingGenreOccupation(String[] genres, String occu)

@@ -40,9 +40,9 @@ public class DataLoader {
             fileReader.close();
             buffReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("[!File NOT FOUND] Please clone git again");
+            System.out.println("File NOT FOUND : Please clone git again");
         } catch (IOException e) {
-            System.out.println("[!File NOT CRASHED] Please clone git again");
+            System.out.println("File CRASHED : Please clone git again");
         }
 
         return contents;

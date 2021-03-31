@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /*
 MOVIES FILE
 MovieID::Title::Genres
@@ -23,11 +22,7 @@ public class DataLoader {
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
 
-    public final static String[] occupationTable = {"other", "academic/educator", "artist",
-            "clerical/admin", "college/grad student", "customer service", "doctor/health care",
-            "executive/managerial", "farmer", "homemaker", "K-12 student", "lawyer", "programmer",
-            "retired", "sales/marketing", "scientist", "self-employed", "technician/engineer",
-            "tradesman/craftsman", "unemployed", "writer"};
+
 
 
     private static ArrayList<String[]> readFileData(File file) {
@@ -79,7 +74,7 @@ public class DataLoader {
             int id = Integer.parseInt(args[0]);
             users.put(id, new User(
                 id, g, Integer.parseInt(args[2]),
-                occupationTable[Integer.parseInt(args[3])], args[4]
+                Integer.parseInt(args[3]), args[4]
             ));
             // User test = users.get(id);
             // System.out.println(test.id);

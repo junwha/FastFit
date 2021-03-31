@@ -1,7 +1,8 @@
 package com.cse364;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Iterator;
-import com.cse364.DataLoader;
 
 // Input format
 // java (filename) genres occupation
@@ -9,8 +10,36 @@ import com.cse364.DataLoader;
 // multiple category input "|"(bar)
 
 public class Main {
-    public static void main(String[] args){
+//    public final static String[] occupationTable = {"other", "academic/educator", "artist",
+//            "clerical/admin", "college/grad student", "customer service", "doctor/health care",
+//            "executive/managerial", "farmer", "homemaker", "K-12 student", "lawyer", "programmer",
+//            "retired", "sales/marketing", "scientist", "self-employed", "technician/engineer",
+//            "tradesman/craftsman", "unemployed", "writer"};
 
+    private final static HashMap<String, Integer> occupationTable = new HashMap<String, Integer>(){
+        {
+            put("other", 0);
+            put("academic", 1);put("educator", 1);
+            put("artist", 2);
+            put("clerical", 3);put("admin", 3);
+            put("college", 4);put("grad student", 4);put("gradstudent", 4);
+            put("customer service", 5);put("customerservice", 5);
+            put("doctor", 6);put("health care", 6);put("healthcare", 6);
+            put("executive", 7);put("managerial", 7);
+            put("farmer", 8);
+            put("homemaker", 9);
+            put("K-12 student", 10);put("K-12student", 10);
+            put("lawyer", 11);
+            put("programmer", 12);
+            put("retired", 13);
+            put("sales", 14);put("marketing", 14);
+            put("self-employed", 15);
+            put("technician", 16);put("engineer", 16);
+            put("tradesman", 17);put("craftsman", 17);
+            put("unemployed", 18);
+            put("writer", 19);
+        }};
+    public static void main(String[] args){
         if(args.length != 2)
         {
             System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
@@ -20,7 +49,7 @@ public class Main {
         String[] genres = args[0].split("\\|");
         String occu = args[1];
         
-        if(occupationCheck(occu)!=0)
+        if(!occupationTable.containsKey(occu.toLowerCase(Locale.ROOT)))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", occu);
             System.exit(0);
@@ -39,17 +68,6 @@ public class Main {
         genre_occupation_average_rating(genres, occu);
     }
 
-    public static int occupationCheck(String occupation)
-    {
-        for(int i=0; i<DataLoader.occupationTable.length; i++)
-        {
-            if(DataLoader.occupationTable[i].equals(occupation))
-            {
-                return 0;
-            }
-        }
-        return 1;
-    }
     
     public static double genre_occupation_average_rating(String[] genres, String occu)
     {
@@ -62,7 +80,7 @@ public class Main {
             int genrecount = 0;
             for(String genre : genres)
             {
-                if(mov.hasGenre(genre))
+                if(mov.hasGenre(genre.toLowerCase(Locale.ROOT)))
                 {
                     genrecount++;
                 }
@@ -77,7 +95,7 @@ public class Main {
             int rating = 0;
             for(Rating rat : mov.ratings)
             {
-                if(rat.user.occupation.equals(occu))
+                if(rat.user.occupation == occupationTable.get(occu))
                 {
                     howmanyrating++;
                     rating = rating + rat.rating;

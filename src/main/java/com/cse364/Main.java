@@ -28,7 +28,7 @@ public class Main {
             put("executive", 7);put("managerial", 7);
             put("farmer", 8);
             put("homemaker", 9);
-            put("K-12 student", 10);put("K-12student", 10);
+            put("k-12 student", 10);put("k-12student", 10);
             put("lawyer", 11);
             put("programmer", 12);
             put("retired", 13);
@@ -47,11 +47,11 @@ public class Main {
         }
 
         String[] genres = args[0].toLowerCase().split("\\|");
-        String occu = args[1];
+        String ocp = args[1].toLowerCase(Locale.ROOT);
 
-        if(!occupationTable.containsKey(occu.toLowerCase(Locale.ROOT)))
+        if(!occupationTable.containsKey(ocp))
         {
-            System.out.format("Error : The occupation %s does not exist in database\n", occu);
+            System.out.format("Error : The occupation %s does not exist in database\n", ocp);
             System.exit(0);
         }
 
@@ -59,14 +59,14 @@ public class Main {
         {
             System.out.println(genres[i]);
         }
-        System.out.println(occu);
+        System.out.println(ocp);
 
         DataLoader.read();
 
-        averageRatingGenreOccupation(genres, occu);
+        averageRatingGenreOccupation(genres, ocp);
     }
 
-    public static double averageRatingGenreOccupation(String[] genres, String occu)
+    public static double averageRatingGenreOccupation(String[] genres, String ocp)
     {
         for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
@@ -92,7 +92,7 @@ public class Main {
             int rating = 0;
             for(Rating rat : mov.ratings)
             {
-                if(rat.user.occupation == occupationTable.get(occu))
+                if(rat.user.occupation == occupationTable.get(ocp))
                 {
                     ratingCount++;
                     rating = rating + rat.rating;
@@ -109,7 +109,7 @@ public class Main {
                 ratingAverage = Double.valueOf(rating) / Double.valueOf(ratingCount);
             }
 
-            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, ratingAverage);
+            System.out.format("%s rated by %ss : %f average\n", mov.title, ocp, ratingAverage);
         }
 
         return 0;

@@ -43,8 +43,8 @@ public class Main {
     static String formatGenres(String[] genres) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < genres.length; i++) {
-            sb = sb.append(genres[i]);
-            if (i < genres.length - 1) sb.append(", ");
+            sb.append(genres[i]);
+            if (i < genres.length - 1) { sb.append(", "); }
         }
         return sb.toString();
     }

@@ -19,11 +19,33 @@ UserID::MovieID::Rating::Timestamp
  */
 
 public class DataLoader {
+    public final static HashMap<String, Integer> occupationTable = new HashMap<String, Integer>(){
+        {
+            put("other", 0);
+            put("academic", 1);put("educator", 1);
+            put("artist", 2);
+            put("clerical", 3);put("admin", 3);
+            put("college", 4);put("grad student", 4);put("gradstudent", 4);
+            put("customer service", 5);put("customerservice", 5);
+            put("doctor", 6);put("health care", 6);put("healthcare", 6);
+            put("executive", 7);put("managerial", 7);
+            put("farmer", 8);
+            put("homemaker", 9);
+            put("k-12 student", 10);put("k-12student", 10);
+            put("lawyer", 11);
+            put("programmer", 12);
+            put("retired", 13);
+            put("sales", 14);put("marketing", 14);
+            put("self-employed", 15);
+            put("technician", 16);put("engineer", 16);
+            put("tradesman", 17);put("craftsman", 17);
+            put("unemployed", 18);
+            put("writer", 19);
+        }
+    };
+
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
-
-
-
 
     private static ArrayList<String[]> readFileData(File file) {
         ArrayList<String[]> contents = new ArrayList<String[]>();

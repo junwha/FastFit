@@ -10,36 +10,6 @@ import java.util.Iterator;
 // multiple category input "|"(bar)
 
 public class Main {
-//    public final static String[] occupationTable = {"other", "academic/educator", "artist",
-//            "clerical/admin", "college/grad student", "customer service", "doctor/health care",
-//            "executive/managerial", "farmer", "homemaker", "K-12 student", "lawyer", "programmer",
-//            "retired", "sales/marketing", "scientist", "self-employed", "technician/engineer",
-//            "tradesman/craftsman", "unemployed", "writer"};
-
-    private final static HashMap<String, Integer> occupationTable = new HashMap<String, Integer>(){
-        {
-            put("other", 0);
-            put("academic", 1);put("educator", 1);
-            put("artist", 2);
-            put("clerical", 3);put("admin", 3);
-            put("college", 4);put("grad student", 4);put("gradstudent", 4);
-            put("customer service", 5);put("customerservice", 5);
-            put("doctor", 6);put("health care", 6);put("healthcare", 6);
-            put("executive", 7);put("managerial", 7);
-            put("farmer", 8);
-            put("homemaker", 9);
-            put("k-12 student", 10);put("k-12student", 10);
-            put("lawyer", 11);
-            put("programmer", 12);
-            put("retired", 13);
-            put("sales", 14);put("marketing", 14);
-            put("self-employed", 15);
-            put("technician", 16);put("engineer", 16);
-            put("tradesman", 17);put("craftsman", 17);
-            put("unemployed", 18);
-            put("writer", 19);
-        }};
-
     public static void main(String[] args){
         //Checking Format valid
         if(args.length != 2)
@@ -53,7 +23,7 @@ public class Main {
         String ocp = args[1].toLowerCase(Locale.ROOT);
 
         //Checking Occupation valid
-        if(!occupationTable.containsKey(ocp))
+        if(!DataLoader.occupationTable.containsKey(ocp))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", ocp);
             System.exit(0);
@@ -101,7 +71,7 @@ public class Main {
             //Check occupations of rating
             for(Rating rat : mov.ratings)
             {
-                if(rat.user.occupation == occupationTable.get(occupation))
+                if(rat.user.occupation == DataLoader.occupationTable.get(occupation))
                 {
                     ratCnt++;
                     ratSum += rat.rating;

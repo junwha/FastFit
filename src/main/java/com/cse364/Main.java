@@ -20,12 +20,12 @@ public class Main {
 
         //Preprocess genres and occupation
         String[] genres = args[0].toLowerCase().split("\\|");
-        String ocp = args[1].toLowerCase(Locale.ROOT);
+        String occupation = args[1].toLowerCase(Locale.ROOT);
 
         //Checking Occupation valid
-        if(!DataLoader.occupationTable.containsKey(ocp))
+        if(!DataLoader.occupationTable.containsKey(occupation))
         {
-            System.out.format("Error : The occupation %s does not exist in database\n", ocp);
+            System.out.format("Error : The occupation %s does not exist in database\n", occupation);
             System.exit(0);
         }
 
@@ -33,12 +33,20 @@ public class Main {
         DataLoader.read();
 
         // Print average rating
-        double avg = averageRating(genres, ocp);
+        double average = averageRating(genres, occupation);
         
-        System.out.format(
-            "Average rating of movies(genres: %ss) rated by %ss: %f\n",
-            args[0], args[1], avg
-        );
+        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres));
+        System.out.format("rated by people with occupation [%s]\n", occupation);
+        System.out.format("is [%f].\n", average);
+    }
+
+    static String formatGenres(String[] genres) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < genres.length; i++) {
+            sb = sb.append(genres[i]);
+            if (i < genres.length - 1) sb.append(", ");
+        }
+        return sb.toString();
     }
 
     // Returns average rating for movies with specified genres,

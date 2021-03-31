@@ -46,9 +46,9 @@ public class Main {
             System.exit(0);
         }
 
-        String[] genres = args[0].split("\\|");
+        String[] genres = args[0].toLowerCase().split("\\|");
         String occu = args[1];
-        
+
         if(!occupationTable.containsKey(occu.toLowerCase(Locale.ROOT)))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", occu);
@@ -57,62 +57,59 @@ public class Main {
 
         for(int i=0; i<genres.length; i++)
         {
-              System.out.println(genres[i]);
+            System.out.println(genres[i]);
         }
         System.out.println(occu);
 
-/*-----------------------------------------------------------------------*/
-
         DataLoader.read();
 
-        genre_occupation_average_rating(genres, occu);
+        averageRatingGenreOccupation(genres, occu);
     }
 
-    
-    public static double genre_occupation_average_rating(String[] genres, String occu)
+    public static double averageRatingGenreOccupation(String[] genres, String occu)
     {
-        for(Map.Entry<Integer, Movie> Mentry : DataLoader.movies.entrySet())
+        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
-            Movie mov = Mentry.getValue();
+            Movie mov = movieEntry.getValue();
 
             //System.out.println(mov.title);
 
-            int genrecount = 0;
+            int genreCount = 0;
             for(String genre : genres)
             {
                 if(mov.hasGenre(genre.toLowerCase(Locale.ROOT)))
                 {
-                    genrecount++;
+                    genreCount++;
                 }
             }
 
-            if(genrecount < genres.length)
+            if(genreCount < genres.length)
             {
                 continue;
             }
 
-            int howmanyrating = 0;
+            int ratingCount = 0;
             int rating = 0;
             for(Rating rat : mov.ratings)
             {
                 if(rat.user.occupation == occupationTable.get(occu))
                 {
-                    howmanyrating++;
+                    ratingCount++;
                     rating = rating + rat.rating;
                 }
             }
             
-            double average_rating;
-            if(howmanyrating == 0)
+            double ratingAverage;
+            if(ratingCount == 0)
             {
-                average_rating = -1.0;
+                ratingAverage = -1.0;
             }
             else
             {
-                average_rating = Double.valueOf(rating) / Double.valueOf(howmanyrating);
+                ratingAverage = Double.valueOf(rating) / Double.valueOf(ratingCount);
             }
 
-            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, average_rating);
+            System.out.format("%s rated by %ss : %f average\n", mov.title, occu, ratingAverage);
         }
 
         return 0;

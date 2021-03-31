@@ -17,9 +17,9 @@ public class Main {
             System.exit(0);
         }
 
-        String[] genres = args[0].split("\\|");
+        String[] genres = args[0].toLowerCase().split("\\|");
         String occu = args[1];
-        
+
         if(!occupationCheck(occu))
         {
             System.out.format("Error : The occupation %s does not exist in database\n", occu);
@@ -28,7 +28,7 @@ public class Main {
 
         for(int i=0; i<genres.length; i++)
         {
-              System.out.println(genres[i]);
+            System.out.println(genres[i]);
         }
         System.out.println(occu);
 

@@ -69,9 +69,10 @@ public class Main {
 
     public static double averageRatingGenreOccupation(String[] genres, String ocp)
     {
-        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
+
+        for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
         {
-            Movie mov = movieEntry.getValue();
+            Movie mov = movEntry.getValue();
             //System.out.println(mov.title);
 
             int genreCount = 0;

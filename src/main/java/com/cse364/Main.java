@@ -39,6 +39,7 @@ public class Main {
             put("unemployed", 18);
             put("writer", 19);
         }};
+
     public static void main(String[] args){
         if(args.length != 2)
         {
@@ -55,11 +56,11 @@ public class Main {
             System.exit(0);
         }
 
-        for(int i=0; i<genres.length; i++)
-        {
-            System.out.println(genres[i]);
-        }
-        System.out.println(ocp);
+//        for(int i=0; i<genres.length; i++)
+//        {
+//            System.out.println(genres[i]);
+//        }
+//
 
         DataLoader.read();
 
@@ -71,7 +72,6 @@ public class Main {
         for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
             Movie mov = movieEntry.getValue();
-
             //System.out.println(mov.title);
 
             int genreCount = 0;

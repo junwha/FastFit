@@ -64,10 +64,10 @@ public class Main {
 
         DataLoader.read();
 
-        averageRatingGenreOccupation(genres, ocp);
+        averageRatingMovieByOCP(genres, ocp);
     }
 
-    public static double averageRatingGenreOccupation(String[] genres, String ocp)
+    public static double averageRatingMovieByOCP(String[] genres, String ocp)
     {
 
         for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())

@@ -62,8 +62,13 @@ public class Main {
         //DataLoader will load all date to "HashMap<Integer, Movie> movies" and "HashMap<Integer, User> users" from .dat files
         DataLoader.read();
 
-        //Get and print average
-        averageRatingMovieByOCP(genres, ocp, args);
+        // Print average rating
+        double averageRating = averageRatingMovieByOCP(genres, ocp, args);
+        
+        System.out.format(
+            "Average rating of movies(genres: %ss) rated by %ss: %f\n",
+            args[0], args[1], averageRating
+        );
     }
 
     public static double averageRatingMovieByOCP(String[] genres, String ocp, String[] args)
@@ -116,9 +121,6 @@ public class Main {
             ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
         }
 
-        //Output
-        System.out.format("Average of Ratings of Movies(genres: %ss) rated by %ss : %f\n", args[0], args[1], ratAvg);
-
-        return 0;
+        return ratAvg;
     }
 }

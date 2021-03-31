@@ -63,17 +63,17 @@ public class Main {
         DataLoader.read();
 
         // Print average rating
-        double averageRating = averageRatingMovieByOCP(genres, ocp, args);
+        double avg = averageRating(genres, ocp);
         
         System.out.format(
             "Average rating of movies(genres: %ss) rated by %ss: %f\n",
-            args[0], args[1], averageRating
+            args[0], args[1], avg
         );
     }
 
-    public static double averageRatingMovieByOCP(String[] genres, String ocp, String[] args)
-    {
-
+    // Returns average rating for movies with specified genres,
+    // rated by user having specified occupation.
+    public static double averageRating(String[] genres, String occupation) {
         int ratSum = 0;
         int ratCnt = 0;
 
@@ -101,7 +101,7 @@ public class Main {
             //Check occupations of rating
             for(Rating rat : mov.ratings)
             {
-                if(rat.user.occupation == occupationTable.get(ocp))
+                if(rat.user.occupation == occupationTable.get(occupation))
                 {
                     ratCnt++;
                     ratSum += rat.rating;

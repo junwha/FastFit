@@ -1,4 +1,7 @@
 package com.cse364;
+
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,13 +25,14 @@ public class Main {
         }
         
         //Preprocess genres and occupation
-        Genre[] Genres = {};
+        List<Genre> genres = new ArrayList();
         for (String genreName : args[0].split("\\|")) {
             Genre genre = DataLoader.genreStorage.getGenre(genreName);
             if (genre == null) {
                 // TODO: Print error message
                 System.exit(0);
             }
+            genres.add(genre);
         }
         String occupation = args[1].toLowerCase(Locale.ROOT);
 
@@ -47,18 +51,18 @@ public class Main {
         System.out.format("is [%f].\n", average);
     }
 
-    static String formatGenres(String[] genres) {
+    static String formatGenres(List<Genre> genres) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < genres.length; i++) {
-            sb.append(genres[i]);
-            if (i < genres.length - 1) { sb.append(", "); }
+        for (int i = 0; i < genres.size(); i++) {
+            sb.append(genres.get(i).name());
+            if (i < genres.size() - 1) { sb.append(", "); }
         }
         return sb.toString();
     }
 
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
-    public static double averageRating(Genre[] genres, String occupation) {
+    public static double averageRating(List<Genre> genres, String occupation) {
         int ratSum = 0;
         int ratCnt = 0;
 
@@ -74,7 +78,7 @@ public class Main {
                 if (mov.hasGenre(genre)) { genreCnt++; }
             }
 
-            if(genreCnt < genres.length)
+            if(genreCnt < genres.size())
             {
                 continue;
             }

@@ -46,8 +46,15 @@ public class DataLoader {
         }
     };
 
+    private static String[] genreNames = {
+        "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary",
+        "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi",
+        "Thriller", "War", "Western",
+    };
+
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
+    public static final GenreStorage genreStorage = new GenreStorage(genreNames);
 
     private static ArrayList<String[]> readFileData(File file) {
         ArrayList<String[]> contents = new ArrayList<String[]>();
@@ -79,7 +86,7 @@ public class DataLoader {
             int id = Integer.parseInt(args[0]);
             ArrayList<Genre> genres = new ArrayList();
             for (String genreName: args[2].toLowerCase().split("\\|")) {
-                genres.add(new Genre(genreName));
+                genres.add(genreStorage.getGenre(genreName));
             }
             movies.put(id, new Movie(id, args[1], genres));
             // Movie test = movies.get(id);

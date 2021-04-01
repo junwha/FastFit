@@ -10,16 +10,26 @@ import java.util.Iterator;
 // multiple category input "|"(bar)
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        // Load all data
+        DataLoader.read();
+        
         //Checking Format valid
         if(args.length != 2)
         {
             System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
             System.exit(0);
         }
-
+        
         //Preprocess genres and occupation
-        String[] genres = args[0].toLowerCase().split("\\|");
+        Genre[] Genres = {};
+        for (String genreName : args[0].split("\\|")) {
+            Genre genre = DataLoader.genreStorage.getGenre(genreName);
+            if (genre == null) {
+                // TODO: Print error message
+                System.exit(0);
+            }
+        }
         String occupation = args[1].toLowerCase(Locale.ROOT);
 
         //Checking Occupation valid
@@ -28,9 +38,6 @@ public class Main {
             System.out.format("Error : The occupation %s does not exist in database\n", occupation);
             System.exit(0);
         }
-
-        //DataLoader will load all date to "HashMap<Integer, Movie> movies" and "HashMap<Integer, User> users" from .dat files
-        DataLoader.read();
 
         // Print average rating
         double average = averageRating(genres, occupation);
@@ -51,7 +58,7 @@ public class Main {
 
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
-    public static double averageRating(String[] genres, String occupation) {
+    public static double averageRating(Genre[] genres, String occupation) {
         int ratSum = 0;
         int ratCnt = 0;
 
@@ -63,12 +70,8 @@ public class Main {
 
             //If at least one of given genre is not included in this movie, continue
             int genreCnt = 0;
-            for(String genre : genres)
-            {
-                if(mov.hasGenre(new Genre(genre.toLowerCase(Locale.ROOT))))
-                {
-                    genreCnt++;
-                }
+            for (Genre genre: genres) {
+                if (mov.hasGenre(genre)) { genreCnt++; }
             }
 
             if(genreCnt < genres.length)

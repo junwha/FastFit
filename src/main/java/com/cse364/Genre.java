@@ -12,11 +12,10 @@ public class Genre {
         this.name = name;
     }
 
-    String name() {
-        return name;
-    }
-
     boolean equals(Genre genre) {
         return name == genre.name;
     }
+
+    // Getters
+    String getName() { return name; }
 }

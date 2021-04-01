@@ -65,7 +65,7 @@ public class Main {
             int genreCnt = 0;
             for(String genre : genres)
             {
-                if(mov.hasGenre(genre.toLowerCase(Locale.ROOT)))
+                if(mov.hasGenre(new Genre(genre.toLowerCase(Locale.ROOT))))
                 {
                     genreCnt++;
                 }

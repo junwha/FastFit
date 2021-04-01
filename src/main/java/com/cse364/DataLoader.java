@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 /*
 MOVIES FILE
 MovieID::Title::Genres
@@ -75,7 +77,11 @@ public class DataLoader {
 
         for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
-            movies.put(id, new Movie(id, args[1], args[2].toLowerCase().split("\\|")));
+            ArrayList<Genre> genres = new ArrayList();
+            for (String genreName: args[2].toLowerCase().split("\\|")) {
+                genres.add(new Genre(genreName));
+            }
+            movies.put(id, new Movie(id, args[1], genres));
             // Movie test = movies.get(id);
             // System.out.println(test.title);
         }

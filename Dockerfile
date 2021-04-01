@@ -13,5 +13,4 @@ RUN mkdir -p /root/project
 
 WORKDIR /root/project
 COPY ./run.sh /root/project/
-
-
+CMD bash

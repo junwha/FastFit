@@ -1,18 +1,18 @@
 package com.cse364;
-import javax.lang.model.type.ArrayType;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.ArrayList;
 
 public class Movie {
-    public int id;
-    public String title;
-    public Genre[] genres;
-    public ArrayList<Rating> ratings;
+    private int id;
+    private String title;
+    private List<Genre> genres;
+    public List<Rating> ratings; // TODO: Remove this field from Movie class
 
     Movie(int id, String title, List<Genre> genres){
         this.id = id;
         this.title = title;
-        this.genres = genres.toArray(Genre[]::new);
+        this.genres = genres;
         ratings = new ArrayList<Rating>();
     }
 
@@ -35,5 +35,9 @@ public class Movie {
         }
         return true;
     }
-}
 
+    // Getters
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public List<Genre> getGenres() { return genres; }
+}

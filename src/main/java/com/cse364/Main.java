@@ -54,7 +54,7 @@ public class Main {
     static String formatGenres(List<Genre> genres) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < genres.size(); i++) {
-            sb.append(genres.get(i).name());
+            sb.append(genres.get(i).getName());
             if (i < genres.size() - 1) { sb.append(", "); }
         }
         return sb.toString();

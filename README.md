@@ -20,7 +20,7 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
-The program will take genre(s) and an occupation as inputs, and shows the average rating score of all movies in the given genres rated by the given occupation.
+The program will take genre(s) and an occupation as inputs, and show the average rating score of all movies in the given genres rated by the given occupation.
 
 For multiple input of genres, you can separate the genres with vertical bar |
 

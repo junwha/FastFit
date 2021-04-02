@@ -48,7 +48,7 @@ public class Main {
         try {
             average = averageRating(genres, occupation);
         } catch (NoRatingForTheGenreException e) {
-            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]",
+            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
                 formatGenres(genres), occupation);
             System.exit(0);
         }
@@ -70,7 +70,7 @@ public class Main {
 
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
-    public static double averageRating(List<Genre> genres, String occupation) {
+    public static double averageRating(List<Genre> genres, String occupation) throws NoRatingForTheGenreException {
         int ratSum = 0;
         int ratCnt = 0;
 
@@ -118,8 +118,4 @@ public class Main {
             return true;
         }
     }
-    
-    /**
-     * Exception thrown when there are no rating for the specific genre given by the specific occupation.
-     */
 }

@@ -34,6 +34,7 @@ public class Main {
             }
             genres.add(genre);
         }
+
         String occupation = args[1].toLowerCase(Locale.ROOT);
 
         //Checking Occupation valid
@@ -79,7 +80,7 @@ public class Main {
         {
             Movie mov = movEntry.getValue();
 
-            if (!hasAllGenres(genres, mov)) { continue; }
+            if (!mov.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
             for(Rating rat : mov.ratings)
@@ -101,21 +102,5 @@ public class Main {
         
         ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
         return ratAvg;
-    }
-
-    /**
-     * Checks if all genres in genres list exist in the genre of movie.
-     */
-    public static boolean hasAllGenres(List<Genre> genres, Movie movie) {
-        int genreCnt = 0;
-        for (Genre genre : genres) {
-            if(movie.hasGenre(genre)) { genreCnt++; }
-        }
-
-        if (genreCnt < genres.size()) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }

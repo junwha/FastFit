@@ -36,6 +36,16 @@ public class Movie {
         return true;
     }
 
+    /**
+     * Returns whether this movie has all given genres.
+     */
+    public boolean hasGenres(List<Genre> genres) {
+        for (Genre genre: genres) {
+            if (!hasGenre(genre)) { return false; }
+        }
+        return true;
+    }
+
     // Getters
     public int getId() { return id; }
     public String getTitle() { return title; }

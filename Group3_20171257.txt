@@ -1,0 +1,7 @@
+1. Zoom name: 20171257_한동규
+2. Group ID: 3
+3. Git repository: https://github.com/junwha0511/CSE-364-Software-Engineering
+4. Main class: com.cse364.Main
+5. Peer evaluation:
+    홍준화: 100
+    심재환: 100

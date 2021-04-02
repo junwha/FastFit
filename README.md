@@ -28,3 +28,15 @@ Average rating of movies with genres [adventure, children's]
 rated by people with occupation [artist]
 is [3.177143].
 ```
+
+## What We've Finished
+
+```
+
+```
+
+## Roles
+
+```
+
+```

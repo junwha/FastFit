@@ -93,6 +93,7 @@ Program that calculates the average rating score of the movies of specific genre
 - Input reading/parsing and rating averaging design/implementation
 - Exception handling
 - Rating averaging refactoring
+- Documentation
 
 홍준화 junwha0511
 - Dockerfile draft

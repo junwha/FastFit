@@ -20,6 +20,51 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
+- Input genre and occupation are case-insensitive, and the program will ignore any special characters and whitespace.
+
+  Genre :
+- Action
+- Adventure
+- Animation
+- Children's
+- Comedy
+- Crime
+- Documentary
+- Drama
+- Fantasy
+- Film-Noir
+- Horror
+- Musical
+- Mystery
+- Romance
+- Sci-Fi
+- Thriller
+- War
+- Western
+
+  Occupation
+- other
+- academic / educator
+- artist
+- clerical / admin
+- college / grad student
+- customer service
+- doctor / health care
+- executive / managerial
+- farmer
+- homemaker
+- K-12 student
+- lawyer
+- programmer
+- retired
+- sales / marketing
+- scientist
+- self-employed
+- technician / engineer
+- tradesman / craftsman
+- unemployed
+- writer
+
 Example:
 
 ```

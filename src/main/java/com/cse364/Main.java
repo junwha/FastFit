@@ -2,10 +2,8 @@ package com.cse364;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Iterator;
 
 // Input format
 // java (filename) genres occupation
@@ -24,7 +22,7 @@ public class Main {
         }
 
         //Preprocess genres and occupation
-        List<Genre> genres = new ArrayList();
+        HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
             Genre genre = DataLoader.genreStorage.getGenre(genreName);
             if (genre == null) {
@@ -42,7 +40,7 @@ public class Main {
             System.exit(0);
         }
 
-        printAverageRating(genres, occupation);
+        printAverageRating(new ArrayList<Genre>(genres), occupation);
     }
 
     /**

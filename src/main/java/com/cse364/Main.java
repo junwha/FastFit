@@ -34,7 +34,7 @@ public class Main {
             genres.add(genre);
         }
 
-        Occupation occupation = DataLoader.occupationStorage.getOccupation(args[1]);
+        Occupation occupation = DataLoader.occupationStorage.getOccupationByName(args[1]);
 
         //Checking Occupation valid
         if (occupation == null) {
@@ -61,9 +61,11 @@ public class Main {
         double average = 0;
         try {
             average = averageRating(genres, occupation);
-        } catch (NoRatingForTheGenreException e) {
-            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
-                    formatGenres(genres, ", "), occupation);
+        } catch (NoRatingForGenreException e) {
+            System.out.format(
+                "Error : There were no ratings given to movies with genre [%s] by people with occupation [%s]\n",
+                formatGenres(genres, ", "), occupation.getName()
+            );
             System.exit(0);
         }
 
@@ -72,24 +74,22 @@ public class Main {
         System.out.format("is [%f].\n", average);
     }
 
-    // Returns average rating for movies with specified genres,
-    // rated by user having specified occupation.
-    public static double averageRating(List<Genre> genres, Occupation occupation) throws NoRatingForTheGenreException {
+    /**
+     * Returns average rating for movies with specified genres,
+     * rated by user having specified occupation.
+     */
+    public static double averageRating(List<Genre> genres, Occupation occupation) throws NoRatingForGenreException {
         int ratingSum = 0;
         int ratingCnt = 0;
 
-        //Get each entry from movies Map
-        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
-        {
+        for (Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet()) {
             Movie movie = movieEntry.getValue();
 
             if (!movie.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
-            for(Rating rating : DataLoader.ratingStorage.getRating(movie))
-            {
-                if(occupation.equals(rating.user.getOccupationCategory()))
-                {
+            for (Rating rating : DataLoader.ratingStorage.getRatingsByMovie(movie)) {
+                if (occupation.equals(rating.user.getOccupation())) {
                     ratingCnt++;
                     ratingSum += rating.rating;
                 }
@@ -97,13 +97,9 @@ public class Main {
         }
 
         if (ratingCnt == 0) {
-            throw new NoRatingForTheGenreException();
+            throw new NoRatingForGenreException();
         }
 
-        //Calculate Average
-        double ratingAvg;
-        
-        ratingAvg = Double.valueOf(ratingSum) / Double.valueOf(ratingCnt);
-        return ratingAvg;
+        return Double.valueOf(ratingSum) / Double.valueOf(ratingCnt);
     }
 }

@@ -34,7 +34,7 @@ public class Main {
             genres.add(genre);
         }
 
-        Occupation occupation = DataLoader.occupationStorage.getOccupation(args[1]);
+        Occupation occupation = DataLoader.occupationStorage.getOccupationByName(args[1]);
 
         //Checking Occupation valid
         if (occupation == null) {
@@ -86,10 +86,8 @@ public class Main {
             if (!movie.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
-            for(Rating rating : DataLoader.ratingStorage.getRating(movie))
-            {
-                if(occupation.equals(rating.user.getOccupationCategory()))
-                {
+            for (Rating rating : DataLoader.ratingStorage.getRating(movie)) {
+                if (occupation.equals(rating.user.getOccupation())) {
                     ratingCnt++;
                     ratingSum += rating.rating;
                 }

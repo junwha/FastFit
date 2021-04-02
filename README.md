@@ -80,33 +80,32 @@ is [3.177143].
 - Unemployed
 - Writer
 
+## Milestone 1
 
+### What We've Finished
 
-## What We've Finished
-
-Create Dockerfile for environment setup
-
-Create run.sh for cloning directory / building & executing program
+- Created Dockerfile for environment setup.
+- Created run.sh for cloning directory / building & executing program.
  
-Implement program that calculates the average rating score of the movies of specific genres given by specific occupation
+- Implemented program that calculates the average rating score of the movies with specified genres, rated by people with given occupation.
 
-## Roles
+### Roles
 
-한동규 queuedq
-- Suggestion for Git/Github utilization, coding convention, overall advice etc.
-- Docker setting
-- Refactoring
-- Testing, Error handling
+한동규 @queuedq
+- Suggestions for Git/Github utilization, coding conventions, overall advices, etc.
+- Docker setup
+- Overall refactoring
+- Testing, Exception handling
 
-심재환 jaehwan1912
-- Input reading/parsing and rating averaging design/implementation
+심재환 @jaehwan1912
+- Input reading/parsing and average rating method design/implementation
 - Exception handling
-- Rating averaging refactoring
+- Average rating method refactoring
 - Documentation
 
-홍준화 junwha0511
+홍준화 @junwha0511
 - Dockerfile draft
 - Java project creation
-- Data reading/parsing design/implementation
-- Rating averaging help
-- Rating / Occupation refactoring
+- Data (.dat file) reading/parsing design/implementation
+- Revising average rating method implementation 
+- Rating/Occupation class refactoring

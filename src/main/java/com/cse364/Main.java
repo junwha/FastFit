@@ -34,11 +34,11 @@ public class Main {
             genres.add(genre);
         }
 
-        String occupation = args[1].toLowerCase(Locale.ROOT);
+        Occupation occupation = DataLoader.occupationStorage.getOccupation(args[1]);
 
         //Checking Occupation valid
-        if (!DataLoader.occupationTable.containsKey(occupation)) {
-            System.out.format("Error : The occupation %s does not exist in database\n", occupation);
+        if (occupation == null) {
+            System.out.format("Error : The occupation %s does not exist in database\n", args[1]);
             System.exit(0);
         }
 
@@ -57,7 +57,7 @@ public class Main {
         return sb.toString();
     }
 
-    static void printAverageRating(List<Genre> genres, String occupation){
+    static void printAverageRating(List<Genre> genres, Occupation occupation){
         double average = 0;
         try {
             average = averageRating(genres, occupation);
@@ -68,13 +68,13 @@ public class Main {
         }
 
         System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
-        System.out.format("rated by people with occupation [%s]\n", occupation);
+        System.out.format("rated by people with occupation [%s]\n", occupation.getName());
         System.out.format("is [%f].\n", average);
     }
 
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
-    public static double averageRating(List<Genre> genres, String occupation) throws NoRatingForTheGenreException {
+    public static double averageRating(List<Genre> genres, Occupation occupation) throws NoRatingForTheGenreException {
         int ratingSum = 0;
         int ratingCnt = 0;
 
@@ -88,7 +88,7 @@ public class Main {
             //Check occupations of rating
             for(Rating rating : DataLoader.ratingStorage.getRating(movie))
             {
-                if(rating.user.getOccupation() == DataLoader.occupationTable.get(occupation))
+                if(occupation.equals(rating.user.getOccupationCategory()))
                 {
                     ratingCnt++;
                     ratingSum += rating.rating;

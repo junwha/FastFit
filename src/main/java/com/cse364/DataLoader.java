@@ -27,22 +27,23 @@ public class DataLoader {
             put("academic", 1);put("educator", 1);
             put("artist", 2);
             put("clerical", 3);put("admin", 3);
-            put("college", 4);put("grad student", 4);put("gradstudent", 4);
-            put("customer service", 5);put("customerservice", 5);
-            put("doctor", 6);put("health care", 6);put("healthcare", 6);
+            put("college", 4);put("grad student", 4);
+            put("customer service", 5);
+            put("doctor", 6);put("health care", 6);
             put("executive", 7);put("managerial", 7);
             put("farmer", 8);
             put("homemaker", 9);
-            put("k-12 student", 10);put("k-12student", 10);
+            put("K-12 student", 10);
             put("lawyer", 11);
             put("programmer", 12);
             put("retired", 13);
             put("sales", 14);put("marketing", 14);
-            put("self-employed", 15);
-            put("technician", 16);put("engineer", 16);
-            put("tradesman", 17);put("craftsman", 17);
-            put("unemployed", 18);
-            put("writer", 19);
+            put("scientist", 15);
+            put("self-employed", 16);
+            put("technician", 17);put("engineer", 17);
+            put("tradesman", 18);put("craftsman", 18);
+            put("unemployed", 19);
+            put("writer", 20);
         }
     };
 
@@ -55,6 +56,7 @@ public class DataLoader {
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
     public static final GenreStorage genreStorage = new GenreStorage(genreNames);
+    public static final OccupationStorage occupationStorage = new OccupationStorage(occupationTable);
     public static final RatingStorage ratingStorage = new RatingStorage();
 
     private static ArrayList<String[]> readFileData(File file) {

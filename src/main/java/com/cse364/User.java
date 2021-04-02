@@ -5,14 +5,14 @@ public class User {
     private int id;
     private Gender gender;
     private int age;
-    private int occupation;
+    private int occupationCategory;
     private String zipCode;
 
     User(int id, Gender gender, int age, int occupation, String zipCode){
         this.id = id;
         this.gender = gender;
         this.age = age;
-        this.occupation = occupation;
+        this.occupationCategory = occupation;
         this.zipCode = zipCode;
     }
 
@@ -28,8 +28,8 @@ public class User {
         return age;
     }
 
-    public int getOccupation() {
-        return occupation;
+    public int getOccupationCategory() {
+        return occupationCategory;
     }
 
     public String getZipCode() {

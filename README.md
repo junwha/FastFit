@@ -42,7 +42,7 @@ Genre :
 - War
 - Western
 
-Occupation
+Occupation :
 - other
 - academic / educator
 - artist
@@ -65,7 +65,7 @@ Occupation
 - unemployed
 - writer
 
-Example:
+Example :
 
 ```
 $ java ... "Adventure|Children's" artist

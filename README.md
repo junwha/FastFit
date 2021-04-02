@@ -75,11 +75,13 @@ is [3.177143].
 ```
 
 ## What We've Finished
-Create Dockerfile
 
-Create run.sh
 
-Program that calculates the average rating score of the movies of specific genres given by specific occupation
+Create Dockerfile for environment setup
+
+Create run.sh for cloning directory/executing program
+
+Implement program that calculates the average rating score of the movies of specific genres given by specific occupation
 
 ## Roles
 

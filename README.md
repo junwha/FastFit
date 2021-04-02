@@ -36,7 +36,6 @@ Program that calculates the average rating score of the movies of specific genre
 
 ## Roles
 
-```
 queuedq
 - Suggestion for Git/Github utilization, coding convention, overall advice etc.
 - Docker setting
@@ -54,4 +53,3 @@ junwha0511
 - Data reading/parsing design/implementation
 - Rating averaging help
 - Rating / Occupation refactoring
-```

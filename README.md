@@ -36,18 +36,18 @@ Program that calculates the average rating score of the movies of specific genre
 
 ## Roles
 
-queuedq
+한동규 queuedq
 - Suggestion for Git/Github utilization, coding convention, overall advice etc.
 - Docker setting
 - Refactoring
 - Testing, Error handling
 
-jaehwan1912
+심재환 jaehwan1912
 - Input reading/parsing and rating averaging design/implementation
 - Exception handling
 - Rating averaging refactoring
 
-junwha0511
+홍준화 junwha0511
 - Dockerfile draft
 - Java project creation
 - Data reading/parsing design/implementation

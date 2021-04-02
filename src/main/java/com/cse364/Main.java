@@ -42,19 +42,7 @@ public class Main {
             System.exit(0);
         }
 
-        // Print average rating
-        double average = 0;
-        try {
-            average = averageRating(genres, occupation);
-        } catch (NoRatingForTheGenreException e) {
-            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
-                    formatGenres(genres, ", "), occupation);
-            System.exit(0);
-        }
-
-        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
-        System.out.format("rated by people with occupation [%s]\n", occupation);
-        System.out.format("is [%f].\n", average);
+        printAverageRating(genres, occupation);
     }
 
     /**
@@ -67,6 +55,21 @@ public class Main {
             if (i < genres.size() - 1) { sb.append(divider); }
         }
         return sb.toString();
+    }
+
+    static void printAverageRating(List<Genre> genres, String occupation){
+        double average = 0;
+        try {
+            average = averageRating(genres, occupation);
+        } catch (NoRatingForTheGenreException e) {
+            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
+                    formatGenres(genres, ", "), occupation);
+            System.exit(0);
+        }
+
+        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
+        System.out.format("rated by people with occupation [%s]\n", occupation);
+        System.out.format("is [%f].\n", average);
     }
 
     // Returns average rating for movies with specified genres,

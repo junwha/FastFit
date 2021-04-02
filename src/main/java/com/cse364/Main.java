@@ -75,35 +75,35 @@ public class Main {
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
     public static double averageRating(List<Genre> genres, String occupation) throws NoRatingForTheGenreException {
-        int ratSum = 0;
-        int ratCnt = 0;
+        int ratingSum = 0;
+        int ratingCnt = 0;
 
         //Get each entry from movies Map
         for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
         {
-            Movie mov = movEntry.getValue();
+            Movie movie = movEntry.getValue();
 
-            if (!mov.hasGenres(genres)) { continue; }
+            if (!movie.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
-            for(Rating rat : mov.ratings)
+            for(Rating rating : movie.ratings)
             {
-                if(rat.user.occupation == DataLoader.occupationTable.get(occupation))
+                if(rating.user.occupation == DataLoader.occupationTable.get(occupation))
                 {
-                    ratCnt++;
-                    ratSum += rat.rating;
+                    ratingCnt++;
+                    ratingSum += rating.rating;
                 }
             }
         }
 
-        if (ratCnt == 0) {
+        if (ratingCnt == 0) {
             throw new NoRatingForTheGenreException();
         }
 
         //Calculate Average
-        double ratAvg;
+        double ratingAvg;
         
-        ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
-        return ratAvg;
+        ratingAvg = Double.valueOf(ratingSum) / Double.valueOf(ratingCnt);
+        return ratingAvg;
     }
 }

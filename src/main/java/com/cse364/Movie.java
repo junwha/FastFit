@@ -7,14 +7,13 @@ public class Movie {
     private int id;
     private String title;
     private List<Genre> genres;
-    public List<Rating> ratings; // TODO: Remove this field from Movie class
 
     Movie(int id, String title, List<Genre> genres){
         this.id = id;
         this.title = title;
         this.genres = genres;
-        ratings = new ArrayList<Rating>();
     }
+
 
     /**
      * Returns whether this movie has given genre.
@@ -45,6 +44,7 @@ public class Movie {
         }
         return true;
     }
+
 
     // Getters
     public int getId() { return id; }

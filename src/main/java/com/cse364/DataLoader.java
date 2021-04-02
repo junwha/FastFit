@@ -55,6 +55,7 @@ public class DataLoader {
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
     public static final GenreStorage genreStorage = new GenreStorage(genreNames);
+    public static final RatingStorage ratingStorage = new RatingStorage();
 
     private static ArrayList<String[]> readFileData(File file) {
         ArrayList<String[]> contents = new ArrayList<String[]>();
@@ -121,12 +122,15 @@ public class DataLoader {
 
         for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
-            movies.get(movieId)
-                .ratings.add(new Rating(
-                    users.get(Integer.parseInt(args[0])),
-                    Integer.parseInt(args[2]),
-                    Integer.parseInt(args[3])
-                ));
+            int userId = Integer.parseInt(args[0]);
+
+            ratingStorage.add(new Rating(
+                movies.get(movieId),
+                users.get(userId),
+                Integer.parseInt(args[2]),
+                Integer.parseInt(args[3])
+            ));
+
             // Movie test = movies.get(movieId);
             // // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
             // System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);

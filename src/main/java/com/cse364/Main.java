@@ -86,9 +86,9 @@ public class Main {
             if (!movie.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
-            for(Rating rating : movie.ratings)
+            for(Rating rating : DataLoader.ratingStorage.getRating(movie))
             {
-                if(rating.user.occupation == DataLoader.occupationTable.get(occupation))
+                if(rating.user.getOccupation() == DataLoader.occupationTable.get(occupation))
                 {
                     ratingCnt++;
                     ratingSum += rating.rating;

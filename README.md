@@ -98,7 +98,7 @@ is [3.177143].
 - Testing, Exception handling
 
 심재환 @jaehwan1912
-- Input reading/parsing and average rating method design/implementation
+- Input reading/parsing and average rating method design & implementation
 - Exception handling
 - Average rating method refactoring
 - Documentation
@@ -106,6 +106,6 @@ is [3.177143].
 홍준화 @junwha0511
 - Dockerfile draft
 - Java project creation
-- Data (.dat file) reading/parsing design/implementation
+- Data (.dat file) reading/parsing design & implementation
 - Revising average rating method implementation 
 - Rating/Occupation class refactoring

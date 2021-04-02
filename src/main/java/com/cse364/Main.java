@@ -79,9 +79,9 @@ public class Main {
         int ratingCnt = 0;
 
         //Get each entry from movies Map
-        for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
+        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
-            Movie movie = movEntry.getValue();
+            Movie movie = movieEntry.getValue();
 
             if (!movie.hasGenres(genres)) { continue; }
 

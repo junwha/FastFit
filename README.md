@@ -20,6 +20,10 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
+For multiple input of genres, you can separate the genres with vertical bar |
+
+(When vertical bar or occupation that has whitespace in it are used, please enclose each argument with double quotes)
+
 Input genre and occupation are case-insensitive, and the program will ignore any special characters and whitespace.
 
 Genre :

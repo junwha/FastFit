@@ -1,4 +1,7 @@
 package com.cse364;
+
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -10,95 +13,95 @@ import java.util.Iterator;
 // multiple category input "|"(bar)
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        // Load all data
+        DataLoader.read();
+
         //Checking Format valid
-        if(args.length != 2)
-        {
+        if (args.length != 2) {
             System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
             System.exit(0);
         }
 
         //Preprocess genres and occupation
-        String[] genres = args[0].toLowerCase().split("\\|");
-        String occupation = args[1].toLowerCase(Locale.ROOT);
+        List<Genre> genres = new ArrayList();
+        for (String genreName : args[0].split("\\|")) {
+            Genre genre = DataLoader.genreStorage.getGenre(genreName);
+            if (genre == null) {
+                System.out.format("Error : The genre %s does not exist in database\n", genreName);
+                System.exit(0);
+            }
+            genres.add(genre);
+        }
+
+        Occupation occupation = DataLoader.occupationStorage.getOccupationByName(args[1]);
 
         //Checking Occupation valid
-        if(!DataLoader.occupationTable.containsKey(occupation))
-        {
-            System.out.format("Error : The occupation %s does not exist in database\n", occupation);
+        if (occupation == null) {
+            System.out.format("Error : The occupation %s does not exist in database\n", args[1]);
             System.exit(0);
         }
 
-        //DataLoader will load all date to "HashMap<Integer, Movie> movies" and "HashMap<Integer, User> users" from .dat files
-        DataLoader.read();
-
-        // Print average rating
-        double average = averageRating(genres, occupation);
-        
-        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres));
-        System.out.format("rated by people with occupation [%s]\n", occupation);
-        System.out.format("is [%f].\n", average);
+        printAverageRating(genres, occupation);
     }
 
-    static String formatGenres(String[] genres) {
+    /**
+     * return String of genres combined with divider
+     */
+    static String formatGenres(List<Genre> genres, String divider) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < genres.length; i++) {
-            sb.append(genres[i]);
-            if (i < genres.length - 1) { sb.append(", "); }
+        for (int i = 0; i < genres.size(); i++) {
+            sb.append(genres.get(i).getName());
+            if (i < genres.size() - 1) { sb.append(divider); }
         }
         return sb.toString();
     }
 
+    static void printAverageRating(List<Genre> genres, Occupation occupation){
+        double average = 0;
+        try {
+            average = averageRating(genres, occupation);
+        } catch (NoRatingForTheGenreException e) {
+            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
+                    formatGenres(genres, ", "), occupation);
+            System.exit(0);
+        }
+
+        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
+        System.out.format("rated by people with occupation [%s]\n", occupation.getName());
+        System.out.format("is [%f].\n", average);
+    }
+
     // Returns average rating for movies with specified genres,
     // rated by user having specified occupation.
-    public static double averageRating(String[] genres, String occupation) {
-        int ratSum = 0;
-        int ratCnt = 0;
+    public static double averageRating(List<Genre> genres, Occupation occupation) throws NoRatingForTheGenreException {
+        int ratingSum = 0;
+        int ratingCnt = 0;
 
         //Get each entry from movies Map
-        for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
+        for(Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet())
         {
-            Movie mov = movEntry.getValue();
-            //System.out.println(mov.title);
+            Movie movie = movieEntry.getValue();
 
-            //If at least one of given genre is not included in this movie, continue
-            int genreCnt = 0;
-            for(String genre : genres)
-            {
-                if(mov.hasGenre(genre.toLowerCase(Locale.ROOT)))
-                {
-                    genreCnt++;
-                }
-            }
-
-            if(genreCnt < genres.length)
-            {
-                continue;
-            }
+            if (!movie.hasGenres(genres)) { continue; }
 
             //Check occupations of rating
-            for(Rating rat : mov.ratings)
-            {
-                if(rat.user.occupation == DataLoader.occupationTable.get(occupation))
-                {
-                    ratCnt++;
-                    ratSum += rat.rating;
+            for (Rating rating : DataLoader.ratingStorage.getRatingsByMovie(movie)) {
+                if (occupation.equals(rating.user.getOccupation())) {
+                    ratingCnt++;
+                    ratingSum += rating.rating;
                 }
             }
         }
 
+        if (ratingCnt == 0) {
+            throw new NoRatingForTheGenreException();
+        }
 
         //Calculate Average
-        double ratAvg;
-        if(ratCnt == 0)
-        {
-            ratAvg = -1.0;
-        }
-        else
-        {
-            ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
-        }
-
-        return ratAvg;
+        double ratingAvg;
+        
+        ratingAvg = Double.valueOf(ratingSum) / Double.valueOf(ratingCnt);
+        return ratingAvg;
     }
 }

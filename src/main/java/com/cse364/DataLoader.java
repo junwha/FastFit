@@ -5,8 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 /*
 MOVIES FILE
 MovieID::Title::Genres
@@ -19,33 +22,40 @@ UserID::MovieID::Rating::Timestamp
  */
 
 public class DataLoader {
-    public final static HashMap<String, Integer> occupationTable = new HashMap<String, Integer>(){
-        {
-            put("other", 0);
-            put("academic", 1);put("educator", 1);
-            put("artist", 2);
-            put("clerical", 3);put("admin", 3);
-            put("college", 4);put("grad student", 4);put("gradstudent", 4);
-            put("customer service", 5);put("customerservice", 5);
-            put("doctor", 6);put("health care", 6);put("healthcare", 6);
-            put("executive", 7);put("managerial", 7);
-            put("farmer", 8);
-            put("homemaker", 9);
-            put("k-12 student", 10);put("k-12student", 10);
-            put("lawyer", 11);
-            put("programmer", 12);
-            put("retired", 13);
-            put("sales", 14);put("marketing", 14);
-            put("self-employed", 15);
-            put("technician", 16);put("engineer", 16);
-            put("tradesman", 17);put("craftsman", 17);
-            put("unemployed", 18);
-            put("writer", 19);
-        }
+    private static String[] genreNames = {
+        "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary",
+        "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi",
+        "Thriller", "War", "Western",
     };
+
+    public static final GenreStorage genreStorage = new GenreStorage(genreNames);
+    public final static OccupationStorage occupationStorage = new OccupationStorage(){{
+        add(new Occupation(0, "Other"));
+        add(new Occupation(1, "Academic/Educator"), List.of("academic", "educator"));
+        add(new Occupation(2, "Artist"));
+        add(new Occupation(3, "Clerical/Admin"), List.of("clerical", "admin"));
+        add(new Occupation(4, "College/Grad student"), List.of("college student", "grad student"));
+        add(new Occupation(5, "Customer service"));
+        add(new Occupation(6, "Doctor/Health care"), List.of("doctor", "health care"));
+        add(new Occupation(7, "Executive/Managerial"), List.of("executive", "managerial"));
+        add(new Occupation(8, "Farmer"));
+        add(new Occupation(9, "Homemaker"));
+        add(new Occupation(10, "K-12 student"));
+        add(new Occupation(11, "Lawyer"));
+        add(new Occupation(12, "Programmer"));
+        add(new Occupation(13, "Retired"));
+        add(new Occupation(14, "Sales/Marketing"), List.of("sales", "marketing"));
+        add(new Occupation(15, "Scientist"));
+        add(new Occupation(16, "Self-employed"));
+        add(new Occupation(17, "Technician/Engineer"), List.of("technician", "engineer"));
+        add(new Occupation(18, "Tradesman/Craftsman"), List.of("tradesman", "craftsman"));
+        add(new Occupation(19, "Unemployed"));
+        add(new Occupation(20, "Writer"));
+    }};
 
     public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
     public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
+    public static final RatingStorage ratingStorage = new RatingStorage();
 
     private static ArrayList<String[]> readFileData(File file) {
         ArrayList<String[]> contents = new ArrayList<String[]>();
@@ -75,7 +85,11 @@ public class DataLoader {
 
         for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
-            movies.put(id, new Movie(id, args[1], args[2].toLowerCase().split("\\|")));
+            ArrayList<Genre> genres = new ArrayList();
+            for (String genreName: args[2].toLowerCase().split("\\|")) {
+                genres.add(genreStorage.getGenre(genreName));
+            }
+            movies.put(id, new Movie(id, args[1], genres));
             // Movie test = movies.get(id);
             // System.out.println(test.title);
         }
@@ -96,7 +110,7 @@ public class DataLoader {
             int id = Integer.parseInt(args[0]);
             users.put(id, new User(
                 id, g, Integer.parseInt(args[2]),
-                Integer.parseInt(args[3]), args[4]
+                occupationStorage.getOccupationById(Integer.parseInt(args[3])), args[4]
             ));
             // User test = users.get(id);
             // System.out.println(test.id);
@@ -108,12 +122,15 @@ public class DataLoader {
 
         for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
-            movies.get(movieId)
-                .ratings.add(new Rating(
-                    users.get(Integer.parseInt(args[0])),
-                    Integer.parseInt(args[2]),
-                    Integer.parseInt(args[3])
-                ));
+            int userId = Integer.parseInt(args[0]);
+
+            ratingStorage.add(new Rating(
+                movies.get(movieId),
+                users.get(userId),
+                Integer.parseInt(args[2]),
+                Integer.parseInt(args[3])
+            ));
+
             // Movie test = movies.get(movieId);
             // // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
             // System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);

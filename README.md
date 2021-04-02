@@ -20,15 +20,23 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
-The program will take genre(s) and an occupation as inputs, and show the average rating score of all movies in the given genres rated by the given occupation.
+The program takes genre(s) and an occupation as inputs, and shows the average rating score of all movies having given genres, rated by the people with given occupation.
 
-For multiple input of genres, you can separate the genres with vertical bar |
+For multiple input of genres, you can separate the genres with vertical bars `|`.
+When you use special characters (including `|`) or whitespaces, please enclose each argument with double quotes.
+Genre/occupation inputs are case-insensitive, and any special characters and whitespaces will be ignored.
 
-(When vertical bar or occupation that has whitespace in it are used, please enclose each argument with double quotes)
+### Example
 
-Input genre and occupation are case-insensitive, and the program will ignore any special characters and whitespace.
+```
+$ java ... "adventure|children's" artist
+Average rating of movies with genres [Adventure, Children's]
+rated by people with occupation [Artist]
+is [3.177143].
+```
 
-Genre :
+### List of Possible Genres
+
 - Action
 - Adventure
 - Animation
@@ -48,38 +56,31 @@ Genre :
 - War
 - Western
 
-Occupation :
-- other
-- academic / educator
-- artist
-- clerical / admin
-- college / grad student
-- customer service
-- doctor / health care
-- executive / managerial
-- farmer
-- homemaker
+### List of Possible Occupations
+
+- Other
+- Academic / Educator
+- Artist
+- Clerical / Admin
+- College student / Grad student
+- Customer service
+- Doctor / Health care
+- Executive / Managerial
+- Farmer
+- Homemaker
 - K-12 student
-- lawyer
-- programmer
-- retired
-- sales / marketing
-- scientist
-- self-employed
-- technician / engineer
-- tradesman / craftsman
-- unemployed
-- writer
+- Lawyer
+- Programmer
+- Retired
+- Sales / Marketing
+- Scientist
+- Self-employed
+- Technician / Engineer
+- Tradesman / Craftsman
+- Unemployed
+- Writer
 
 
-Example :
-
-```
-$ java ... "Adventure|Children's" artist
-Average rating of movies with genres [adventure, children's]
-rated by people with occupation [artist]
-is [3.177143].
-```
 
 ## What We've Finished
 

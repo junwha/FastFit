@@ -11,7 +11,6 @@ public class OccupationStorage {
 
     OccupationStorage(HashMap<String, Integer> occupationTable) {
         for (Map.Entry<String, Integer> entry: occupationTable.entrySet()) {
-
             occupations.put(getSearchName(entry.getKey()), new Occupation(entry));
         }
     }

@@ -20,6 +20,8 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
+The program will take genre(s) and an occupation as inputs, and shows the average rating score of all movies in the given genres rated by the given occupation.
+
 For multiple input of genres, you can separate the genres with vertical bar |
 
 (When vertical bar or occupation that has whitespace in it are used, please enclose each argument with double quotes)
@@ -81,11 +83,10 @@ is [3.177143].
 
 ## What We've Finished
 
-
 Create Dockerfile for environment setup
 
-Create run.sh for cloning directory/executing program
-
+Create run.sh for cloning directory / building & executing program
+ 
 Implement program that calculates the average rating score of the movies of specific genres given by specific occupation
 
 ## Roles

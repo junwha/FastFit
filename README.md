@@ -30,13 +30,28 @@ is [3.177143].
 ```
 
 ## What We've Finished
-
-```
-
-```
+Create Dockerfile
+Create run.sh
+Program that calculates the average rating score of the movies of specific genres given by specific occupation
 
 ## Roles
 
 ```
+queuedq
+- Suggestion for Git/Github utilization, coding convention, overall advice etc.
+- Docker setting
+- Refactoring
+- Testing, Error handling
 
+jaehwan1912
+- Input reading/parsing and rating averaging design/implementation
+- Exception handling
+- Rating averaging refactoring
+
+junwha0511
+- Dockerfile draft
+- Java project creation
+- Data reading/parsing design/implementation
+- Rating averaging help
+- Rating / Occupation refactoring
 ```

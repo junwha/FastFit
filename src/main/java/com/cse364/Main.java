@@ -29,7 +29,7 @@ public class Main {
         for (String genreName : args[0].split("\\|")) {
             Genre genre = DataLoader.genreStorage.getGenre(genreName);
             if (genre == null) {
-                // TODO: Print error message
+                System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
             }
             genres.add(genre);

@@ -62,8 +62,10 @@ public class Main {
         try {
             average = averageRating(genres, occupation);
         } catch (NoRatingForTheGenreException e) {
-            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]\n",
-                    formatGenres(genres, ", "), occupation);
+            System.out.format(
+                "Error : There were no ratings given to movies with genre [%s] by [%s]\n",
+                formatGenres(genres, ", "), occupation.getName()
+            );
             System.exit(0);
         }
 

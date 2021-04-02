@@ -20,9 +20,9 @@ $ mvn package
 $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
 ```
 
-- Input genre and occupation are case-insensitive, and the program will ignore any special characters and whitespace.
+Input genre and occupation are case-insensitive, and the program will ignore any special characters and whitespace.
 
-  Genre :
+Genre :
 - Action
 - Adventure
 - Animation
@@ -42,7 +42,7 @@ $ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2
 - War
 - Western
 
-  Occupation
+Occupation
 - other
 - academic / educator
 - artist

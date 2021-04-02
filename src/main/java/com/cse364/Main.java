@@ -44,13 +44,21 @@ public class Main {
         }
 
         // Print average rating
-        double average = averageRating(genres, occupation);
+        double average = 0;
+        try {
+            average = averageRating(genres, occupation);
+        } catch (NoRatingForTheGenreException e) {
+            System.out.format("Error : There were no ratings given to movies with genre [%s] by [%s]",
+                formatGenres(genres), occupation);
+            System.exit(0);
+        }
         
         System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres));
         System.out.format("rated by people with occupation [%s]\n", occupation);
         System.out.format("is [%f].\n", average);
     }
 
+    
     static String formatGenres(List<Genre> genres) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < genres.size(); i++) {
@@ -70,18 +78,8 @@ public class Main {
         for(Map.Entry<Integer, Movie> movEntry : DataLoader.movies.entrySet())
         {
             Movie mov = movEntry.getValue();
-            //System.out.println(mov.title);
 
-            //If at least one of given genre is not included in this movie, continue
-            int genreCnt = 0;
-            for (Genre genre: genres) {
-                if (mov.hasGenre(genre)) { genreCnt++; }
-            }
-
-            if(genreCnt < genres.size())
-            {
-                continue;
-            }
+            if (!hasAllGenres(genres, mov)) { continue; }
 
             //Check occupations of rating
             for(Rating rat : mov.ratings)
@@ -94,18 +92,34 @@ public class Main {
             }
         }
 
+        if (ratCnt == 0) {
+            throw new NoRatingForTheGenreException();
+        }
 
         //Calculate Average
         double ratAvg;
-        if(ratCnt == 0)
-        {
-            ratAvg = -1.0;
-        }
-        else
-        {
-            ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
-        }
-
+        
+        ratAvg = Double.valueOf(ratSum) / Double.valueOf(ratCnt);
         return ratAvg;
     }
+
+    /**
+     * Checks if all genres in genres list exist in the genre of movie.
+     */
+    public static boolean hasAllGenres(List<Genre> genres, Movie movie) {
+        int genreCnt = 0;
+        for (Genre genre : genres) {
+            if(movie.hasGenre(genre)) { genreCnt++; }
+        }
+
+        if (genreCnt < genres.size()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /**
+     * Exception thrown when there are no rating for the specific genre given by the specific occupation.
+     */
 }

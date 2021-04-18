@@ -14,6 +14,14 @@ root@[CONTAINER_ID]:~/project# . run.sh
 $ mvn package
 ```
 
+## Test
+
+```
+$ mvn test
+```
+
+How to check coverage: After running the test command, open `target/site/jacoco/index.html` file in the browser.
+
 ## Usage
 
 ```
@@ -86,7 +94,7 @@ is [3.177143].
 
 - Created Dockerfile for environment setup.
 - Created run.sh for cloning directory / building & executing program.
- 
+
 - Implemented program that calculates the average rating score of the movies with specified genres, rated by people with given occupation.
 
 ### Roles

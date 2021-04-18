@@ -18,10 +18,6 @@ public class Occupation {
         this.name = name;
     }
 
-    Occupation(Map.Entry<String, Integer> entry) {
-        this.id = entry.getValue();
-        this.name = entry.getKey();
-    }
 
     boolean equals(Occupation occupation) {
         return this.id == occupation.id;

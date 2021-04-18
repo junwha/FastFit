@@ -1,6 +1,9 @@
 package com.cse364;
 
 import java.util.List;
+
+import com.cse364.storage.Genre;
+import com.cse364.storage.Movie;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

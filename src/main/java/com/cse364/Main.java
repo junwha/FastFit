@@ -1,5 +1,7 @@
 package com.cse364;
 
+import com.cse364.storage.*;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -87,9 +89,9 @@ public class Main {
 
             //Check occupations of rating
             for (Rating rating : DataLoader.ratingStorage.getRatingsByMovie(movie)) {
-                if (occupation.equals(rating.user.getOccupation())) {
+                if (occupation.equals(rating.getUser().getOccupation())) {
                     ratingCnt++;
-                    ratingSum += rating.rating;
+                    ratingSum += rating.getRating();
                 }
             }
         }

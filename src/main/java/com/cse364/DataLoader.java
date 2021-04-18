@@ -137,9 +137,21 @@ public class DataLoader {
         }
     }
 
+    private static void parseLinks(File linksFile) {
+        ArrayList<String[]> data = readFileData(linksFile);
+
+        for(String[] args : data) {
+            int movieId = Integer.parseInt(args[0]);
+            String link = "http://www.imdb.com/title/tt" + args[1];
+
+            movies.get(movieId).setLink(link);
+        }
+    }
+
     public static void read() {
         parseMovies(new File("./data/movies.dat"));
         parseUsers(new File("./data/users.dat"));
         parseRatings(new File("./data/ratings.dat"));
+        parseLinks(new File("./data/links.dat"));
     }
 }

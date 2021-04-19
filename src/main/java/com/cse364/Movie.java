@@ -7,6 +7,7 @@ public class Movie {
     private int id;
     private String title;
     private List<Genre> genres;
+    private String link;
 
     Movie(int id, String title, List<Genre> genres){
         this.id = id;
@@ -45,9 +46,14 @@ public class Movie {
         return true;
     }
 
+    // Setters
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     // Getters
     public int getId() { return id; }
     public String getTitle() { return title; }
     public List<Genre> getGenres() { return genres; }
+    public String getLink() { return link; }
 }

@@ -1,5 +1,4 @@
-package com.cse364.storage;
-
+package com.cse364;
 enum Gender{M, F}
 
 public class User {

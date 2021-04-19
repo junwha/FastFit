@@ -1,4 +1,4 @@
-package com.cse364.storage;
+package com.cse364;
 
 import java.util.Map;
 public class Occupation {
@@ -6,8 +6,8 @@ public class Occupation {
     private String name;
 
     // Getters
-    public int getId() { return id; }
-    public String getName() { return name; }
+    int getId() { return id; }
+    String getName() { return name; }
 
     /**
      * WARNING: Don't use this constructor directly!

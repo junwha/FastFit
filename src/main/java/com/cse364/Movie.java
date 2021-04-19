@@ -1,6 +1,7 @@
-package com.cse364.storage;
+package com.cse364;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Movie {
     private int id;

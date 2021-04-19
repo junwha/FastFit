@@ -1,4 +1,4 @@
-package com.cse364.storage;
+package com.cse364;
 
 import java.util.HashMap;
 import java.util.List;

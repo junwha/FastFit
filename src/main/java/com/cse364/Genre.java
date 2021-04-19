@@ -1,4 +1,4 @@
-package com.cse364.storage;
+package com.cse364;
 
 public class Genre {
     // Since each genre has no associated id, we use its display name as id.
@@ -17,5 +17,5 @@ public class Genre {
     }
 
     // Getters
-    public String getName() { return name; }
+    String getName() { return name; }
 }

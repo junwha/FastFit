@@ -12,12 +12,13 @@ public class MovieTest {
 
     ArrayList<Genre> genreList;
     Genre[] genreArray;
+
     @Before
     public void init() {
-        genreList = new ArrayList<Genre>(){{
-                add(new Genre("Animation"));
-                add(new Genre("Children's"));
-                add(new Genre("Comedy"));
+        genreList = new ArrayList<Genre>() {{
+            add(new Genre("Animation"));
+            add(new Genre("Children's"));
+            add(new Genre("Comedy"));
         }};
 
         genreArray = new Genre[]{
@@ -25,42 +26,49 @@ public class MovieTest {
                 new Genre("Animation")
         };
         movie = new Movie(
-            1,
-            "Toy Story",
+                1,
+                "Toy Story",
                 genreList
         );
     }
 
     @Test
+    public void testConstructor() {
+        assertEquals(movie.getId(), 1);
+        assertEquals(movie.getTitle(), "Toy Story");
+        assertEquals(movie.getGenres(), genreList);
+    }
+
+    @Test
     public void testMovieHasGenre() {
         assertTrue(
-            movie.hasGenre(new Genre("Children's"))
+                movie.hasGenre(new Genre("Children's"))
         );
         assertFalse(
-            movie.hasGenre(new Genre("Sci-Fi"))
+                movie.hasGenre(new Genre("Sci-Fi"))
         );
     }
 
     @Test
     public void testMovieHasGenres() {
         assertTrue(
-            movie.hasGenres(new Genre[]{
-                new Genre("Comedy"),
-                new Genre("Animation"),
-            })
+                movie.hasGenres(new Genre[]{
+                        new Genre("Comedy"),
+                        new Genre("Animation"),
+                })
         );
         assertFalse(
-            movie.hasGenres(new Genre[]{
-                new Genre("Animation"),
-                new Genre("Sci-Fi"),
-            })
+                movie.hasGenres(new Genre[]{
+                        new Genre("Animation"),
+                        new Genre("Sci-Fi"),
+                })
         );
 
         assertTrue(
-            movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
-                new Genre("Comedy"),
-                new Genre("Animation")
-            )))
+                movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
+                        new Genre("Comedy"),
+                        new Genre("Animation")
+                )))
         );
         assertFalse(
                 movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
@@ -68,20 +76,5 @@ public class MovieTest {
                         new Genre("Sci-Fi")
                 )))
         );
-    }
-
-    @Test
-    public void testMovieGetId() {
-        assertEquals(movie.getId(), 1);
-    }
-
-    @Test
-    public void testMovieGetTitle(){
-        assertEquals(movie.getTitle(), "Toy Story");
-    }
-
-    @Test
-    public void testMovieGetGenres(){
-        assertEquals(movie.getGenres(), genreList);
     }
 }

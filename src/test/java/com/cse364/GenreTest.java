@@ -17,13 +17,15 @@ public class GenreTest {
     }
 
     @Test
+    public void testConstructor(){
+        assertEquals(testedObject1.getName(), testedObject2.getName());
+    }
+
+    @Test
     public void testEquals(){
         assertTrue(testedObject1.equals(testedObject2));
         assertFalse(testedObject1.equals(testedObject3));
     }
 
-    @Test
-    public void testGetName(){
-        assertEquals(testedObject1.getName(), "Horror");
-    }
+
 }

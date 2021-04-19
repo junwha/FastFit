@@ -18,11 +18,12 @@ public class GenreTest {
 
     @Test
     public void testConstructor(){
-        assertEquals(testedObject1.getName(), testedObject2.getName());
+        assertEquals("Constructor", testedObject1.getName(), testedObject2.getName());
     }
 
     @Test
     public void testEquals(){
+        String message = "Equals";
         assertTrue(testedObject1.equals(testedObject2));
         assertFalse(testedObject1.equals(testedObject3));
     }

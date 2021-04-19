@@ -40,7 +40,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testMovieHasGenre() {
+    public void testHasGenre() {
         assertTrue(
                 movie.hasGenre(new Genre("Children's"))
         );
@@ -50,7 +50,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testMovieHasGenres() {
+    public void testHasGenres() {
         assertTrue(
                 movie.hasGenres(new Genre[]{
                         new Genre("Comedy"),

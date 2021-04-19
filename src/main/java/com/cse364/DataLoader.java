@@ -1,25 +1,15 @@
 package com.cse364;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.Reader;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/*
-MOVIES FILE
-MovieID::Title::Genres
-
-USER FILE
-UserID::Gender::Age::Occupation::Zip-code
-
-RATINGS FILE
-UserID::MovieID::Rating::Timestamp
- */
 
 public class DataLoader {
     private static String[] genreNames = {
@@ -28,8 +18,8 @@ public class DataLoader {
         "Thriller", "War", "Western",
     };
 
-    public static final GenreStorage genreStorage = new GenreStorage(genreNames);
-    public final static OccupationStorage occupationStorage = new OccupationStorage(){{
+    public static GenreStorage genreStorage = new GenreStorage(genreNames);
+    public static OccupationStorage occupationStorage = new OccupationStorage(){{
         add(new Occupation(0, "Other"));
         add(new Occupation(1, "Academic/Educator"), List.of("academic", "educator"));
         add(new Occupation(2, "Artist"));
@@ -53,35 +43,28 @@ public class DataLoader {
         add(new Occupation(20, "Writer"));
     }};
 
-    public static HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>(0);
-    public static HashMap<Integer, User> users = new HashMap<Integer, User>(0);
-    public static final RatingStorage ratingStorage = new RatingStorage();
+    public static UserStorage userStorage;
+    public static MovieStorage movieStorage;
+    public static RatingStorage ratingStorage;
 
-    private static ArrayList<String[]> readFileData(File file) {
-        ArrayList<String[]> contents = new ArrayList<String[]>();
+    private static List<String[]> parseData(Reader reader) {
+        List<String[]> contents = new ArrayList<String[]>();
 
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader buffReader = new BufferedReader(fileReader);
-
+        try (BufferedReader buffReader = new BufferedReader(reader)) {
             String buffer = "";
             while ((buffer = buffReader.readLine()) != null) {
                 contents.add(buffer.split("::"));
             }
-
-            fileReader.close();
-            buffReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File NOT FOUND : Please clone git again");
         } catch (IOException e) {
-            System.out.println("File CRASHED : Please clone git again");
+            System.out.println("Unexpected IO exception occurred while reading file data.");
         }
 
         return contents;
     }
 
-    private static void parseMovies(File moviesFile) {
-        ArrayList<String[]> data = readFileData(moviesFile);
+    private static MovieStorage getMovieStorage(Reader moviesReader) {
+        MovieStorage movieStorage = new MovieStorage();
+        List<String[]> data = parseData(moviesReader);
 
         for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
@@ -89,69 +72,73 @@ public class DataLoader {
             for (String genreName: args[2].toLowerCase().split("\\|")) {
                 genres.add(genreStorage.getGenre(genreName));
             }
-            movies.put(id, new Movie(id, args[1], genres));
-            // Movie test = movies.get(id);
-            // System.out.println(test.title);
+            movieStorage.add(new Movie(id, args[1], genres));
         }
+        
+        return movieStorage;
     }
 
-    private static void parseUsers(File usersFile) {
-        ArrayList<String[]> data = readFileData(usersFile);
+    private static UserStorage getUserStorage(Reader usersReader) {
+        UserStorage userStorage = new UserStorage();
+        List<String[]> data = parseData(usersReader);
 
         for (String[] args : data) {
-            //Allocate genre(enum type)
             Gender g = null;
             if (args[1].equals("M")) {
                 g = Gender.M;
             } else if (args[1].equals(("F"))) {
                 g = Gender.F;
             }
+            Occupation occupation = occupationStorage.getOccupationById(Integer.parseInt(args[3]));
 
             int id = Integer.parseInt(args[0]);
-            users.put(id, new User(
-                id, g, Integer.parseInt(args[2]),
-                occupationStorage.getOccupationById(Integer.parseInt(args[3])), args[4]
-            ));
-            // User test = users.get(id);
-            // System.out.println(test.id);
+            userStorage.add(
+                new User(id, g, Integer.parseInt(args[2]), occupation, args[4])
+            );
         }
+
+        return userStorage;
     }
 
-    private static void parseRatings(File ratingsFile) {
-        ArrayList<String[]> data = readFileData(ratingsFile);
+    private static RatingStorage getRatingStorage(Reader ratingsReader) {
+        RatingStorage ratingStorage = new RatingStorage();
+        List<String[]> data = parseData(ratingsReader);
 
         for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
             int userId = Integer.parseInt(args[0]);
 
             ratingStorage.add(new Rating(
-                movies.get(movieId),
-                users.get(userId),
+                movieStorage.getMovie(movieId),
+                userStorage.getUser(userId),
                 Integer.parseInt(args[2]),
                 Integer.parseInt(args[3])
             ));
-
-            // Movie test = movies.get(movieId);
-            // // System.out.println(test.ratings.get(test.ratings.size()-1).rating);
-            // System.out.println(test.ratings.get(test.ratings.size()-1).user.occupation);
         }
+
+        return ratingStorage;
     }
 
-    private static void parseLinks(File linksFile) {
-        ArrayList<String[]> data = readFileData(linksFile);
+    private static void parseLinks(Reader linksReader) {
+        List<String[]> data = parseData(linksReader);
 
-        for(String[] args : data) {
+        for (String[] args : data) {
             int movieId = Integer.parseInt(args[0]);
             String link = "http://www.imdb.com/title/tt" + args[1];
 
-            movies.get(movieId).setLink(link);
+            movieStorage.getMovie(movieId).setLink(link);
         }
     }
 
     public static void read() {
-        parseMovies(new File("./data/movies.dat"));
-        parseUsers(new File("./data/users.dat"));
-        parseRatings(new File("./data/ratings.dat"));
-        parseLinks(new File("./data/links.dat"));
+        try {
+            movieStorage = getMovieStorage(new FileReader("./data/movies.dat"));
+            userStorage = getUserStorage(new FileReader("./data/users.dat"));
+            ratingStorage = getRatingStorage(new FileReader("./data/ratings.dat"));
+            parseLinks(new FileReader("./data/links.dat"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Some data file is missing. Please try to clone the repo again.");
+            System.out.println(e.getMessage());
+        }
     }
 }

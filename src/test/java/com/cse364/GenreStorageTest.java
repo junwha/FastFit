@@ -11,13 +11,11 @@ public class GenreStorageTest {
         );
 
         // Searches case-insensitively, ignoring special characters and whitespaces.
-        String message = "Can't Search case-insensitively"
-        assertNotNull(message, storage.getGenre("ANIMAtion"));
-        assertNotNull(message, storage.getGenre("child'rens"));
-        assertNotNull(message, storage.getGenre("white-spaced gen re"));
-
-        message = "Invalid name";
+        assertNotNull(storage.getGenre("ANIMAtion"));
+        assertNotNull(storage.getGenre("child'rens"));
+        assertNotNull(storage.getGenre("white-spaced gen re"));
+        
         // Returns null if the name is invalid.
-        assertNull(message, storage.getGenre("invalid name"));
+        assertNull(storage.getGenre("invalid name"));
     }
 }

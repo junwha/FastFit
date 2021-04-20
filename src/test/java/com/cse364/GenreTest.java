@@ -5,9 +5,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GenreTest {
-    Genre testedObject1;
-    Genre testedObject2;
-    Genre testedObject3;
+    private Genre testedObject1;
+    private Genre testedObject2;
+    private Genre testedObject3;
 
     @Before
     public void init(){

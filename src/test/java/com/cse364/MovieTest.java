@@ -9,9 +9,8 @@ import static org.junit.Assert.*;
 
 public class MovieTest {
     private Movie movie;
-
-    ArrayList<Genre> genreList;
-    Genre[] genreArray;
+    private ArrayList<Genre> genreList;
+    private Genre[] genreArray;
 
     @Before
     public void init() {

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class RatingTest {
-    Rating testObject1;
-    Rating testObject2;
+    private Rating testObject1;
+    private Rating testObject2;
 
     @Before
     public void init(){

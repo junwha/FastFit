@@ -5,8 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserTest {
-    User testObject1;
-    User testObject2;
+    private User testObject1;
+    private User testObject2;
 
     @Before
     public void init(){

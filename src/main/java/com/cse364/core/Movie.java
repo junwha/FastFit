@@ -1,4 +1,4 @@
-package com.cse364.core.utils;
+package com.cse364.core;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class Movie {
     private List<Genre> genres;
     private String link;
 
-    public Movie(int id, String title, List<Genre> genres){
+    Movie(int id, String title, List<Genre> genres){
         this.id = id;
         this.title = title;
         this.genres = genres;

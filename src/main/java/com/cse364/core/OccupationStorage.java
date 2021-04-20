@@ -1,5 +1,7 @@
 package com.cse364.core;
 
+import com.cse364.core.utils.Occupation;
+
 import java.util.HashMap;
 import java.util.List;
 

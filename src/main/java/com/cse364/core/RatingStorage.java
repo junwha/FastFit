@@ -1,5 +1,9 @@
 package com.cse364.core;
 
+import com.cse364.core.utils.Movie;
+import com.cse364.core.utils.Rating;
+import com.cse364.core.utils.User;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;

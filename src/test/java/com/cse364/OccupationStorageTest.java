@@ -2,7 +2,7 @@ package com.cse364;
 
 import java.util.List;
 
-import com.cse364.core.Occupation;
+import com.cse364.core.utils.Occupation;
 import com.cse364.core.OccupationStorage;
 import org.junit.Test;
 import org.junit.Before;

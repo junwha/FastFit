@@ -1,4 +1,4 @@
-package com.cse364.core;
+package com.cse364.core.utils;
 
 public class Genre {
     // Since each genre has no associated id, we use its display name as id.

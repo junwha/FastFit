@@ -1,5 +1,7 @@
 package com.cse364.core;
 
+import com.cse364.core.utils.Genre;
+
 import java.util.HashMap;
 
 public class GenreStorage {

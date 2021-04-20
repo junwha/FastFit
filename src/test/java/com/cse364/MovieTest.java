@@ -2,8 +2,8 @@ package com.cse364;
 
 import java.util.List;
 
-import com.cse364.core.Genre;
-import com.cse364.core.Movie;
+import com.cse364.core.utils.Genre;
+import com.cse364.core.utils.Movie;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

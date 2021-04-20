@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.core;
 
 public class Rating {
     Movie movie;

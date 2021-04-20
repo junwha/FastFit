@@ -1,6 +1,6 @@
 package com.cse364;
 
-import com.cse364.core.GenreStorage;
+import com.cse364.core.storage.GenreStorage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

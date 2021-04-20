@@ -12,7 +12,7 @@ public class RatingStorage {
     private HashMap<Integer, ArrayList<Rating>> userMap;
     private HashMap<Integer, ArrayList<Rating>> movieMap;
 
-    RatingStorage(){
+    public RatingStorage(){
         userMap = new HashMap<Integer, ArrayList<Rating>>();
         movieMap = new HashMap<Integer, ArrayList<Rating>>();
     }

@@ -1,13 +1,13 @@
 package com.cse364.core;
 
 public class Rating {
-    Movie movie;
-    User user;
-    int rating;
-    int timestamp;
+    public Movie movie;
+    public User user;
+    public int rating;
+    public int timestamp;
 
 
-    Rating(Movie movie, User user, int rating, int timestamp) {
+    public Rating(Movie movie, User user, int rating, int timestamp) {
         this.movie = movie;
         this.user = user;
         this.rating = rating;

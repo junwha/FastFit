@@ -1,6 +1,10 @@
 package com.cse364;
 
 import com.cse364.core.*;
+import com.cse364.core.Genre;
+import com.cse364.core.Movie;
+import com.cse364.core.Occupation;
+import com.cse364.core.Rating;
 
 import java.util.List;
 import java.util.ArrayList;

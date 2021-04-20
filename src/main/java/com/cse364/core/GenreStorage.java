@@ -9,7 +9,7 @@ public class GenreStorage {
     /**
      * Initializes GenreStorage.
      */
-    GenreStorage(String[] genreNames) {
+    public GenreStorage(String[] genreNames) {
         for (String name: genreNames) {
             Genre genre = new Genre(name);
             genres.put(getSearchName(name), genre);

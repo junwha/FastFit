@@ -8,7 +8,7 @@ public class Movie {
     private List<Genre> genres;
     private String link;
 
-    Movie(int id, String title, List<Genre> genres){
+    public Movie(int id, String title, List<Genre> genres){
         this.id = id;
         this.title = title;
         this.genres = genres;

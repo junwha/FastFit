@@ -8,7 +8,7 @@ public class Genre {
      * WARNING: Don't use this constructor directly!
      * Please access Genre data using GenreStorage instead.
      */
-    Genre(String name) {
+    public Genre(String name) {
         this.name = name;
     }
 
@@ -17,5 +17,5 @@ public class Genre {
     }
 
     // Getters
-    String getName() { return name; }
+    public String getName() { return name; }
 }

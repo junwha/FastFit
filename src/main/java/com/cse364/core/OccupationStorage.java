@@ -10,7 +10,7 @@ public class OccupationStorage {
     /**
      * Initializes OccupationStorage.
      */
-    OccupationStorage() { }
+    public OccupationStorage() { }
 
     /**
      * Adds an occupation to the storage.

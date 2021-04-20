@@ -1,4 +1,4 @@
-package com.cse364.core;
+package com.cse364.core.storage;
 
 import com.cse364.core.utils.Occupation;
 

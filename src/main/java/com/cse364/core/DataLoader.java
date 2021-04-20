@@ -1,5 +1,8 @@
 package com.cse364.core;
 
+import com.cse364.core.storage.GenreStorage;
+import com.cse364.core.storage.OccupationStorage;
+import com.cse364.core.storage.RatingStorage;
 import com.cse364.core.utils.*;
 
 import java.io.File;

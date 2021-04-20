@@ -3,7 +3,7 @@ package com.cse364;
 import java.util.List;
 
 import com.cse364.core.utils.Occupation;
-import com.cse364.core.storage.OccupationStorage;
+import com.cse364.core.OccupationStorage;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

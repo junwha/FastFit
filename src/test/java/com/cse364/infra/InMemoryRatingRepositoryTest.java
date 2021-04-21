@@ -8,14 +8,14 @@ import static org.junit.Assert.*;
 import com.cse364.domain.*;
 
 public class InMemoryRatingRepositoryTest {
-    private InMemoryRatingRepository occupation;
+    private InMemoryRatingRepository storage;
     private User user1, user2, user3;
     private Movie movie1, movie2, movie3;
     private List<Rating> ratings;
 
     @Before
     public void init(){
-        occupation = new InMemoryRatingRepository();
+        storage = new InMemoryRatingRepository();
         user1 = new User(1, User.Gender.M, 20, new Occupation(1, "Teacher"), "10000");
         user2 = new User(2, User.Gender.F, 55, new Occupation(2, "Retired"), "10001");
         user3 = new User(3, User.Gender.M, 30, new Occupation(0, "Others"), "10002");
@@ -47,29 +47,29 @@ public class InMemoryRatingRepositoryTest {
         );
 
         //Combination of all possible rating by user1 and user2 on movie1 and movie2
-        occupation.add(new Rating(movie1, user1, 5, 0));
-        occupation.add(new Rating(movie1, user2, 4, 0));
-        occupation.add(new Rating(movie2, user1, 3, 0));
-        occupation.add(new Rating(movie2, user2, 2, 0));
+        storage.add(new Rating(movie1, user1, 5, 0));
+        storage.add(new Rating(movie1, user2, 4, 0));
+        storage.add(new Rating(movie2, user1, 3, 0));
+        storage.add(new Rating(movie2, user2, 2, 0));
     }
 
     @Test
     public void testFilterByMovie(){
-        ratings = occupation.filterByMovie(movie1);
+        ratings = storage.filterByMovie(movie1);
         for(Rating rating : ratings){
             assertSame(rating.getMovie(), movie1);
             assertNotSame(rating.getMovie(), movie2);
         }
-        assertNotNull(occupation.filterByMovie(movie3));
+        assertNotNull(storage.filterByMovie(movie3));
     }
 
     @Test
     public void testFilterByUser(){
-        ratings = occupation.filterByUser(user1);
+        ratings = storage.filterByUser(user1);
         for(Rating rating : ratings){
             assertSame(rating.getUser(), user1);
             assertNotSame(rating.getUser(), user2);
         }
-        assertNotNull(occupation.filterByUser(user3));
+        assertNotNull(storage.filterByUser(user3));
     }
 }

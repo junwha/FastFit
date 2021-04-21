@@ -13,7 +13,7 @@ public class InMemoryGenreRepository implements GenreRepository {
     /**
      * Initializes InMemoryGenreRpository with given genre names.
      */
-    InMemoryGenreRepository(List<String> genreNames) {
+    public InMemoryGenreRepository(List<String> genreNames) {
         for (String name: genreNames) {
             Genre genre = new Genre(name);
             genres.put(getSearchName(name), genre);

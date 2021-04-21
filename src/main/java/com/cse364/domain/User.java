@@ -1,14 +1,16 @@
-package com.cse364;
-enum Gender{M, F}
+package com.cse364.domain;
+
 
 public class User {
+    public static enum Gender { M, F }
+    
     private int id;
     private Gender gender;
     private int age;
     private Occupation occupation;
     private String zipCode;
 
-    User(int id, Gender gender, int age, Occupation occupation, String zipCode){
+    public User(int id, Gender gender, int age, Occupation occupation, String zipCode){
         this.id = id;
         this.gender = gender;
         this.age = age;

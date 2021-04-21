@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import com.cse364.domain.*;
 
 public class InMemoryRatingRepository implements RatingRepository  {
-    private HashMap<Integer, ArrayList<Rating>> userMap;
-    private HashMap<Integer, ArrayList<Rating>> movieMap;
+    private HashMap<Integer, List<Rating>> userMap = new HashMap();
+    private HashMap<Integer, List<Rating>> movieMap = new HashMap();
 
-    public InMemoryRatingRepository() {
-        userMap = new HashMap<Integer, ArrayList<Rating>>();
-        movieMap = new HashMap<Integer, ArrayList<Rating>>();
-    }
+    InMemoryRatingRepository() { }
 
-    public void add(Rating rating){
+    /**
+     * Adds a rating to the storage.
+     */
+    void add(Rating rating){
         if (!userMap.containsKey(rating.getUser().getId())) {
             userMap.put(rating.getUser().getId(), new ArrayList<Rating>());
         }
@@ -27,14 +27,14 @@ public class InMemoryRatingRepository implements RatingRepository  {
     }
 
     public List<Rating> filterByMovie(Movie movie) {
-        ArrayList<Rating> ratings = movieMap.get(movie.getId());
-        if (ratings == null) { ratings = new ArrayList<>(); }
+        List<Rating> ratings = movieMap.get(movie.getId());
+        if (ratings == null) { ratings = new ArrayList(); }
         return ratings;
     }
 
     public List<Rating> filterByUser(User user) {
-        ArrayList<Rating> ratings = userMap.get(user.getId());
-        if (ratings == null) { ratings = new ArrayList<>(); }
+        List<Rating> ratings = userMap.get(user.getId());
+        if (ratings == null) { ratings = new ArrayList(); }
         return ratings;
     }
 }

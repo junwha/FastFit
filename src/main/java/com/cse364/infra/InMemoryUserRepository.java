@@ -6,19 +6,15 @@ import com.cse364.domain.*;
 public class InMemoryUserRepository implements UserRepository {
     private HashMap<Integer, User> users = new HashMap<>();
 
-    public InMemoryUserRepository() { }
+    InMemoryUserRepository() { }
 
     /**
      * Adds a user to the storage.
      */
-    public void add(User user) {
+    void add(User user) {
         users.put(user.getId(), user);
     }
 
-    /**
-     * Returns a user by id.
-     * If there is no user with given id, it returns `null`.
-     */
     public User get(int id) {
         return users.get(id);
     }

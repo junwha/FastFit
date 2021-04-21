@@ -12,15 +12,13 @@ import java.util.List;
 import com.cse364.domain.*;
 
 
-public class DataLoader {
-    private static String[] genreNames = {
+public class DataLoader {    
+    public static GenreRepository genres = new InMemoryGenreRepository(List.of(
         "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary",
         "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi",
-        "Thriller", "War", "Western",
-    };
-
-    public static GenreStorage genreStorage = new GenreStorage(genreNames);
-    public static OccupationStorage occupationStorage = new OccupationStorage(){{
+        "Thriller", "War", "Western"
+    ));
+    public static OccupationRepository occupations = new InMemoryOccupationRepository(){{
         add(new Occupation(0, "Other"));
         add(new Occupation(1, "Academic/Educator"), List.of("academic", "educator"));
         add(new Occupation(2, "Artist"));
@@ -44,9 +42,9 @@ public class DataLoader {
         add(new Occupation(20, "Writer"));
     }};
 
-    public static UserRepository userRepository;
-    public static MovieRepository movieRepository;
-    public static RatingRepository ratingRepository;
+    public static UserRepository users;
+    public static MovieRepository movies;
+    public static RatingRepository ratings;
 
     private static List<String[]> parseData(Reader reader) {
         List<String[]> contents = new ArrayList<String[]>();
@@ -64,23 +62,23 @@ public class DataLoader {
     }
 
     private static MovieRepository getMovieRepository(Reader moviesReader) {
-        InMemoryMovieRepository movieRepository = new InMemoryMovieRepository();
+        InMemoryMovieRepository movies = new InMemoryMovieRepository();
         List<String[]> data = parseData(moviesReader);
 
         for (String[] args : data) {
             int id = Integer.parseInt(args[0]);
-            ArrayList<Genre> genres = new ArrayList();
+            ArrayList<Genre> movieGenres = new ArrayList();
             for (String genreName: args[2].toLowerCase().split("\\|")) {
-                genres.add(genreStorage.getGenre(genreName));
+                movieGenres.add(genres.searchByName(genreName));
             }
-            movieRepository.add(new Movie(id, args[1], genres));
+            movies.add(new Movie(id, args[1], movieGenres));
         }
         
-        return movieRepository;
+        return movies;
     }
 
     private static UserRepository getUserRepository(Reader usersReader) {
-        InMemoryUserRepository userRepository = new InMemoryUserRepository();
+        InMemoryUserRepository users = new InMemoryUserRepository();
         List<String[]> data = parseData(usersReader);
 
         for (String[] args : data) {
@@ -90,34 +88,34 @@ public class DataLoader {
             } else if (args[1].equals(("F"))) {
                 g = User.Gender.F;
             }
-            Occupation occupation = occupationStorage.getOccupationById(Integer.parseInt(args[3]));
+            Occupation occupation = occupations.get(Integer.parseInt(args[3]));
 
             int id = Integer.parseInt(args[0]);
-            userRepository.add(
+            users.add(
                 new User(id, g, Integer.parseInt(args[2]), occupation, args[4])
             );
         }
 
-        return userRepository;
+        return users;
     }
 
     private static RatingRepository getRatingRepository(Reader ratingsReader) {
-        InMemoryRatingRepository ratingRepository = new InMemoryRatingRepository();
+        InMemoryRatingRepository ratings = new InMemoryRatingRepository();
         List<String[]> data = parseData(ratingsReader);
 
         for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
             int userId = Integer.parseInt(args[0]);
 
-            ratingRepository.add(new Rating(
-                movieRepository.get(movieId),
-                userRepository.get(userId),
+            ratings.add(new Rating(
+                movies.get(movieId),
+                users.get(userId),
                 Integer.parseInt(args[2]),
                 Integer.parseInt(args[3])
             ));
         }
 
-        return ratingRepository;
+        return ratings;
     }
 
     private static void parseLinks(Reader linksReader) {
@@ -127,15 +125,15 @@ public class DataLoader {
             int movieId = Integer.parseInt(args[0]);
             String link = "http://www.imdb.com/title/tt" + args[1];
 
-            movieRepository.get(movieId).setLink(link);
+            movies.get(movieId).setLink(link);
         }
     }
 
     public static void read() {
         try {
-            movieRepository = getMovieRepository(new FileReader("./data/movies.dat"));
-            userRepository = getUserRepository(new FileReader("./data/users.dat"));
-            ratingRepository = getRatingRepository(new FileReader("./data/ratings.dat"));
+            movies = getMovieRepository(new FileReader("./data/movies.dat"));
+            users = getUserRepository(new FileReader("./data/users.dat"));
+            ratings = getRatingRepository(new FileReader("./data/ratings.dat"));
             parseLinks(new FileReader("./data/links.dat"));
         } catch (FileNotFoundException e) {
             System.out.println("Some data file is missing. Please try to clone the repo again.");

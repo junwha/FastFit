@@ -4,20 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import com.cse364.domain.*;
 
-public class OccupationStorage {
+public class InMemoryOccupationRepository implements OccupationRepository {
     private HashMap<Integer, Occupation> occupationById = new HashMap<>();
     private HashMap<String, Occupation> occupationByAlias = new HashMap<>();
 
-    /**
-     * Initializes OccupationStorage.
-     */
-    public OccupationStorage() { }
+    InMemoryOccupationRepository() { }
 
     /**
      * Adds an occupation to the storage.
      * It can be searched by its name only.
      */
-    public void add(Occupation occupation) {
+    void add(Occupation occupation) {
         occupationById.put(occupation.getId(), occupation);
         occupationByAlias.put(getSearchName(occupation.getName()), occupation);
     }
@@ -26,7 +23,7 @@ public class OccupationStorage {
      * Adds an occupation to the storage.
      * It can be searched by given name aliases.
      */
-    public void add(Occupation occupation, List<String> aliases) {
+    void add(Occupation occupation, List<String> aliases) {
         occupationById.put(occupation.getId(), occupation);
         occupationByAlias.put(getSearchName(occupation.getName()), occupation);
         for (String name : aliases) {
@@ -34,21 +31,11 @@ public class OccupationStorage {
         }
     }
 
-    /**
-     * Returns a Occupation by id.
-     * If there is no occupation with given id, it returns `null`.
-     */
-    public Occupation getOccupationById(int id) {
+    public Occupation get(int id) {
         return occupationById.get(id);
     }
 
-    /**
-     * Returns a Occupation corresponding to the given name or alias.
-     * The search is case-insensitive.
-     * Also, special characters (except for '/') and whitespaces are ignored.
-     * If the name is not a valid occupation name, it returns `null`.
-     */
-    public Occupation getOccupationByName(String name) {
+    public Occupation searchByName(String name) {
         return occupationByAlias.get(getSearchName(name));
     }
 

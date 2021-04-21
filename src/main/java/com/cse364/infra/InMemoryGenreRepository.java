@@ -1,29 +1,26 @@
 package com.cse364.infra;
 
 import java.util.HashMap;
+import java.util.List;
 import com.cse364.domain.*;
 
-public class GenreStorage {
+public class InMemoryGenreRepository implements GenreRepository {
     // A map from normalized genre names (search names) to actual Genre objects.
     private HashMap<String, Genre> genres = new HashMap<>();
 
+    InMemoryGenreRepository() { }
+
     /**
-     * Initializes GenreStorage.
+     * Initializes InMemoryGenreRpository with given genre names.
      */
-    public GenreStorage(String[] genreNames) {
+    InMemoryGenreRepository(List<String> genreNames) {
         for (String name: genreNames) {
             Genre genre = new Genre(name);
             genres.put(getSearchName(name), genre);
         }
     }
 
-    /**
-     * Returns a `Genre` corresponding to the given name.
-     * The search is case-insensitive.
-     * Also, special characters and whitespaces are ignored.
-     * If the name is not a valid genre name, it returns `null`.
-     */
-    public Genre getGenre(String name) {
+    public Genre searchByName(String name) {
         return genres.get(getSearchName(name));
     }
 

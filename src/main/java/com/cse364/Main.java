@@ -15,8 +15,8 @@ public class Main {
         // Load all data
         DataLoader.read();
         averageRatingService = new AverageRatingService(
-            DataLoader.movieRepository,
-            DataLoader.ratingRepository
+            DataLoader.movies,
+            DataLoader.ratings
         );
 
         //Checking Format valid
@@ -28,7 +28,7 @@ public class Main {
         //Preprocess genres and occupation
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
-            Genre genre = DataLoader.genreStorage.getGenre(genreName);
+            Genre genre = DataLoader.genres.searchByName(genreName);
             if (genre == null) {
                 System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
@@ -36,7 +36,7 @@ public class Main {
             genres.add(genre);
         }
 
-        Occupation occupation = DataLoader.occupationStorage.getOccupationByName(args[1]);
+        Occupation occupation = DataLoader.occupations.searchByName(args[1]);
 
         //Checking Occupation valid
         if (occupation == null) {

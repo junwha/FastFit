@@ -5,26 +5,26 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GenreTest {
-    private Genre testedObject1;
-    private Genre testedObject2;
-    private Genre testedObject3;
+    private Genre genre1;
+    private Genre genre2;
+    private Genre genre3;
 
     @Before
     public void init(){
-        testedObject1 = new Genre("Horror");
-        testedObject2 = new Genre("Horror");
-        testedObject3 = new Genre("Comedy");
+        genre1 = new Genre("Horror");
+        genre2 = new Genre("Horror");
+        genre3 = new Genre("Comedy");
     }
 
     @Test
     public void testConstructor(){
-        assertEquals(testedObject1.getName(), "Horror");
+        assertEquals(genre1.getName(), "Horror");
     }
 
     @Test
     public void testEquals(){
-        assertTrue(testedObject1.equals(testedObject2));
-        assertFalse(testedObject1.equals(testedObject3));
+        assertTrue(genre1.equals(genre2));
+        assertFalse(genre1.equals(genre3));
     }
 
 

@@ -10,11 +10,11 @@ import java.util.Map;
 public class OccupationTest {
     @Test
     public void testConstructor(){
-        Occupation testObject1 = new Occupation(3, "Admin");
-        assertSame(testObject1.getId(), 3);
-        assertNotSame(testObject1.getId(), 0);
-        assertSame(testObject1.getName(), "Admin");
-        assertNotSame(testObject1.getName(), "Others");
+        Occupation occupation1 = new Occupation(3, "Admin");
+        assertSame(occupation1.getId(), 3);
+        assertNotSame(occupation1.getId(), 0);
+        assertSame(occupation1.getName(), "Admin");
+        assertNotSame(occupation1.getName(), "Others");
     }
 
     @Test

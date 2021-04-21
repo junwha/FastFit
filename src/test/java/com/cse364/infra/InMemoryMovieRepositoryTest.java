@@ -22,7 +22,7 @@ public class InMemoryMovieRepositoryTest {
     @Test
     public void testAdd(){
         storage.add(movies.get(0));
-        assertNotNull(storage.get(1));
+        assertEquals(storage.get(1), movies.get(0));
     }
 
     @Test

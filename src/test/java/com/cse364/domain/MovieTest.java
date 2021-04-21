@@ -1,7 +1,6 @@
 package com.cse364.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -9,15 +8,15 @@ import static org.junit.Assert.*;
 
 public class MovieTest {
     private Movie movie;
-    private ArrayList<Genre> genreList;
+    private List<Genre> genreList;
 
     @Before
     public void init() {
-        genreList = new ArrayList<Genre>() {{
-            add(new Genre("Animation"));
-            add(new Genre("Children's"));
-            add(new Genre("Comedy"));
-        }};
+        genreList = List.of(
+            new Genre("Animation"),
+            new Genre("Children's"),
+            new Genre("Comedy")
+        );
 
         movie = new Movie(
                 1,

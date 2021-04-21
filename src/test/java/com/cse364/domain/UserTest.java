@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.domain;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +10,8 @@ public class UserTest {
 
     @Before
     public void init(){
-        testObject1 = new User(1, Gender.M, 20, new Occupation(1, "Student"), "00000");
-        testObject2 = new User(1, Gender.M, 20, new Occupation(1, "Student"), "00000");
+        testObject1 = new User(1, User.Gender.M, 20, new Occupation(1, "Student"), "00000");
+        testObject2 = new User(1, User.Gender.M, 20, new Occupation(1, "Student"), "00000");
     }
 
     @Test

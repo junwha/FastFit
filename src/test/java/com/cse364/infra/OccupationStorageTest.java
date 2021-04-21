@@ -1,9 +1,10 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
+import com.cse364.domain.*;
 
 public class OccupationStorageTest {
     private OccupationStorage storage;

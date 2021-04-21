@@ -1,8 +1,9 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import com.cse364.domain.*;
 
 public class RatingStorage {
     private HashMap<Integer, ArrayList<Rating>> userMap;
@@ -14,15 +15,15 @@ public class RatingStorage {
     }
 
     public void add(Rating rating){
-        if (!userMap.containsKey(rating.user.getId())) {
-            userMap.put(rating.user.getId(), new ArrayList<Rating>());
+        if (!userMap.containsKey(rating.getUser().getId())) {
+            userMap.put(rating.getUser().getId(), new ArrayList<Rating>());
         }
-        if (!movieMap.containsKey(rating.movie.getId())) {
-            movieMap.put(rating.movie.getId(), new ArrayList<Rating>());
+        if (!movieMap.containsKey(rating.getMovie().getId())) {
+            movieMap.put(rating.getMovie().getId(), new ArrayList<Rating>());
         }
 
-        movieMap.get(rating.movie.getId()).add(rating);
-        userMap.get(rating.user.getId()).add(rating);
+        movieMap.get(rating.getMovie().getId()).add(rating);
+        userMap.get(rating.getUser().getId()).add(rating);
     }
 
     public List<Rating> getRatingsByMovie(Movie movie){

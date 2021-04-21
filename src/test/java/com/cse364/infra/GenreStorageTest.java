@@ -1,7 +1,8 @@
-package com.cse364;
+package com.cse364.infra;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import com.cse364.domain.*;
 
 public class GenreStorageTest {
     @Test

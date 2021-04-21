@@ -1,6 +1,7 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.util.HashMap;
+import com.cse364.domain.*;
 
 public class GenreStorage {
     // A map from normalized genre names (search names) to actual Genre objects.
@@ -9,7 +10,7 @@ public class GenreStorage {
     /**
      * Initializes GenreStorage.
      */
-    GenreStorage(String[] genreNames) {
+    public GenreStorage(String[] genreNames) {
         for (String name: genreNames) {
             Genre genre = new Genre(name);
             genres.put(getSearchName(name), genre);

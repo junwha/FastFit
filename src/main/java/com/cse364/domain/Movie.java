@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.domain;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -9,12 +9,11 @@ public class Movie {
     private List<Genre> genres;
     private String link;
 
-    Movie(int id, String title, List<Genre> genres){
+    public Movie(int id, String title, List<Genre> genres){
         this.id = id;
         this.title = title;
         this.genres = genres;
     }
-
 
     /**
      * Returns whether this movie has given genre.

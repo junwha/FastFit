@@ -1,7 +1,8 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.util.HashMap;
 import java.util.List;
+import com.cse364.domain.*;
 
 public class OccupationStorage {
     private HashMap<Integer, Occupation> occupationById = new HashMap<>();
@@ -10,7 +11,7 @@ public class OccupationStorage {
     /**
      * Initializes OccupationStorage.
      */
-    OccupationStorage() { }
+    public OccupationStorage() { }
 
     /**
      * Adds an occupation to the storage.

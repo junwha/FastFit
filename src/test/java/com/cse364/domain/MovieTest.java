@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,12 +1,11 @@
-package com.cse364;
+package com.cse364.infra;
 
-import com.cse364.RatingStorage;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
+import com.cse364.domain.*;
 
 public class RatingStorageTest {
     private RatingStorage testObject;
@@ -17,9 +16,9 @@ public class RatingStorageTest {
     @Before
     public void init(){
         testObject = new RatingStorage();
-        user1 = new User(1, Gender.M, 20, new Occupation(1, "Teacher"), "10000");
-        user2 = new User(2, Gender.F, 55, new Occupation(2, "Retired"), "10001");
-        user3 = new User(3, Gender.M, 30, new Occupation(0, "Others"), "10002");
+        user1 = new User(1, User.Gender.M, 20, new Occupation(1, "Teacher"), "10000");
+        user2 = new User(2, User.Gender.F, 55, new Occupation(2, "Retired"), "10001");
+        user3 = new User(3, User.Gender.M, 30, new Occupation(0, "Others"), "10002");
         movie1 = new Movie(
                 1,
                 "Toy Story",
@@ -58,8 +57,8 @@ public class RatingStorageTest {
     public void testGetRatingsByMovie(){
         ratings = testObject.getRatingsByMovie(movie1);
         for(Rating rating : ratings){
-            assertSame(rating.movie, movie1);
-            assertNotSame(rating.movie, movie2);
+            assertSame(rating.getMovie(), movie1);
+            assertNotSame(rating.getMovie(), movie2);
         }
         assertNotNull(testObject.getRatingsByMovie(movie3));
     }
@@ -68,8 +67,8 @@ public class RatingStorageTest {
     public void testGetRatingsByUser(){
         ratings = testObject.getRatingsByUser(user1);
         for(Rating rating : ratings){
-            assertSame(rating.user, user1);
-            assertNotSame(rating.user, user2);
+            assertSame(rating.getUser(), user1);
+            assertNotSame(rating.getUser(), user2);
         }
         assertNotNull(testObject.getRatingsByUser(user3));
     }

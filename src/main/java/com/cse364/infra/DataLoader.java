@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import com.cse364.domain.*;
 
 /*
 MOVIES FILE
@@ -99,12 +100,11 @@ public class DataLoader {
         ArrayList<String[]> data = readFileData(usersFile);
 
         for (String[] args : data) {
-            //Allocate genre(enum type)
-            Gender g = null;
+            User.Gender g = null;
             if (args[1].equals("M")) {
-                g = Gender.M;
+                g = User.Gender.M;
             } else if (args[1].equals(("F"))) {
-                g = Gender.F;
+                g = User.Gender.F;
             }
 
             int id = Integer.parseInt(args[0]);

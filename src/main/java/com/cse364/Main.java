@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import com.cse364.domain.*;
+import com.cse364.app.*;
+import com.cse364.infra.*;
 
 // Input format
 // java (filename) genres occupation
@@ -87,9 +90,9 @@ public class Main {
 
             //Check occupations of rating
             for (Rating rating : DataLoader.ratingStorage.getRatingsByMovie(movie)) {
-                if (occupation.equals(rating.user.getOccupation())) {
+                if (occupation.equals(rating.getUser().getOccupation())) {
                     ratingCnt++;
-                    ratingSum += rating.rating;
+                    ratingSum += rating.getRating();
                 }
             }
         }

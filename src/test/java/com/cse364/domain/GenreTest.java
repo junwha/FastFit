@@ -1,4 +1,4 @@
-package com.cse364;
+package com.cse364.domain;
 
 import org.junit.Before;
 import org.junit.Test;

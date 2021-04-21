@@ -1,14 +1,14 @@
 package com.cse364.infra;
 
 import java.util.HashMap;
-import java.util.Collections;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import com.cse364.domain.*;
 
-public class MovieStorage {
+public class InMemoryMovieRepository implements MovieRepository {
     private HashMap<Integer, Movie> movies = new HashMap<>();
 
-    public MovieStorage() { }
+    public InMemoryMovieRepository() { }
 
     /**
      * Adds a movie to the storage.
@@ -21,14 +21,14 @@ public class MovieStorage {
      * Returns a Movie by id.
      * If there is no movie with given id, it returns `null`.
      */
-    public Movie getMovie(Integer id) {
+    public Movie get(int id) {
         return movies.get(id);
     }
 
     /**
-     * Returns an unmodifiable hashmap of all movies.
+     * Returns a list of all movies.
      */
-    public Map<Integer, Movie> allMovies() {
-        return Collections.unmodifiableMap(movies);
+    public List<Movie> all() {
+        return new ArrayList(movies.values());
     }   
 }

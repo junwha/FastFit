@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.ArrayList;
 import com.cse364.domain.*;
 
-public class RatingStorage {
+public class InMemoryRatingRepository implements RatingRepository  {
     private HashMap<Integer, ArrayList<Rating>> userMap;
     private HashMap<Integer, ArrayList<Rating>> movieMap;
 
-    public RatingStorage() {
+    public InMemoryRatingRepository() {
         userMap = new HashMap<Integer, ArrayList<Rating>>();
         movieMap = new HashMap<Integer, ArrayList<Rating>>();
     }
@@ -26,13 +26,13 @@ public class RatingStorage {
         userMap.get(rating.getUser().getId()).add(rating);
     }
 
-    public List<Rating> getRatingsByMovie(Movie movie){
+    public List<Rating> filterByMovie(Movie movie) {
         ArrayList<Rating> ratings = movieMap.get(movie.getId());
         if (ratings == null) { ratings = new ArrayList<>(); }
         return ratings;
     }
 
-    public List<Rating> getRatingsByUser(User user){
+    public List<Rating> filterByUser(User user) {
         ArrayList<Rating> ratings = userMap.get(user.getId());
         if (ratings == null) { ratings = new ArrayList<>(); }
         return ratings;

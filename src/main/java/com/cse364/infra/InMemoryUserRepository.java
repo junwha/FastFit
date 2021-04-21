@@ -3,10 +3,10 @@ package com.cse364.infra;
 import java.util.HashMap;
 import com.cse364.domain.*;
 
-public class UserStorage {
+public class InMemoryUserRepository implements UserRepository {
     private HashMap<Integer, User> users = new HashMap<>();
 
-    public UserStorage() { }
+    public InMemoryUserRepository() { }
 
     /**
      * Adds a user to the storage.
@@ -19,7 +19,7 @@ public class UserStorage {
      * Returns a user by id.
      * If there is no user with given id, it returns `null`.
      */
-    public User getUser(Integer id) {
+    public User get(int id) {
         return users.get(id);
     }
 }

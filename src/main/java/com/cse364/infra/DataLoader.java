@@ -44,9 +44,9 @@ public class DataLoader {
         add(new Occupation(20, "Writer"));
     }};
 
-    public static UserStorage userStorage;
-    public static MovieStorage movieStorage;
-    public static RatingStorage ratingStorage;
+    public static UserRepository userRepository;
+    public static MovieRepository movieRepository;
+    public static RatingRepository ratingRepository;
 
     private static List<String[]> parseData(Reader reader) {
         List<String[]> contents = new ArrayList<String[]>();
@@ -63,8 +63,8 @@ public class DataLoader {
         return contents;
     }
 
-    private static MovieStorage getMovieStorage(Reader moviesReader) {
-        MovieStorage movieStorage = new MovieStorage();
+    private static MovieRepository getMovieRepository(Reader moviesReader) {
+        InMemoryMovieRepository movieRepository = new InMemoryMovieRepository();
         List<String[]> data = parseData(moviesReader);
 
         for (String[] args : data) {
@@ -73,14 +73,14 @@ public class DataLoader {
             for (String genreName: args[2].toLowerCase().split("\\|")) {
                 genres.add(genreStorage.getGenre(genreName));
             }
-            movieStorage.add(new Movie(id, args[1], genres));
+            movieRepository.add(new Movie(id, args[1], genres));
         }
         
-        return movieStorage;
+        return movieRepository;
     }
 
-    private static UserStorage getUserStorage(Reader usersReader) {
-        UserStorage userStorage = new UserStorage();
+    private static UserRepository getUserRepository(Reader usersReader) {
+        InMemoryUserRepository userRepository = new InMemoryUserRepository();
         List<String[]> data = parseData(usersReader);
 
         for (String[] args : data) {
@@ -93,31 +93,31 @@ public class DataLoader {
             Occupation occupation = occupationStorage.getOccupationById(Integer.parseInt(args[3]));
 
             int id = Integer.parseInt(args[0]);
-            userStorage.add(
+            userRepository.add(
                 new User(id, g, Integer.parseInt(args[2]), occupation, args[4])
             );
         }
 
-        return userStorage;
+        return userRepository;
     }
 
-    private static RatingStorage getRatingStorage(Reader ratingsReader) {
-        RatingStorage ratingStorage = new RatingStorage();
+    private static RatingRepository getRatingRepository(Reader ratingsReader) {
+        InMemoryRatingRepository ratingRepository = new InMemoryRatingRepository();
         List<String[]> data = parseData(ratingsReader);
 
         for (String[] args : data) {
             int movieId = Integer.parseInt(args[1]);
             int userId = Integer.parseInt(args[0]);
 
-            ratingStorage.add(new Rating(
-                movieStorage.getMovie(movieId),
-                userStorage.getUser(userId),
+            ratingRepository.add(new Rating(
+                movieRepository.get(movieId),
+                userRepository.get(userId),
                 Integer.parseInt(args[2]),
                 Integer.parseInt(args[3])
             ));
         }
 
-        return ratingStorage;
+        return ratingRepository;
     }
 
     private static void parseLinks(Reader linksReader) {
@@ -127,15 +127,15 @@ public class DataLoader {
             int movieId = Integer.parseInt(args[0]);
             String link = "http://www.imdb.com/title/tt" + args[1];
 
-            movieStorage.getMovie(movieId).setLink(link);
+            movieRepository.get(movieId).setLink(link);
         }
     }
 
     public static void read() {
         try {
-            movieStorage = getMovieStorage(new FileReader("./data/movies.dat"));
-            userStorage = getUserStorage(new FileReader("./data/users.dat"));
-            ratingStorage = getRatingStorage(new FileReader("./data/ratings.dat"));
+            movieRepository = getMovieRepository(new FileReader("./data/movies.dat"));
+            userRepository = getUserRepository(new FileReader("./data/users.dat"));
+            ratingRepository = getRatingRepository(new FileReader("./data/ratings.dat"));
             parseLinks(new FileReader("./data/links.dat"));
         } catch (FileNotFoundException e) {
             System.out.println("Some data file is missing. Please try to clone the repo again.");

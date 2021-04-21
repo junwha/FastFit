@@ -8,7 +8,7 @@ import com.cse364.domain.*;
 public class InMemoryMovieRepository implements MovieRepository {
     private HashMap<Integer, Movie> movies = new HashMap<>();
 
-    InMemoryMovieRepository() { }
+    public InMemoryMovieRepository() { }
 
     /**
      * Adds a movie to the storage.

@@ -83,7 +83,7 @@ public class Main {
         int ratingSum = 0;
         int ratingCnt = 0;
 
-        for (Map.Entry<Integer, Movie> movieEntry : DataLoader.movies.entrySet()) {
+        for (Map.Entry<Integer, Movie> movieEntry : DataLoader.movieStorage.allMovies().entrySet()) {
             Movie movie = movieEntry.getValue();
 
             if (!movie.hasGenres(genres)) { continue; }

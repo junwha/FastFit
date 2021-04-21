@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class MovieTest {
     private Movie movie;
     private ArrayList<Genre> genreList;
-    private Genre[] genreArray;
 
     @Before
     public void init() {
@@ -20,10 +19,6 @@ public class MovieTest {
             add(new Genre("Comedy"));
         }};
 
-        genreArray = new Genre[]{
-                new Genre("Comedy"),
-                new Genre("Animation")
-        };
         movie = new Movie(
                 1,
                 "Toy Story",
@@ -45,35 +40,6 @@ public class MovieTest {
         );
         assertFalse(
                 movie.hasGenre(new Genre("Sci-Fi"))
-        );
-    }
-
-    @Test
-    public void testHasGenres() {
-        assertTrue(
-                movie.hasGenres(new Genre[]{
-                        new Genre("Comedy"),
-                        new Genre("Animation"),
-                })
-        );
-        assertFalse(
-                movie.hasGenres(new Genre[]{
-                        new Genre("Animation"),
-                        new Genre("Sci-Fi"),
-                })
-        );
-
-        assertTrue(
-                movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
-                        new Genre("Comedy"),
-                        new Genre("Animation")
-                )))
-        );
-        assertFalse(
-                movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
-                        new Genre("Animation"),
-                        new Genre("Sci-Fi")
-                )))
         );
     }
 }

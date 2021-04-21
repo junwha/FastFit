@@ -18,7 +18,7 @@ public class GenreTest {
 
     @Test
     public void testConstructor(){
-        assertEquals(testedObject1.getName(), testedObject2.getName());
+        assertEquals(testedObject1.getName(), "Horror");
     }
 
     @Test

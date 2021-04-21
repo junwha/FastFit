@@ -22,28 +22,28 @@ public class InMemoryRatingRepositoryTest {
         movie1 = new Movie(
                 1,
                 "Toy Story",
-                new ArrayList<Genre>() {{
-                    add(new Genre("Animation"));
-                    add(new Genre("Children's"));
-                    add(new Genre("Comedy"));
-                }}
+                List.of(
+                    new Genre("Animation"),
+                    new Genre("Children's"),
+                    new Genre("Comedy")
+                )
         );
         movie2 = new Movie(
                 2,
                 "Jumanji",
-                new ArrayList<Genre>() {{
-                    add(new Genre("Adventure"));
-                    add(new Genre("Children's"));
-                    add(new Genre("Fantasy"));
-                }}
+                List.of(
+                        new Genre("Adventure"),
+                        new Genre("Children's"),
+                        new Genre("Fantasy")
+                )
         );
         movie3 = new Movie(
                 3,
                 "Grumpier Old Men",
-                new ArrayList<Genre>() {{
-                    add(new Genre("Comedy"));
-                    add(new Genre("Romance"));
-                }}
+                List.of(
+                        new Genre("Comedy"),
+                        new Genre("Romance")
+                )
         );
 
         //Combination of all possible rating by user1 and user2 on movie1 and movie2

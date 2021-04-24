@@ -19,9 +19,9 @@ public class MovieTest {
         );
 
         movie = new Movie(
-                1,
-                "Toy Story",
-                genreList
+            1,
+            "Toy Story",
+            genreList
         );
     }
 
@@ -35,10 +35,10 @@ public class MovieTest {
     @Test
     public void testHasGenre() {
         assertTrue(
-                movie.hasGenre(new Genre("Children's"))
+            movie.hasGenre(new Genre("Children's"))
         );
         assertFalse(
-                movie.hasGenre(new Genre("Sci-Fi"))
+            movie.hasGenre(new Genre("Sci-Fi"))
         );
     }
 }

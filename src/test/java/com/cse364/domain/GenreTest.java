@@ -26,6 +26,4 @@ public class GenreTest {
         assertTrue(genre1.equals(genre2));
         assertFalse(genre1.equals(genre3));
     }
-
-
 }

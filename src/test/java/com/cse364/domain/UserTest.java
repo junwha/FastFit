@@ -22,5 +22,4 @@ public class UserTest {
         assertTrue(user1.getOccupation().equals(occupation));
         assertEquals(user1.getZipCode(), "00000");
     }
-
 }

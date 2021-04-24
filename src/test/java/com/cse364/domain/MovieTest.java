@@ -38,7 +38,23 @@ public class MovieTest {
             movie.hasGenre(new Genre("Children's"))
         );
         assertFalse(
-            movie.hasGenre(new Genre("Sci-Fi"))
+            movie.hasGenre(new Genre("Different Genre"))
+        );
+    }
+
+    @Test
+    public void testHasGenres() {
+        assertTrue(
+            movie.hasGenres(List.of(
+                new Genre("Comedy"),
+                new Genre("Animation")
+            ))
+        );
+        assertFalse(
+            movie.hasGenres(List.of(
+                new Genre("Children's"),
+                new Genre("Different Genre")
+            ))
         );
     }
 }

@@ -2,8 +2,9 @@ package com.cse364.infra;
 
 import org.junit.Before;
 import org.junit.Test;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.*;
 import com.cse364.domain.*;
 
@@ -57,19 +58,17 @@ public class InMemoryRatingRepositoryTest {
     public void testFilterByMovie(){
         ratings = storage.filterByMovie(movie1);
         for(Rating rating : ratings){
-            assertSame(rating.getMovie(), movie1);
-            assertNotSame(rating.getMovie(), movie2);
+            assertEquals(rating.getMovie(), movie1);
         }
-        assertNotNull(storage.filterByMovie(movie3));
+        assertEquals(storage.filterByMovie(movie3), new ArrayList<>());
     }
 
     @Test
     public void testFilterByUser(){
         ratings = storage.filterByUser(user1);
         for(Rating rating : ratings){
-            assertSame(rating.getUser(), user1);
-            assertNotSame(rating.getUser(), user2);
+            assertEquals(rating.getUser(), user1);
         }
-        assertNotNull(storage.filterByUser(user3));
+        assertEquals(storage.filterByUser(user3), new ArrayList<>());
     }
 }

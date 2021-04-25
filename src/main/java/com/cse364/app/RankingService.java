@@ -17,12 +17,13 @@ public class RankingService {
         this.ratingRepository = ratingRepository;
     }
 
-    private List<Movie> averageRating(RatingRepository ratingRepository){
+    private List<Movie> averageRating(RatingRepository ratingRepository) {
         // This map sort by key. High ratings saved to the front of map
-        Map<Double, List<Movie>> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
         // KEY: AverageRating / VALUE: Movie
+        Map<Double, List<Movie>> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
         for(Movie movie : movieRepository.all()) {
             double average = ratingRepository.filterByMovie(movie).stream().mapToInt(value -> value.getRating()).average().orElse(0.0);
+            // Check whether duplicate key exists
             if(!movieRankingMap.containsKey(average)) {
                 movieRankingMap.put(average, new ArrayList<>());
             }
@@ -31,7 +32,8 @@ public class RankingService {
 
         List<Movie> movieRankingList = new ArrayList<>();
 
-        for(List<Movie> movies : movieRankingMap.values()){
+        // Flatten
+        for(List<Movie> movies : movieRankingMap.values()) {
             for(Movie movie : movies){
                 movieRankingList.add(movie);
             }
@@ -57,7 +59,7 @@ public class RankingService {
         if(movieRanking.size() >= 10){
             return movieRanking.subList(0, 10);
         }else{
-            return movieRanking;
+            return movieRanking; // TODO: Delete this code and implement exception
         }
 
     }

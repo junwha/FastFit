@@ -25,6 +25,8 @@ public class RankingServiceTest {
                 new User(2, User.Gender.M, 25, new Occupation(1, "others"), "00000"),
                 new User(3, User.Gender.M, 25, new Occupation(1, "others"), "00000")
         );
+
+        // Not Similar users for Gender, Age, Occupation
         List<User> notSimilarUsers = List.of(
                 new User(4, User.Gender.F, 25, new Occupation(1, "others"), "00000"),
                 new User(5, User.Gender.M, 35, new Occupation(1, "others"), "00000"),
@@ -52,19 +54,22 @@ public class RankingServiceTest {
         for(Movie movie : ratedBySimilarUsers){
             movieStorage.add(movie);
         }
-
         for(Movie movie : ratedByNotSimilarUsers){
             movieStorage.add(movie);
         }
 
         for(User user : similarUsers) {
             userStorage.add(user);
+            // Specify the head and tail ratings of top 10
             ratingStorage.add(new Rating(ratedBySimilarUsers.get(0), user, 5, 0));
             ratingStorage.add(new Rating(ratedBySimilarUsers.get(9), user, 1, 0));
 
+            // Middle ratings
             for(Movie movie : ratedBySimilarUsers.subList(1, 9)){
                 ratingStorage.add(new Rating(movie, user, 3, 0));
             }
+
+            // Over top 10
             for(Movie movie : ratedByNotSimilarUsers){
                 ratingStorage.add(new Rating(movie, user, 1, 0));
             }
@@ -85,8 +90,10 @@ public class RankingServiceTest {
 
     @Test
     public void testGetTop10MovieByUser(){
+        // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),
                 service.getTop10Movie(new User(1, User.Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());
+        // Tail
         assertEquals(ratedBySimilarUsers.get(9).getId(),
                 service.getTop10Movie(new User(1, User.Gender.M, 27, new Occupation(1, "others"), "00000")).get(9).getId());
     }
@@ -99,8 +106,4 @@ public class RankingServiceTest {
         }
 
     }
-
-//    rankingService.getTop10Movie(
-//            new User(1,User.Gender.M, 14,DataLoader.occupations.get(1), "00000"),
-//            List.of(DataLoader.genres.searchByName("Horror"), DataLoader.genres.searchByName("Childrens"))
 }

@@ -28,16 +28,6 @@ public class Movie {
     /**
      * Returns whether this movie has all given genres.
      */
-    public boolean hasGenres(Genre[] genres) {
-        for (Genre genre: genres) {
-            if (!hasGenre(genre)) { return false; }
-        }
-        return true;
-    }
-
-    /**
-     * Returns whether this movie has all given genres.
-     */
     public boolean hasGenres(List<Genre> genres) {
         for (Genre genre: genres) {
             if (!hasGenre(genre)) { return false; }

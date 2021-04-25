@@ -2,37 +2,36 @@ package com.cse364.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class RatingTest {
-    private Rating testObject1;
-    private Rating testObject2;
+    private Rating rating1;
+    private Movie movie;
+    private User user;
 
     @Before
     public void init(){
-        Movie movie = new Movie(
-                1,
-                "Toy Story",
-                new ArrayList<Genre>() {{
-                    add(new Genre("Animation"));
-                    add(new Genre("Children's"));
-                    add(new Genre("Comedy"));
-                }}
+        movie = new Movie(
+            1,
+            "Toy Story",
+            List.of(
+                new Genre("Animation"),
+                new Genre("Children's"),
+                new Genre("Comedy")
+            )
         );
-        User user = new User(1, User.Gender.M, 20, new Occupation(1, "Student"), "00000");
-        testObject1 = new Rating(movie, user, 5, 70072);
-        testObject2 = new Rating(movie, user, 5, 70072);
+        user = new User(1, User.Gender.M, 20, new Occupation(1, "Student"), "00000");
+        rating1 = new Rating(movie, user, 5, 70072);
     }
 
     @Test
     public void testConstructor(){
-        assertSame(testObject1.getMovie(), testObject2.getMovie());
-        assertSame(testObject1.getUser(), testObject2.getUser());
-        assertEquals(testObject1.getRating(), testObject2.getRating());
-        assertEquals(testObject1.getTimestamp(), testObject2.getTimestamp());
+        assertSame(rating1.getMovie(), movie);
+        assertSame(rating1.getUser(), user);
+        assertEquals(rating1.getRating(), 5);
+        assertEquals(rating1.getTimestamp(), 70072);
     }
-
 }

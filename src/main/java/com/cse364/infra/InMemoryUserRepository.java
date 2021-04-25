@@ -6,7 +6,7 @@ import com.cse364.domain.*;
 public class InMemoryUserRepository implements UserRepository {
     private HashMap<Integer, User> users = new HashMap<>();
 
-    InMemoryUserRepository() { }
+    public InMemoryUserRepository() { }
 
     /**
      * Adds a user to the storage.

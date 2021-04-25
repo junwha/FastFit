@@ -1,7 +1,6 @@
 package com.cse364.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -9,25 +8,20 @@ import static org.junit.Assert.*;
 
 public class MovieTest {
     private Movie movie;
-    private ArrayList<Genre> genreList;
-    private Genre[] genreArray;
+    private List<Genre> genreList;
 
     @Before
     public void init() {
-        genreList = new ArrayList<Genre>() {{
-            add(new Genre("Animation"));
-            add(new Genre("Children's"));
-            add(new Genre("Comedy"));
-        }};
+        genreList = List.of(
+            new Genre("Animation"),
+            new Genre("Children's"),
+            new Genre("Comedy")
+        );
 
-        genreArray = new Genre[]{
-                new Genre("Comedy"),
-                new Genre("Animation")
-        };
         movie = new Movie(
-                1,
-                "Toy Story",
-                genreList
+            1,
+            "Toy Story",
+            genreList
         );
     }
 
@@ -41,39 +35,26 @@ public class MovieTest {
     @Test
     public void testHasGenre() {
         assertTrue(
-                movie.hasGenre(new Genre("Children's"))
+            movie.hasGenre(new Genre("Children's"))
         );
         assertFalse(
-                movie.hasGenre(new Genre("Sci-Fi"))
+            movie.hasGenre(new Genre("Different Genre"))
         );
     }
 
     @Test
     public void testHasGenres() {
         assertTrue(
-                movie.hasGenres(new Genre[]{
-                        new Genre("Comedy"),
-                        new Genre("Animation"),
-                })
+            movie.hasGenres(List.of(
+                new Genre("Comedy"),
+                new Genre("Animation")
+            ))
         );
         assertFalse(
-                movie.hasGenres(new Genre[]{
-                        new Genre("Animation"),
-                        new Genre("Sci-Fi"),
-                })
-        );
-
-        assertTrue(
-                movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
-                        new Genre("Comedy"),
-                        new Genre("Animation")
-                )))
-        );
-        assertFalse(
-                movie.hasGenres(new ArrayList<Genre>(Arrays.asList(
-                        new Genre("Animation"),
-                        new Genre("Sci-Fi")
-                )))
+            movie.hasGenres(List.of(
+                new Genre("Children's"),
+                new Genre("Different Genre")
+            ))
         );
     }
 }

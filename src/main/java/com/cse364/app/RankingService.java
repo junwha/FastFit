@@ -43,7 +43,12 @@ public class RankingService {
         InMemoryRatingRepository ratingBySimilarUserRepository = new InMemoryRatingRepository(ratingsBySimilarUser);
         List<Movie> movieRanking = averageRating(ratingBySimilarUserRepository);
 
-        return movieRanking.subList(0, 10);
+        if(movieRanking.size() >= 10){
+            return movieRanking.subList(0, 10);
+        }else{
+            return movieRanking;
+        }
+
     }
 
     /*

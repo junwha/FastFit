@@ -19,12 +19,23 @@ public class RankingService {
 
     private List<Movie> averageRating(RatingRepository ratingRepository){
         // This map sort by key. High ratings saved to the front of map
-        Map<Double, Movie> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
+        Map<Double, List<Movie>> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
         // KEY: AverageRating / VALUE: Movie
         for(Movie movie : movieRepository.all()) {
-            movieRankingMap.put(ratingRepository.filterByMovie(movie).stream().mapToInt(value -> value.getRating()).average().orElse(0.0), movie);
+            double average = ratingRepository.filterByMovie(movie).stream().mapToInt(value -> value.getRating()).average().orElse(0.0);
+            if(!movieRankingMap.containsKey(average)) {
+                movieRankingMap.put(average, new ArrayList<>());
+            }
+            movieRankingMap.get(average).add(movie);
         }
-        List<Movie> movieRankingList = new ArrayList<>(movieRankingMap.values());
+
+        List<Movie> movieRankingList = new ArrayList<>();
+
+        for(List<Movie> movies : movieRankingMap.values()){
+            for(Movie movie : movies){
+                movieRankingList.add(movie);
+            }
+        }
 
         return movieRankingList;
     }

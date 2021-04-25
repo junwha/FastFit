@@ -32,7 +32,7 @@ public class InMemoryUserRepositoryTest {
         for(User user : similarUsers){
             storage.add(user);
         }
-        for(User user : notSimilarUsers){   
+        for(User user : notSimilarUsers){
             storage.add(user);
         }
 

@@ -45,13 +45,13 @@ public class MovieTest {
     @Test
     public void testHasGenres() {
         assertTrue(
-            movie.hasGenres(List.of(
+            movie.hasAllGenres(List.of(
                 new Genre("Comedy"),
                 new Genre("Animation")
             ))
         );
         assertFalse(
-            movie.hasGenres(List.of(
+            movie.hasAllGenres(List.of(
                 new Genre("Children's"),
                 new Genre("Different Genre")
             ))

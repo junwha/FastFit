@@ -28,11 +28,11 @@ public class Movie {
     /**
      * Returns whether this movie at least one of all given genres.
      */
-    public boolean hasOneOfGenre(List<Genre> genres) {
+    public boolean hasOneOfGenres(List<Genre> genres) {
         for (Genre genre: genres) {
-            if (!hasGenre(genre)) { return false; }
+            if (hasGenre(genre)) { return true; }
         }
-        return true;
+        return false;
     }
 
     /**

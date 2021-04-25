@@ -17,6 +17,18 @@ public class RankingService {
         this.ratingRepository = ratingRepository;
     }
 
+    private List<Movie> averageRating(RatingRepository ratingRepository){
+        // This map sort by key. High ratings saved to the front of map
+        Map<Double, Movie> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
+        // KEY: AverageRating / VALUE: Movie
+        for(Movie movie : movieRepository.all()) {
+            movieRankingMap.put(ratingRepository.filterByMovie(movie).stream().mapToInt(value -> value.getRating()).average().orElse(0.0), movie);
+        }
+        List<Movie> movieRankingList = new ArrayList<>(movieRankingMap.values());
+
+        return movieRankingList;
+    }
+
     /*
      * Return Top 10 Movie rated By Similar User
      */
@@ -32,18 +44,6 @@ public class RankingService {
         List<Movie> movieRanking = averageRating(ratingBySimilarUserRepository);
 
         return movieRanking.subList(0, 10);
-    }
-
-    private List<Movie> averageRating(RatingRepository ratingRepository){
-        // This map sort by key. High ratings saved to the front of map
-        Map<Double, Movie> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
-        // KEY: AverageRating / VALUE: Movie
-        for(Movie movie : movieRepository.all()) {
-            movieRankingMap.put(ratingRepository.filterByMovie(movie).stream().mapToInt(value -> value.getRating()).average().orElse(0.0), movie);
-        }
-        List<Movie> movieRankingList = new ArrayList<>(movieRankingMap.values());
-
-        return movieRankingList;
     }
 
     /*

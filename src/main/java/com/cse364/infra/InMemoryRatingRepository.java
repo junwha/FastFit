@@ -9,12 +9,12 @@ public class InMemoryRatingRepository implements RatingRepository  {
     private HashMap<Integer, List<Rating>> userMap = new HashMap();
     private HashMap<Integer, List<Rating>> movieMap = new HashMap();
 
-    InMemoryRatingRepository() { }
+    public InMemoryRatingRepository() { }
 
     /**
      * Adds a rating to the storage.
      */
-    void add(Rating rating){
+    public void add(Rating rating){
         if (!userMap.containsKey(rating.getUser().getId())) {
             userMap.put(rating.getUser().getId(), new ArrayList<Rating>());
         }

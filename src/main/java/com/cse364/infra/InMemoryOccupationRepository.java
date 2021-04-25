@@ -8,7 +8,7 @@ public class InMemoryOccupationRepository implements OccupationRepository {
     private HashMap<Integer, Occupation> occupationById = new HashMap<>();
     private HashMap<String, Occupation> occupationByAlias = new HashMap<>();
 
-    InMemoryOccupationRepository() { }
+    public InMemoryOccupationRepository() { }
 
     /**
      * Adds an occupation to the storage.

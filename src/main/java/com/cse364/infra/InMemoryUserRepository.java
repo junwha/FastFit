@@ -13,7 +13,7 @@ public class InMemoryUserRepository implements UserRepository {
     /**
      * Adds a user to the storage.
      */
-    void add(User user) {
+    public void add(User user) {
         users.put(user.getId(), user);
     }
 

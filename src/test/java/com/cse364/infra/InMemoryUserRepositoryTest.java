@@ -19,9 +19,9 @@ public class InMemoryUserRepositoryTest {
     public void testFilterSimilarUser(){
         InMemoryUserRepository storage = new InMemoryUserRepository();
         List<User> similarUsers = List.of(
-                new User(1, User.Gender.M, 25, new Occupation(1, "others"), "00000"),
-                new User(2, User.Gender.M, 25, new Occupation(1, "others"), "00000"),
-                new User(3, User.Gender.M, 25, new Occupation(1, "others"), "00000")
+                new User(1, User.Gender.M, 56, new Occupation(1, "others"), "00000"),
+                new User(2, User.Gender.M, 56, new Occupation(1, "others"), "00000"),
+                new User(3, User.Gender.M, 56, new Occupation(1, "others"), "00000")
         );
         List<User> notSimilarUsers = List.of(
                 new User(4, User.Gender.F, 25, new Occupation(1, "others"), "00000"),
@@ -36,7 +36,15 @@ public class InMemoryUserRepositoryTest {
             storage.add(user);
         }
 
-        assertEquals(storage.filterSimilarUser(new User(7, User.Gender.M, 32, new Occupation(1, "others"), "00000")), similarUsers);
-        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.F, 36, new Occupation(3, "Y"), "00000")), List.of());
+        //Similar
+        assertEquals(storage.filterSimilarUser(new User(7, User.Gender.M, 56, new Occupation(1, "others"), "00000")), similarUsers);
+        assertEquals(storage.filterSimilarUser(new User(7, User.Gender.M, 100, new Occupation(1, "others"), "00000")), similarUsers);
+
+        //Not Similar
+        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.F, 12, new Occupation(3, "Y"), "00000")), List.of());
+        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.M, 21, new Occupation(3, "Y"), "00000")), List.of());
+        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.F, 37, new Occupation(1, "others"), "00000")), List.of());
+        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.F, 48, new Occupation(3, "Y"), "00000")), List.of());
+        assertEquals(storage.filterSimilarUser(new User(8, User.Gender.F, 51, new Occupation(3, "Y"), "00000")), List.of());
     }
 }

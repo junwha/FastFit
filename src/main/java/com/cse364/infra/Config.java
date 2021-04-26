@@ -26,10 +26,10 @@ public class Config {
         } else if (args.length == 4) {
             doTop10Movieusergenres(args);
         } else {
-            System.out.println("Input Error : Input format is \n" +
-                                "AverageRating : '[genre1\\|genre2\\| ... ] [occupation]'\n" + 
-                                "RankingforUser : ''" +
-                                "RankingforUser&Genre : ''");
+            System.out.println("Input Error : Input format is...\n" +
+                                "    AverageRating : '[genre1\\|genre2\\| ... ] [occupation]'\n" + 
+                                "    RankingforUser : ''\n" +
+                                "    RankingforUser&Genre : ''");
             System.exit(0);
         }
     }

@@ -20,11 +20,11 @@ public class Config {
     public static void configure(String[] args) {
         //Select behaviour by input length
         if (args.length == 2) {
-            //AverageRatingService
+            doAverageRatingService(args);
         } else if (args.length == 3) {
-            //RankingService getTop10Movie(User user)
+            doTop10Movieuser(args);
         } else if (args.length == 4) {
-            //RankingService.getTop10Movie(User user, List genres
+            doTop10Movieusergenres(args);
         } else {
             System.out.println("Input Error : Input format is \n" +
                                 "AverageRating : '[genre1\\|genre2\\| ... ] [occupation]'\n" + 
@@ -32,20 +32,15 @@ public class Config {
                                 "RankingforUser&Genre : ''");
             System.exit(0);
         }
-        // Load all data
+    }
+
+    static void doAverageRatingService(String[] args) {
         DataLoader.read();
         averageRatingService = new AverageRatingService(
                 DataLoader.movies,
                 DataLoader.ratings
         );
 
-        //Checking Format valid
-        if (args.length != 2) {
-            System.out.println("Input Error : Input format is '[genre1\\|genre2\\| ... ] [occupation]'");
-            System.exit(0);
-        }
-
-        //Preprocess genres and occupation
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
             Genre genre = DataLoader.genres.searchByName(genreName);
@@ -58,13 +53,20 @@ public class Config {
 
         Occupation occupation = DataLoader.occupations.searchByName(args[1]);
 
-        //Checking Occupation valid
         if (occupation == null) {
             System.out.format("Error : The occupation %s does not exist in database\n", args[1]);
             System.exit(0);
         }
 
         printAverageRating(new ArrayList<Genre>(genres), occupation);
+    }
+
+    static void doTop10Movieuser(String[] args) {
+        System.out.println("Not yet 1");
+    }
+
+    static void doTop10Movieusergenres(String[] args) {
+        System.out.println("Not yet 2");
     }
 
     /**

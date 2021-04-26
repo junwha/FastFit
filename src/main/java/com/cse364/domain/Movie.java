@@ -26,14 +26,26 @@ public class Movie {
     }
 
     /**
+     * Returns whether this movie at least one of all given genres.
+     */
+    public boolean hasOneOfGenres(List<Genre> genres) {
+        for (Genre genre: genres) {
+            if (hasGenre(genre)) { return true; }
+        }
+        return false;
+    }
+
+    /**
      * Returns whether this movie has all given genres.
      */
-    public boolean hasGenres(List<Genre> genres) {
+    public boolean hasAllGenres(List<Genre> genres) {
         for (Genre genre: genres) {
             if (!hasGenre(genre)) { return false; }
         }
         return true;
     }
+
+
 
     // Setters
     public void setLink(String link) {

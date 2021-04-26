@@ -18,6 +18,20 @@ public class Config {
     private static InMemoryUserRepository userRepository;
 
     public static void configure(String[] args) {
+        //Select behaviour by input length
+        if (args.length == 2) {
+            //AverageRatingService
+        } else if (args.length == 3) {
+            //RankingService getTop10Movie(User user)
+        } else if (args.length == 4) {
+            //RankingService.getTop10Movie(User user, List genres
+        } else {
+            System.out.println("Input Error : Input format is \n" +
+                                "AverageRating : '[genre1\\|genre2\\| ... ] [occupation]'\n" + 
+                                "RankingforUser : ''" +
+                                "RankingforUser&Genre : ''");
+            System.exit(0);
+        }
         // Load all data
         DataLoader.read();
         averageRatingService = new AverageRatingService(

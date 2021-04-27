@@ -2,8 +2,11 @@ package com.cse364.infra;
 
 import com.cse364.app.AverageRatingService;
 import com.cse364.app.NoRatingForGenreException;
+import com.cse364.app.RankingService;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Occupation;
+import com.cse364.domain.User;
+import com.cse364.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,6 +14,7 @@ import java.util.List;
 
 public class Config {
     private static AverageRatingService averageRatingService;
+    private static RankingService rankingService;
     private static InMemoryGenreRepository genreRepository;
     private static InMemoryOccupationRepository occupationRepository;
     private static InMemoryMovieRepository movieRepository;
@@ -62,7 +66,36 @@ public class Config {
     }
 
     static void doTop10Movieuser(String[] args) {
-        System.out.println("Not yet 1");
+        DataLoader.read();
+        rankingService = new RankingService(
+                DataLoader.movies,
+                DataLoader.users,
+                DataLoader.ratings
+        );
+        
+        User.Gender gender = null;
+        if ("".equals(args[0])) {
+            gender = null;
+        } else if ("M".equals(args[0])) {
+            gender = User.Gender.M;
+        } else if ("F".equals(args[0])) {
+            gender = User.Gender.F;
+        } else {
+            System.out.println("WHAT???");
+            System.exit(0);
+        }
+        
+        int age = -1;
+        if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
+        Occupation occupation = DataLoader.occupations.searchByName(args[2]);
+        User theUser = new User(-1, gender, age, occupation, "");
+
+        List<Movie> topRank = rankingService.getTop10Movie(theUser);
+
+        System.out.println("The movie we recommend are:");
+        for (Movie movie : topRank) {
+            System.out.format("%s\n", movie.getTitle());
+        }
     }
 
     static void doTop10Movieusergenres(String[] args) {

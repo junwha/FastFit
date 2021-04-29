@@ -3,7 +3,7 @@ package com.cse364;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
+
 import com.cse364.domain.*;
 import com.cse364.app.*;
 import com.cse364.infra.*;
@@ -13,10 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Load all data
-        DataLoader.read();
+        LegacyDataLoader.read();
         averageRatingService = new AverageRatingService(
-            DataLoader.movies,
-            DataLoader.ratings
+            LegacyDataLoader.movies,
+            LegacyDataLoader.ratings
         );
 
         //Checking Format valid
@@ -28,7 +28,7 @@ public class Main {
         //Preprocess genres and occupation
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
-            Genre genre = DataLoader.genres.searchByName(genreName);
+            Genre genre = LegacyDataLoader.genres.searchByName(genreName);
             if (genre == null) {
                 System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
@@ -36,7 +36,7 @@ public class Main {
             genres.add(genre);
         }
 
-        Occupation occupation = DataLoader.occupations.searchByName(args[1]);
+        Occupation occupation = LegacyDataLoader.occupations.searchByName(args[1]);
 
         //Checking Occupation valid
         if (occupation == null) {

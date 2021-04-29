@@ -12,7 +12,7 @@ import java.util.List;
 import com.cse364.domain.*;
 
 
-public class DataLoader {    
+public class LegacyDataLoader {
     public static GenreRepository genres = new InMemoryGenreRepository(List.of(
         "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary",
         "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi",

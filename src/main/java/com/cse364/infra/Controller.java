@@ -8,10 +8,12 @@ import com.cse364.domain.Occupation;
 import com.cse364.domain.User;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Gender;
+import com.cse364.domain.UserInfo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Collections;
 
 public class Controller {
     private static AverageRatingService averageRatingService;
@@ -89,9 +91,9 @@ public class Controller {
         int age = -1;
         if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
         Occupation occupation = DataLoader.occupations.searchByName(args[2]);
-        User theUser = new User(-1, gender, age, occupation, "");
+        UserInfo theInfo = new UserInfo(gender, age, occupation, "00000");
 
-        List<Movie> topRank = rankingService.getTop10Movie(theUser);
+        List<Movie> topRank = rankingService.getTopNMovie(theInfo, 10, Collections.emptyList());
 
         System.out.println("The movie we recommend are:");
         for (Movie movie : topRank) {

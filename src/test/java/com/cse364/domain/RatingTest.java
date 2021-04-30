@@ -23,7 +23,7 @@ public class RatingTest {
                 new Genre("Comedy")
             )
         );
-        user = new User(1, User.Gender.M, 20, new Occupation(1, "Student"), "00000");
+        user = new User(1, Gender.M, 20, new Occupation(1, "Student"), "00000");
         rating1 = new Rating(movie, user, 5, 70072);
     }
 

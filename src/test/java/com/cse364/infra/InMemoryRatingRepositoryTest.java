@@ -17,9 +17,9 @@ public class InMemoryRatingRepositoryTest {
     @Before
     public void init(){
         storage = new InMemoryRatingRepository();
-        user1 = new User(1, User.Gender.M, 20, new Occupation(1, "Teacher"), "10000");
-        user2 = new User(2, User.Gender.F, 55, new Occupation(2, "Retired"), "10001");
-        user3 = new User(3, User.Gender.M, 30, new Occupation(0, "Others"), "10002");
+        user1 = new User(1, Gender.M, 20, new Occupation(1, "Teacher"), "10000");
+        user2 = new User(2, Gender.F, 55, new Occupation(2, "Retired"), "10001");
+        user3 = new User(3, Gender.M, 30, new Occupation(0, "Others"), "10002");
         movie1 = new Movie(
                 1,
                 "Toy Story",

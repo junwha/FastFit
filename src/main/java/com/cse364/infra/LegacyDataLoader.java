@@ -82,11 +82,11 @@ public class LegacyDataLoader {
         List<String[]> data = parseData(usersReader);
 
         for (String[] args : data) {
-            User.Gender g = null;
+            Gender g = null;
             if (args[1].equals("M")) {
-                g = User.Gender.M;
+                g = Gender.M;
             } else if (args[1].equals(("F"))) {
-                g = User.Gender.F;
+                g = Gender.F;
             }
             Occupation occupation = occupations.get(Integer.parseInt(args[3]));
 

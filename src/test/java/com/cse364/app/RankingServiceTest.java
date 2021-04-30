@@ -7,6 +7,7 @@ import com.cse364.infra.InMemoryUserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
+import java.util.Collections;
 import static org.junit.Assert.*;
 
 public class RankingServiceTest {
@@ -92,7 +93,8 @@ public class RankingServiceTest {
     public void testGetTop10MovieByUser(){
         // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),
-                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());         // Tail
+                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());
+        // Tail
         assertEquals(ratedBySimilarUsers.get(9).getId(),
                 service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(9).getId());
     }
@@ -104,5 +106,20 @@ public class RankingServiceTest {
             assertTrue(movie.hasOneOfGenres(List.of(new Genre("X"), new Genre("Y"))));
         }
 
+    }
+
+    @Test
+    public void testGetTopNMovie(){
+        // Head
+        assertEquals(ratedBySimilarUsers.get(0).getId(),
+                service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(0).getId());
+        // Tail
+        assertEquals(ratedBySimilarUsers.get(9).getId(),
+                service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(9).getId());
+
+        List<Movie> movieRanking = service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, List.of(new Genre("X"), new Genre("Y")));
+        for (Movie movie : movieRanking) {
+            assertTrue(movie.hasOneOfGenres(List.of(new Genre("X"), new Genre("Y"))));
+        }
     }
 }

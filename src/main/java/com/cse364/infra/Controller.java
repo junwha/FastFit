@@ -7,12 +7,13 @@ import com.cse364.domain.Genre;
 import com.cse364.domain.Occupation;
 import com.cse364.domain.User;
 import com.cse364.domain.Movie;
+import com.cse364.domain.Gender;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Config {
+public class Controller {
     private static AverageRatingService averageRatingService;
     private static RankingService rankingService;
     private static InMemoryGenreRepository genreRepository;
@@ -73,13 +74,13 @@ public class Config {
                 DataLoader.ratings
         );
         
-        User.Gender gender = null;
+        Gender gender = null;
         if ("".equals(args[0])) {
             gender = null;
         } else if ("M".equals(args[0])) {
-            gender = User.Gender.M;
+            gender = Gender.M;
         } else if ("F".equals(args[0])) {
-            gender = User.Gender.F;
+            gender = Gender.F;
         } else {
             System.out.println("WHAT???");
             System.exit(0);

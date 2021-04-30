@@ -10,7 +10,7 @@ import com.cse364.infra.*;
 
 public class Main {
    public static void main(String args[]){
-       Config.configure(args);
+       Controller.configure(args);
 
    }
 }

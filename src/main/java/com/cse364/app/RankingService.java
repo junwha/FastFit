@@ -1,8 +1,6 @@
 package com.cse364.app;
 
 import com.cse364.domain.*;
-import com.cse364.infra.InMemoryMovieRepository;
-import com.cse364.infra.InMemoryRatingRepository;
 
 import java.util.*;
 

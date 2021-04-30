@@ -21,16 +21,16 @@ public class RankingServiceTest {
         InMemoryUserRepository userStorage = new InMemoryUserRepository();
 
         List<User> similarUsers = List.of(
-                new User(1, User.Gender.M, 25, new Occupation(1, "others"), "00000"),
-                new User(2, User.Gender.M, 25, new Occupation(1, "others"), "00000"),
-                new User(3, User.Gender.M, 25, new Occupation(1, "others"), "00000")
+                new User(1, Gender.M, 25, new Occupation(1, "others"), "00000"),
+                new User(2, Gender.M, 25, new Occupation(1, "others"), "00000"),
+                new User(3, Gender.M, 25, new Occupation(1, "others"), "00000")
         );
 
         // Not Similar users for Gender, Age, Occupation
         List<User> notSimilarUsers = List.of(
-                new User(4, User.Gender.F, 25, new Occupation(1, "others"), "00000"),
-                new User(5, User.Gender.M, 35, new Occupation(1, "others"), "00000"),
-                new User(6, User.Gender.M, 25, new Occupation(2, "X"), "00000")
+                new User(4, Gender.F, 25, new Occupation(1, "others"), "00000"),
+                new User(5, Gender.M, 35, new Occupation(1, "others"), "00000"),
+                new User(6, Gender.M, 25, new Occupation(2, "X"), "00000")
         );
 
         ratedBySimilarUsers = List.of(
@@ -92,15 +92,15 @@ public class RankingServiceTest {
     public void testGetTop10MovieByUser(){
         // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),
-                service.getTop10Movie(new User(1, User.Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());
+                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());
         // Tail
         assertEquals(ratedBySimilarUsers.get(9).getId(),
-                service.getTop10Movie(new User(1, User.Gender.M, 27, new Occupation(1, "others"), "00000")).get(9).getId());
+                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(9).getId());
     }
 
     @Test
     public void testGetTop10MovieByGenres(){
-        List<Movie> movieRanking = service.getTop10Movie(new User(1, User.Gender.M, 27, new Occupation(1, "others"), "00000"), List.of(new Genre("X"), new Genre("Y")));
+        List<Movie> movieRanking = service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000"), List.of(new Genre("X"), new Genre("Y")));
         for(Movie movie : movieRanking){
             assertTrue(movie.hasOneOfGenres(List.of(new Genre("X"), new Genre("Y"))));
         }

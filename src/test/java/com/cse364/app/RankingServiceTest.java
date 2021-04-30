@@ -90,25 +90,6 @@ public class RankingServiceTest {
     }
 
     @Test
-    public void testGetTop10MovieByUser(){
-        // Head
-        assertEquals(ratedBySimilarUsers.get(0).getId(),
-                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(0).getId());
-        // Tail
-        assertEquals(ratedBySimilarUsers.get(9).getId(),
-                service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000")).get(9).getId());
-    }
-
-    @Test
-    public void testGetTop10MovieByGenres(){
-        List<Movie> movieRanking = service.getTop10Movie(new User(1, Gender.M, 27, new Occupation(1, "others"), "00000"), List.of(new Genre("X"), new Genre("Y")));
-        for(Movie movie : movieRanking){
-            assertTrue(movie.hasOneOfGenres(List.of(new Genre("X"), new Genre("Y"))));
-        }
-
-    }
-
-    @Test
     public void testGetTopNMovie(){
         // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),

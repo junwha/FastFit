@@ -19,8 +19,8 @@ public class AverageRatingServiceTest {
         InMemoryMovieRepository movieStorage = new InMemoryMovieRepository();
 
         List<User> users = List.of(
-                new User(1, User.Gender.M, 20, new Occupation(1, "X"), "10000"),
-                new User(2, User.Gender.F, 55, new Occupation(2, "Y"), "10001")
+                new User(1, Gender.M, 20, new Occupation(1, "X"), "10000"),
+                new User(2, Gender.F, 55, new Occupation(2, "Y"), "10001")
         );
 
         List<Movie> movies = List.of(

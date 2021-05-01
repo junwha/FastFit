@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Collections;
 
 public class Controller {
-    private Config config;
+    private final Config config;
 
     public Controller(Config config) {
         this.config = config;
@@ -22,22 +22,21 @@ public class Controller {
     public void main(String[] args) {
         //Select behaviour by input length
         if (args.length == 2) {
-            doAverageRatingService(args);
+            getAverageRating(args);
         } else if (args.length == 3) {
-            doTop10Movieuser(args);
+            getTop10Movies(args);
         } else if (args.length == 4) {
-            doTop10Movieusergenres(args);
+            getTop10MoviesWithGenres(args);
         } else {
             System.out.println("Input Error : Input format is...\n" +
                                 "    AverageRating : '[genre1\\|genre2\\| ... ] [occupation]'\n" + 
-                                "    RankingforUser : ''\n" +
-                                "    RankingforUser&Genre : ''");
-            System.exit(0);
+                                "    RankingForUser : ''\n" +
+                                "    RankingForUser&Genre : ''");
         }
     }
 
-    void doAverageRatingService(String[] args) {
-        HashSet<Genre> genres = new HashSet();
+    void getAverageRating(String[] args) {
+        HashSet<Genre> genres = new HashSet<>();
         for (String genreName : args[0].split("\\|")) {
             Genre genre = config.genres.searchByName(genreName);
             if (genre == null) {
@@ -54,10 +53,10 @@ public class Controller {
             System.exit(0);
         }
 
-        printAverageRating(new ArrayList<Genre>(genres), occupation);
+        printAverageRating(new ArrayList<>(genres), occupation);
     }
 
-    void doTop10Movieuser(String[] args) {
+    void getTop10Movies(String[] args) {
         UserInfo theInfo = buildUserInfo(args);
 
         List<Movie> topRank = config.rankingService.getTopNMovie(theInfo, 10, Collections.emptyList());
@@ -68,10 +67,10 @@ public class Controller {
         }
     }
 
-    void doTop10Movieusergenres(String[] args) {
+    void getTop10MoviesWithGenres(String[] args) {
         UserInfo theInfo = buildUserInfo(args);
         
-        HashSet<Genre> genres = new HashSet();
+        HashSet<Genre> genres = new HashSet<>();
         for (String genreName : args[3].split("\\|")) {
             Genre genre = config.genres.searchByName(genreName);
             if (genre == null) {
@@ -81,7 +80,7 @@ public class Controller {
             genres.add(genre);
         }
         
-        List<Movie> topRank = config.rankingService.getTopNMovie(theInfo, 10, new ArrayList<Genre>(genres));
+        List<Movie> topRank = config.rankingService.getTopNMovie(theInfo, 10, new ArrayList<>(genres));
 
         System.out.println("The movie we recommend are:");
         for (Movie movie : topRank) {
@@ -102,20 +101,18 @@ public class Controller {
     }
 
     void printAverageRating(List<Genre> genres, Occupation occupation){
-        double average = 0;
         try {
-            average = config.averageRatingService.averageRating(genres, occupation);
+            double average = config.averageRatingService.averageRating(genres, occupation);
+
+            System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
+            System.out.format("rated by people with occupation [%s]\n", occupation.getName());
+            System.out.format("is [%f].\n", average);
         } catch (NoRatingForGenreException e) {
             System.out.format(
                     "Error : There were no ratings given to movies with genre [%s] by people with occupation [%s]\n",
                     formatGenres(genres, ", "), occupation.getName()
             );
-            System.exit(0);
         }
-
-        System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
-        System.out.format("rated by people with occupation [%s]\n", occupation.getName());
-        System.out.format("is [%f].\n", average);
     }
 
     /*
@@ -124,7 +121,7 @@ public class Controller {
     UserInfo buildUserInfo(String args[]) {
         Gender gender = null;
         if ("".equals(args[0])) {
-            gender = null;
+            // pass
         } else if ("M".equals(args[0])) {
             gender = Gender.M;
         } else if ("F".equals(args[0])) {
@@ -135,9 +132,8 @@ public class Controller {
         }
         
         int age = -1;
-        if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
+        if (!"".equals(args[1])) { age = Integer.parseInt(args[1]); }
         Occupation occupation = config.occupations.searchByName(args[2]);
-        UserInfo theInfo = new UserInfo(gender, age, occupation, "00000");
-        return theInfo;
+        return new UserInfo(gender, age, occupation, "00000");
     }
 }

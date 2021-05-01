@@ -19,18 +19,18 @@ public class InMemoryOccupationRepositoryTest {
 
     @Test
     public void testGetOccupationById() {
-        assertTrue(occupations.get(10).equals(new Occupation(10, "Job")));
-        assertTrue(occupations.get(20).equals(new Occupation(20, "Job/with/slash")));
+        assertEquals(occupations.get(10), new Occupation(10, "Job"));
+        assertEquals(occupations.get(20), new Occupation(20, "Job/with/slash"));
         assertNull(occupations.get(1337));
     }
 
     @Test
     public void testSearchByName() {
-        assertTrue(occupations.searchByName("J.O.B").equals(new Occupation(10, "Job")));
+        assertEquals(occupations.searchByName("J.O.B"), new Occupation(10, "Job"));
 
-        assertTrue(occupations.searchByName("Job/with/slash").equals(new Occupation(20, "Job/with/slash")));
-        assertTrue(occupations.searchByName("alias").equals(new Occupation(20, "Job/with/slash")));
-        assertTrue(occupations.searchByName("test").equals(new Occupation(20, "Job/with/slash")));
+        assertEquals(occupations.searchByName("Job/with/slash"), new Occupation(20, "Job/with/slash"));
+        assertEquals(occupations.searchByName("alias"), new Occupation(20, "Job/with/slash"));
+        assertEquals(occupations.searchByName("test"), new Occupation(20, "Job/with/slash"));
 
         assertNull(occupations.searchByName("null job"));
         assertNull(occupations.searchByName("J/O/B"));

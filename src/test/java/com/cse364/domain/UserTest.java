@@ -19,7 +19,7 @@ public class UserTest {
         assertEquals(user1.getId(), 1);
         assertEquals(user1.getGender(), Gender.M);
         assertEquals(user1.getAge(), 20);
-        assertTrue(user1.getOccupation().equals(occupation));
+        assertEquals(user1.getOccupation(), occupation);
         assertEquals(user1.getZipCode(), "00000");
     }
 }

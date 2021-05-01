@@ -10,6 +10,11 @@ import com.cse364.infra.*;
 
 public class Main {
     public static void main(String args[]) {
-        Controller.main(args);
+        Config config = new Config();
+        Controller controller = new Controller(
+                config.averageRatingService,
+                config.rankingService
+        );
+        controller.main(args);
     }
 }

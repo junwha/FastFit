@@ -1,7 +1,7 @@
-package com.cse364;
+package com.cse364.infra;
 
 import com.cse364.domain.*;
-import com.cse364.infra.*;
+import com.cse364.app.*;
 import com.cse364.infra.dtos.*;
 
 import java.io.FileNotFoundException;
@@ -43,8 +43,13 @@ public class Config {
     public UserRepository users;
     public RatingRepository ratings;
 
+    public AverageRatingService averageRatingService;
+    public RankingService rankingService;
+
     public Config() {
         loadRepositories();
+        this.averageRatingService = new AverageRatingService(movies, ratings);
+        this.rankingService = new RankingService(movies, users, ratings);
     }
 
     public void loadRepositories() {

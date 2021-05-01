@@ -73,5 +73,6 @@ public class MovieTest {
 
         assertEquals(movie, sameMovie);
         assertNotEquals(movie, differentMovie);
+        assertNotEquals(movie, null);
     }
 }

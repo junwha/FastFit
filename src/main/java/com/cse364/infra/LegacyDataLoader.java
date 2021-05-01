@@ -71,7 +71,7 @@ public class LegacyDataLoader {
             for (String genreName: args[2].toLowerCase().split("\\|")) {
                 movieGenres.add(genres.searchByName(genreName));
             }
-            movies.add(new Movie(id, args[1], movieGenres));
+            movies.add(new Movie(id, args[1], movieGenres, null));
         }
         
         return movies;
@@ -125,7 +125,7 @@ public class LegacyDataLoader {
             int movieId = Integer.parseInt(args[0]);
             String link = "http://www.imdb.com/title/tt" + args[1];
 
-            movies.get(movieId).setLink(link);
+//            movies.get(movieId).setLink(link);
         }
     }
 

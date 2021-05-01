@@ -5,21 +5,28 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UserTest {
-    private User user1;
+    private User user;
     private Occupation occupation;
 
     @Before
     public void init(){
         occupation = new Occupation(1, "Student");
-        user1 = new User(1, Gender.M, 20, occupation, "00000");
+        user = new User(1, Gender.M, 20, occupation, "00000");
     }
 
     @Test
     public void testConstructor(){
-        assertEquals(user1.getId(), 1);
-        assertEquals(user1.getGender(), Gender.M);
-        assertEquals(user1.getAge(), 20);
-        assertTrue(user1.getOccupation().equals(occupation));
-        assertEquals(user1.getZipCode(), "00000");
+        assertEquals(user.getId(), 1);
+        assertEquals(user.getGender(), Gender.M);
+        assertEquals(user.getAge(), 20);
+        assertEquals(user.getOccupation(), occupation);
+        assertEquals(user.getZipCode(), "00000");
+    }
+
+    @Test
+    public void testEquals(){
+        assertEquals(user, new User(1, Gender.F, 23, occupation, "00000"));
+        assertNotEquals(user, new User(2, Gender.M, 20, occupation, "00000"));
+        assertNotEquals(user, null);
     }
 }

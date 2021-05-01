@@ -23,4 +23,10 @@ public class UserTest {
         assertEquals(user.getZipCode(), "00000");
     }
 
+    @Test
+    public void testEquals(){
+        assertEquals(user, new User(1, Gender.F, 23, occupation, "00000"));
+        assertNotEquals(user, new User(2, Gender.M, 20, occupation, "00000"));
+        assertNotEquals(user, null);
+    }
 }

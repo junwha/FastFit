@@ -15,8 +15,10 @@ public class Occupation {
         this.name = name;
     }
 
-
-    public boolean equals(Occupation occupation) {
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Occupation)) { return false; }
+        Occupation occupation = (Occupation) o;
         return this.id == occupation.id;
     }
 }

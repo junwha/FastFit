@@ -73,4 +73,19 @@ public class MovieTest {
                 ))
         );
     }
+
+    @Test
+    public void testEquals() {
+        assertEquals(movie, new Movie(
+                1,
+                "Toy Story",
+                genreList
+        ));
+        assertNotEquals(movie, new Movie(
+                2,
+                "Hard Story",
+                genreList
+        ));
+        assertNotEquals(movie, null);
+    }
 }

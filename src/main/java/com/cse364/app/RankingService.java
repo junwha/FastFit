@@ -15,7 +15,7 @@ public class RankingService {
         this.ratingRepository = ratingRepository;
     }
 
-    private List<Movie> getRankedMovieListFromSelectRatings(List<Rating> ratings) {
+    private Map<Double, List<Integer>> getRankedMovieMapFromSelectRatings(List<Rating> ratings) {
         HashMap<Integer, List<Integer>> ratingsPerMovie = new HashMap<>();
         
         for (Rating rating : ratings) {
@@ -42,14 +42,7 @@ public class RankingService {
             movieRankingMap.get(average).add(movieId);
         }
         
-        List<Movie> movieRankingList = new ArrayList<>();
-        for(List<Integer> movieIds : movieRankingMap.values()) {
-            for(Integer movieId : movieIds) {
-                movieRankingList.add(movieRepository.get(movieId));
-            }
-        }
-
-        return movieRankingList;
+        return movieRankingMap;
     }
     
     /*
@@ -63,21 +56,21 @@ public class RankingService {
             ratingsBySimilarUser.addAll(ratingRepository.filterByUser(user));
         }
 
-        List<Movie> movieRanking = getRankedMovieListFromSelectRatings(ratingsBySimilarUser);
-
-        if (!genres.isEmpty()) {
-            for (int i = 0; i < movieRanking.size(); i++) {
-                if (!movieRanking.get(i).hasOneOfGenres(genres)) {
-                    movieRanking.remove(i);
-                    i = i - 1;
+        Map<Double, List<Integer>> movieRankingMap = getRankedMovieMapFromSelectRatings(ratingsBySimilarUser);
+        
+        List<Movie> movieRankingList = new ArrayList<>();
+        for (List<Integer> movieIds : movieRankingMap.values()) {
+            for (Integer movieId : movieIds) {
+                if (genres.isEmpty() || movieRepository.get(movieId).hasOneOfGenres(genres)) {
+                    movieRankingList.add(movieRepository.get(movieId));
                 }
+                
+                if (movieRankingList.size() >= N) {return movieRankingList;}
             }
         }
 
-        if (movieRanking.size() >= N) {
-            return movieRanking.subList(0, N);
-        } else {
-            return movieRanking;
-        }
+        //At this point, First search with all given input gave less than N movies.
+
+        return movieRankingList;        //TODO : implement less input results 
     }
 }

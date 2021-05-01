@@ -8,8 +8,11 @@ public class Genre {
         this.name = name;
     }
 
-    public boolean equals(Genre genre) {
-        return name == genre.name;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Genre)) { return false; }
+        Genre genre = (Genre) o;
+        return name.equals(genre.name);
     }
 
     // Getters

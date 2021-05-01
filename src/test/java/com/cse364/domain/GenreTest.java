@@ -23,7 +23,8 @@ public class GenreTest {
 
     @Test
     public void testEquals(){
-        assertTrue(genre1.equals(genre2));
-        assertFalse(genre1.equals(genre3));
+        assertEquals(genre1, genre2);
+        assertNotEquals(genre1, genre3);
+        assertNotEquals(genre1, null);
     }
 }

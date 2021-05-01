@@ -13,10 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Load all data
-        LegacyDataLoader.read();
+        Config config = new Config();
         averageRatingService = new AverageRatingService(
-            LegacyDataLoader.movies,
-            LegacyDataLoader.ratings
+            config.movies,
+            config.ratings
         );
 
         //Checking Format valid
@@ -28,7 +28,7 @@ public class Main {
         //Preprocess genres and occupation
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
-            Genre genre = LegacyDataLoader.genres.searchByName(genreName);
+            Genre genre = config.genres.searchByName(genreName);
             if (genre == null) {
                 System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
@@ -36,7 +36,7 @@ public class Main {
             genres.add(genre);
         }
 
-        Occupation occupation = LegacyDataLoader.occupations.searchByName(args[1]);
+        Occupation occupation = config.occupations.searchByName(args[1]);
 
         //Checking Occupation valid
         if (occupation == null) {

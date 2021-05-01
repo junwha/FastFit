@@ -14,7 +14,7 @@ public class InMemoryOccupationRepository implements OccupationRepository {
      * Adds an occupation to the storage.
      * It can be searched by its name only.
      */
-    void add(Occupation occupation) {
+    public void add(Occupation occupation) {
         occupationById.put(occupation.getId(), occupation);
         occupationByAlias.put(getSearchName(occupation.getName()), occupation);
     }
@@ -23,7 +23,7 @@ public class InMemoryOccupationRepository implements OccupationRepository {
      * Adds an occupation to the storage.
      * It can be searched by given name aliases.
      */
-    void add(Occupation occupation, List<String> aliases) {
+    public void add(Occupation occupation, List<String> aliases) {
         occupationById.put(occupation.getId(), occupation);
         occupationByAlias.put(getSearchName(occupation.getName()), occupation);
         for (String name : aliases) {
@@ -45,6 +45,6 @@ public class InMemoryOccupationRepository implements OccupationRepository {
      * This method is for normalizing the Genre names for easier search.
      */
     private static String getSearchName(String name) {
-        return name.toLowerCase().replaceAll("[^a-z0-9\\/]", "");
+        return name.toLowerCase().replaceAll("[^a-z0-9/]", "");
     }
 }

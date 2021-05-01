@@ -23,6 +23,13 @@ public class User {
         this.info = new UserInfo(gender, age, occupation, zipCode);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User)) { return false; }
+        User user = (User) o;
+        return id == user.id;
+    }
+
     // Getters
     public int getId() { return id; }
     public Gender getGender() { return info.gender; }

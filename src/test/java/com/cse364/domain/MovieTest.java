@@ -81,12 +81,14 @@ public class MovieTest {
         assertEquals(movie, new Movie(
                 1,
                 "Toy Story",
-                genreList
+                genreList,
+                "link"
         ));
         assertNotEquals(movie, new Movie(
                 2,
                 "Hard Story",
-                genreList
+                genreList,
+                "link"
         ));
         assertNotEquals(movie, null);
     }

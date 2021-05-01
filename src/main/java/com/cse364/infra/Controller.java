@@ -1,11 +1,8 @@
 package com.cse364.infra;
 
-import com.cse364.app.AverageRatingService;
 import com.cse364.app.NoRatingForGenreException;
-import com.cse364.app.RankingService;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Occupation;
-import com.cse364.domain.User;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Gender;
 import com.cse364.domain.UserInfo;
@@ -16,12 +13,10 @@ import java.util.List;
 import java.util.Collections;
 
 public class Controller {
-    private AverageRatingService averageRatingService;
-    private RankingService rankingService;
+    private Config config;
 
-    public Controller(AverageRatingService averageRatingService, RankingService rankingService) {
-        this.averageRatingService = averageRatingService;
-        this.rankingService = rankingService;
+    public Controller(Config config) {
+        this.config = config;
     }
 
     public void main(String[] args) {
@@ -42,15 +37,9 @@ public class Controller {
     }
 
     void doAverageRatingService(String[] args) {
-        DataLoader.read();
-        averageRatingService = new AverageRatingService(
-                DataLoader.movies,
-                DataLoader.ratings
-        );
-
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[0].split("\\|")) {
-            Genre genre = DataLoader.genres.searchByName(genreName);
+            Genre genre = config.genres.searchByName(genreName);
             if (genre == null) {
                 System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
@@ -58,7 +47,7 @@ public class Controller {
             genres.add(genre);
         }
 
-        Occupation occupation = DataLoader.occupations.searchByName(args[1]);
+        Occupation occupation = config.occupations.searchByName(args[1]);
 
         if (occupation == null) {
             System.out.format("Error : The occupation %s does not exist in database\n", args[1]);
@@ -69,16 +58,9 @@ public class Controller {
     }
 
     void doTop10Movieuser(String[] args) {
-        DataLoader.read();
-        rankingService = new RankingService(
-                DataLoader.movies,
-                DataLoader.users,
-                DataLoader.ratings
-        );
-        
         UserInfo theInfo = buildUserInfo(args);
 
-        List<Movie> topRank = rankingService.getTopNMovie(theInfo, 10, Collections.emptyList());
+        List<Movie> topRank = config.rankingService.getTopNMovie(theInfo, 10, Collections.emptyList());
 
         System.out.println("The movie we recommend are:");
         for (Movie movie : topRank) {
@@ -87,18 +69,11 @@ public class Controller {
     }
 
     void doTop10Movieusergenres(String[] args) {
-        DataLoader.read();
-        rankingService = new RankingService(
-                DataLoader.movies,
-                DataLoader.users,
-                DataLoader.ratings
-        );
-
         UserInfo theInfo = buildUserInfo(args);
         
         HashSet<Genre> genres = new HashSet();
         for (String genreName : args[3].split("\\|")) {
-            Genre genre = DataLoader.genres.searchByName(genreName);
+            Genre genre = config.genres.searchByName(genreName);
             if (genre == null) {
                 System.out.format("Error : The genre %s does not exist in database\n", genreName);
                 System.exit(0);
@@ -106,7 +81,7 @@ public class Controller {
             genres.add(genre);
         }
         
-        List<Movie> topRank = rankingService.getTopNMovie(theInfo, 10, new ArrayList<Genre>(genres));
+        List<Movie> topRank = config.rankingService.getTopNMovie(theInfo, 10, new ArrayList<Genre>(genres));
 
         System.out.println("The movie we recommend are:");
         for (Movie movie : topRank) {
@@ -129,7 +104,7 @@ public class Controller {
     void printAverageRating(List<Genre> genres, Occupation occupation){
         double average = 0;
         try {
-            average = averageRatingService.averageRating(genres, occupation);
+            average = config.averageRatingService.averageRating(genres, occupation);
         } catch (NoRatingForGenreException e) {
             System.out.format(
                     "Error : There were no ratings given to movies with genre [%s] by people with occupation [%s]\n",
@@ -161,7 +136,7 @@ public class Controller {
         
         int age = -1;
         if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
-        Occupation occupation = DataLoader.occupations.searchByName(args[2]);
+        Occupation occupation = config.occupations.searchByName(args[2]);
         UserInfo theInfo = new UserInfo(gender, age, occupation, "00000");
         return theInfo;
     }

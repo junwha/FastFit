@@ -60,19 +60,16 @@ public class MovieTest {
 
     @Test
     public void testEquals(){
-        Movie sameMovie = new Movie(
+        assertEquals(movie, new Movie(
                 1,
                 "Toy Story",
                 genreList
-        );
-        Movie differentMovie = new Movie(
+        ));
+        assertNotEquals(movie, new Movie(
                 2,
                 "Hard Story",
                 genreList
-        );
-
-        assertEquals(movie, sameMovie);
-        assertNotEquals(movie, differentMovie);
+        ));
         assertNotEquals(movie, null);
     }
 }

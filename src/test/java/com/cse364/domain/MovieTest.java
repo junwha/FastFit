@@ -57,4 +57,21 @@ public class MovieTest {
             ))
         );
     }
+
+    @Test
+    public void testEquals(){
+        Movie sameMovie = new Movie(
+                1,
+                "Toy Story",
+                genreList
+        );
+        Movie differentMovie = new Movie(
+                2,
+                "Hard Story",
+                genreList
+        );
+
+        assertEquals(movie, sameMovie);
+        assertNotEquals(movie, differentMovie);
+    }
 }

@@ -9,7 +9,13 @@ public class InMemoryRatingRepository implements RatingRepository  {
     private HashMap<Integer, List<Rating>> userMap = new HashMap();
     private HashMap<Integer, List<Rating>> movieMap = new HashMap();
 
-    public InMemoryRatingRepository() { }
+    public InMemoryRatingRepository() {}
+
+    public InMemoryRatingRepository(List<Rating> ratings){
+        for(Rating rating: ratings){
+            add(rating);
+        }
+    }
 
     /**
      * Adds a rating to the storage.

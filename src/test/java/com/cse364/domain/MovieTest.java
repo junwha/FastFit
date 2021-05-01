@@ -45,18 +45,49 @@ public class MovieTest {
     }
 
     @Test
-    public void testHasGenres() {
+    public void testHasAllGenres() {
         assertTrue(
-            movie.hasGenres(List.of(
+            movie.hasAllGenres(List.of(
                 new Genre("Comedy"),
                 new Genre("Animation")
             ))
         );
         assertFalse(
-            movie.hasGenres(List.of(
+            movie.hasAllGenres(List.of(
                 new Genre("Children's"),
                 new Genre("Different Genre")
             ))
         );
+    }
+
+    @Test
+    public void testHasOneOfGenres() {
+        assertTrue(
+                movie.hasOneOfGenres(List.of(
+                        new Genre("Comedy"),
+                        new Genre("X")
+                ))
+        );
+        assertFalse(
+                movie.hasOneOfGenres(List.of(
+                        new Genre("X"),
+                        new Genre("Y")
+                ))
+        );
+    }
+
+    @Test
+    public void testEquals() {
+        assertEquals(movie, new Movie(
+                1,
+                "Toy Story",
+                genreList
+        ));
+        assertNotEquals(movie, new Movie(
+                2,
+                "Hard Story",
+                genreList
+        ));
+        assertNotEquals(movie, null);
     }
 }

@@ -50,11 +50,24 @@ public class InMemoryRatingRepositoryTest {
                 "link3"
         );
 
+        ratings = List.of(
+                new Rating(movie1, user1, 5, 0),
+                new Rating(movie1, user2, 4, 0),
+                new Rating(movie2, user1, 3, 0),
+                new Rating(movie2, user2, 2, 0));
         //Combination of all possible rating by user1 and user2 on movie1 and movie2
-        storage.add(new Rating(movie1, user1, 5, 0));
-        storage.add(new Rating(movie1, user2, 4, 0));
-        storage.add(new Rating(movie2, user1, 3, 0));
-        storage.add(new Rating(movie2, user2, 2, 0));
+        storage.add(ratings.get(0));
+        storage.add(ratings.get(1));
+        storage.add(ratings.get(2));
+        storage.add(ratings.get(3));
+    }
+
+    @Test
+    public void testConstructor(){
+        InMemoryRatingRepository storageByList = new InMemoryRatingRepository(ratings);
+
+        assertEquals(storageByList.filterByUser(user1), storage.filterByUser(user1));
+        assertEquals(storageByList.filterByUser(user2), storage.filterByUser(user2));
     }
 
     @Test

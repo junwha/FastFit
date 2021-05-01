@@ -8,7 +8,7 @@ public class InMemoryGenreRepository implements GenreRepository {
     // A map from normalized genre names (search names) to actual Genre objects.
     private HashMap<String, Genre> genres = new HashMap<>();
 
-    InMemoryGenreRepository() { }
+    public InMemoryGenreRepository() { }
 
     /**
      * Initializes InMemoryGenreRpository with given genre names.

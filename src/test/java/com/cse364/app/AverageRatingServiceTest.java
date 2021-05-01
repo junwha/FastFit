@@ -24,9 +24,9 @@ public class AverageRatingServiceTest {
         );
 
         List<Movie> movies = List.of(
-                new Movie(1, "Toy Story", List.of(new Genre("A"), new Genre("B"), new Genre("C"))),
-                new Movie(2, "Jumanji", List.of(new Genre("A"), new Genre("B"))),
-                new Movie(3, "Grumpier Old Men", List.of(new Genre("C")))
+                new Movie(1, "Toy Story", List.of(new Genre("A"), new Genre("B"), new Genre("C")), "link1"),
+                new Movie(2, "Jumanji", List.of(new Genre("A"), new Genre("B")), "link2"),
+                new Movie(3, "Grumpier Old Men", List.of(new Genre("C")), "link3")
         );
 
         for(Movie movie : movies){

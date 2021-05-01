@@ -9,10 +9,11 @@ public class Movie {
     private List<Genre> genres;
     private String link;
 
-    public Movie(int id, String title, List<Genre> genres){
+    public Movie(int id, String title, List<Genre> genres, String link){
         this.id = id;
         this.title = title;
         this.genres = genres;
+        this.link = link;
     }
 
     /**
@@ -50,11 +51,6 @@ public class Movie {
         if (!(o instanceof Movie)) { return false; }
         Movie movie = (Movie) o;
         return id == movie.id;
-    }
-
-    // Setters
-    public void setLink(String link) {
-        this.link = link;
     }
 
     // Getters

@@ -1,20 +1,6 @@
 package com.cse364.domain;
 
 public class User {
-    public static class UserInfo {
-        public Gender gender;
-        public int age;
-        public Occupation occupation;
-        public String zipCode;
-
-        public UserInfo(Gender gender, int age, Occupation occupation, String zipCode) {
-            this.gender = gender;
-            this.age = age;
-            this.occupation = occupation;
-            this.zipCode = zipCode;
-        }
-    }
-    
     private int id;
     private UserInfo info;
 
@@ -32,8 +18,8 @@ public class User {
 
     // Getters
     public int getId() { return id; }
-    public Gender getGender() { return info.gender; }
-    public int getAge() { return info.age; }
-    public Occupation getOccupation() { return info.occupation; }
-    public String getZipCode() { return info.zipCode; }
+    public Gender getGender() { return info.getGender(); }
+    public int getAge() { return info.getAge(); }
+    public Occupation getOccupation() { return info.getOccupation(); }
+    public String getZipCode() { return info.getZipCode(); }
 }

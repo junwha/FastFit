@@ -8,7 +8,8 @@ import com.cse364.domain.*;
 public class InMemoryGenreRepositoryTest {
     @Test
     public void testSearchByName() {
-        InMemoryGenreRepository storage = new InMemoryGenreRepository(
+        InMemoryGenreRepository storage = new InMemoryGenreRepository();
+        storage = new InMemoryGenreRepository(
             List.of("Animation", "Children's", "WHITESPACED genre")
         );
 

@@ -21,7 +21,7 @@ public class AverageRatingService {
         int ratingCnt = 0;
 
         for (Movie movie : movies.all()) {
-            if (!movie.hasGenres(genres)) { continue; }
+            if (!movie.hasAllGenres(genres)) { continue; }
 
             //Check occupations of rating
             for (Rating rating : ratings.filterByMovie(movie)) {

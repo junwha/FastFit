@@ -18,13 +18,8 @@ import java.util.Collections;
 public class Controller {
     private static AverageRatingService averageRatingService;
     private static RankingService rankingService;
-    private static InMemoryGenreRepository genreRepository;
-    private static InMemoryOccupationRepository occupationRepository;
-    private static InMemoryMovieRepository movieRepository;
-    private static InMemoryRatingRepository ratingRepository;
-    private static InMemoryUserRepository userRepository;
 
-    public static void configure(String[] args) {
+    public static void main(String[] args) {
         //Select behaviour by input length
         if (args.length == 2) {
             doAverageRatingService(args);

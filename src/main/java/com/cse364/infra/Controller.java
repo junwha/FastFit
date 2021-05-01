@@ -76,22 +76,7 @@ public class Controller {
                 DataLoader.ratings
         );
         
-        Gender gender = null;
-        if ("".equals(args[0])) {
-            gender = null;
-        } else if ("M".equals(args[0])) {
-            gender = Gender.M;
-        } else if ("F".equals(args[0])) {
-            gender = Gender.F;
-        } else {
-            System.out.println("WHAT???");
-            System.exit(0);
-        }
-        
-        int age = -1;
-        if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
-        Occupation occupation = DataLoader.occupations.searchByName(args[2]);
-        UserInfo theInfo = new UserInfo(gender, age, occupation, "00000");
+        UserInfo theInfo = buildUserInfo(args);
 
         List<Movie> topRank = rankingService.getTopNMovie(theInfo, 10, Collections.emptyList());
 
@@ -102,7 +87,31 @@ public class Controller {
     }
 
     static void doTop10Movieusergenres(String[] args) {
-        System.out.println("Not yet 2");
+        DataLoader.read();
+        rankingService = new RankingService(
+                DataLoader.movies,
+                DataLoader.users,
+                DataLoader.ratings
+        );
+
+        UserInfo theInfo = buildUserInfo(args);
+        
+        HashSet<Genre> genres = new HashSet();
+        for (String genreName : args[3].split("\\|")) {
+            Genre genre = DataLoader.genres.searchByName(genreName);
+            if (genre == null) {
+                System.out.format("Error : The genre %s does not exist in database\n", genreName);
+                System.exit(0);
+            }
+            genres.add(genre);
+        }
+        
+        List<Movie> topRank = rankingService.getTopNMovie(theInfo, 10, new ArrayList<Genre>(genres));
+
+        System.out.println("The movie we recommend are:");
+        for (Movie movie : topRank) {
+            System.out.format("%s\n", movie.getTitle());
+        }
     }
 
     /**
@@ -132,5 +141,28 @@ public class Controller {
         System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
         System.out.format("rated by people with occupation [%s]\n", occupation.getName());
         System.out.format("is [%f].\n", average);
+    }
+
+    /*
+     * Build UserInfo from input strings
+     */
+    static UserInfo buildUserInfo(String args[]) {
+        Gender gender = null;
+        if ("".equals(args[0])) {
+            gender = null;
+        } else if ("M".equals(args[0])) {
+            gender = Gender.M;
+        } else if ("F".equals(args[0])) {
+            gender = Gender.F;
+        } else {
+            System.out.println("WHAT???");
+            System.exit(0);
+        }
+        
+        int age = -1;
+        if (!"".equals(args[1])) {age = Integer.valueOf(args[1]);}
+        Occupation occupation = DataLoader.occupations.searchByName(args[2]);
+        UserInfo theInfo = new UserInfo(gender, age, occupation, "00000");
+        return theInfo;
     }
 }

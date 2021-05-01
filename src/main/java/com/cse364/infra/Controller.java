@@ -16,10 +16,15 @@ import java.util.List;
 import java.util.Collections;
 
 public class Controller {
-    private static AverageRatingService averageRatingService;
-    private static RankingService rankingService;
+    private AverageRatingService averageRatingService;
+    private RankingService rankingService;
 
-    public static void main(String[] args) {
+    public Controller(AverageRatingService averageRatingService, RankingService rankingService) {
+        this.averageRatingService = averageRatingService;
+        this.rankingService = rankingService;
+    }
+
+    public void main(String[] args) {
         //Select behaviour by input length
         if (args.length == 2) {
             doAverageRatingService(args);
@@ -36,7 +41,7 @@ public class Controller {
         }
     }
 
-    static void doAverageRatingService(String[] args) {
+    void doAverageRatingService(String[] args) {
         DataLoader.read();
         averageRatingService = new AverageRatingService(
                 DataLoader.movies,
@@ -63,7 +68,7 @@ public class Controller {
         printAverageRating(new ArrayList<Genre>(genres), occupation);
     }
 
-    static void doTop10Movieuser(String[] args) {
+    void doTop10Movieuser(String[] args) {
         DataLoader.read();
         rankingService = new RankingService(
                 DataLoader.movies,
@@ -81,7 +86,7 @@ public class Controller {
         }
     }
 
-    static void doTop10Movieusergenres(String[] args) {
+    void doTop10Movieusergenres(String[] args) {
         DataLoader.read();
         rankingService = new RankingService(
                 DataLoader.movies,
@@ -112,7 +117,7 @@ public class Controller {
     /**
      * return String of genres combined with divider
      */
-    static String formatGenres(List<Genre> genres, String divider) {
+    String formatGenres(List<Genre> genres, String divider) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < genres.size(); i++) {
             sb.append(genres.get(i).getName());
@@ -121,7 +126,7 @@ public class Controller {
         return sb.toString();
     }
 
-    static void printAverageRating(List<Genre> genres, Occupation occupation){
+    void printAverageRating(List<Genre> genres, Occupation occupation){
         double average = 0;
         try {
             average = averageRatingService.averageRating(genres, occupation);
@@ -141,7 +146,7 @@ public class Controller {
     /*
      * Build UserInfo from input strings
      */
-    static UserInfo buildUserInfo(String args[]) {
+    UserInfo buildUserInfo(String args[]) {
         Gender gender = null;
         if ("".equals(args[0])) {
             gender = null;

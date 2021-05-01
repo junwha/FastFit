@@ -1,8 +1,7 @@
-package com.cse364;
+package com.cse364.infra;
 
 import com.cse364.domain.*;
 import com.cse364.app.*;
-import com.cse364.infra.*;
 import com.cse364.infra.dtos.*;
 
 import java.io.FileNotFoundException;

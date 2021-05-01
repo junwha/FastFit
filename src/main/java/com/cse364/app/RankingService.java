@@ -16,21 +16,21 @@ public class RankingService {
     }
 
     private Map<Double, List<Integer>> getRankedMovieMapFromSelectRatings(List<Rating> ratings) {
-        HashMap<Integer, List<Integer>> ratingsPerMovie = new HashMap<>();
+        HashMap<Integer, List<Integer>> ratingsByMovie = new HashMap<>();
         
         for (Rating rating : ratings) {
-            if (ratingsPerMovie.containsKey(rating.getMovie().getId())) {
-                ratingsPerMovie.get(rating.getMovie().getId()).add(rating.getRating());
+            if (ratingsByMovie.containsKey(rating.getMovie().getId())) {
+                ratingsByMovie.get(rating.getMovie().getId()).add(rating.getRating());
             } else {
                 List<Integer> newList = new ArrayList<>();
                 newList.add(rating.getRating());
-                ratingsPerMovie.put(rating.getMovie().getId(), newList);
+                ratingsByMovie.put(rating.getMovie().getId(), newList);
             }
         }
 
         Map<Double, List<Integer>> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
-        for (Integer movieId : ratingsPerMovie.keySet()) {
-            List<Integer> numbers = ratingsPerMovie.get(movieId);
+        for (Integer movieId : ratingsByMovie.keySet()) {
+            List<Integer> numbers = ratingsByMovie.get(movieId);
             int sum = 0;
             for (Integer num : numbers) {
                 sum = sum + num;

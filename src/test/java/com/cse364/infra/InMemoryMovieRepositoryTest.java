@@ -31,6 +31,6 @@ public class InMemoryMovieRepositoryTest {
             storage.add(movie);
         }
 
-        assertTrue(movies.equals(storage.all()));
+        assertEquals(movies, storage.all());
     }
 }

@@ -16,7 +16,8 @@ public class OccupationTest {
 
     @Test
     public void testEquals() {
-        assertTrue(new Occupation(3, "Clerical").equals(new Occupation(3, "Admin")));
-        assertFalse(new Occupation(2, "Artist").equals(new Occupation(13, "Retired")));
+        assertEquals(new Occupation(3, "Clerical"), new Occupation(3, "Admin"));
+        assertNotEquals(new Occupation(2, "Artist"), new Occupation(13, "Retired"));
+        assertNotEquals(new Occupation(3, "Admin"), null);
     }
 }

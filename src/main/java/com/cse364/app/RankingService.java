@@ -45,6 +45,13 @@ public class RankingService {
         return movieRankingMap;
     }
     
+    private int countValidUserInfo(Gender a, Integer b, Occupation c) {
+        int validNum = 0;
+        if (a != null) {validNum += 1;}
+        if (b>0) {validNum += 1;}
+        if (c != null) {validNum += 1;}
+        return validNum;
+    }
     /*
      * Return Top N Movie rated by similar user
      */
@@ -70,7 +77,54 @@ public class RankingService {
         }
 
         //At this point, First search with all given input gave less than N movies.
+        //Iterate through rest of the List
+        int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
+        
+        List<Gender> genVar= new ArrayList<>();
+        List<Integer> ageVar = new ArrayList<>();
+        List<Occupation> occVar = new ArrayList<>();
+        if (userInfo.getGender() != null) {genVar.add(userInfo.getGender());}
+        genVar.add(null);
+        if (userInfo.getAge() != -1) {ageVar.add(userInfo.getAge());}
+        ageVar.add(-1);
+        if (userInfo.getOccupation() != null) {occVar.add(userInfo.getOccupation());}
+        occVar.add(null);
 
-        return movieRankingList;        //TODO : implement less input results 
+        for (int i = validUserInfoCount-1; i >= 0; i--) {
+            HashSet<User> secondarySimilarUser = new HashSet<>();
+            for (Gender genderIter : genVar) {
+                for (Integer ageIter : ageVar) {
+                    for (Occupation occIter : occVar) {
+                        if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
+                            for (User user : userRepository.filterSimilarUser(new UserInfo(genderIter, ageIter, occIter, "00000"))) {
+                                secondarySimilarUser.add(user);
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<Rating> secondaryRatingsBySimilarUser = new ArrayList<>();
+
+            for (User user : secondarySimilarUser) {
+                secondaryRatingsBySimilarUser.addAll(ratingRepository.filterByUser(user));
+            }
+
+            Map<Double, List<Integer>> secondaryRankingMap = getRankedMovieMapFromSelectRatings(secondaryRatingsBySimilarUser);
+            
+            for (List<Integer> movieIds : secondaryRankingMap.values()) {
+                for (Integer movieId : movieIds) {
+                    if (genres.isEmpty() || movieRepository.get(movieId).hasOneOfGenres(genres)) {
+                        if (!movieRankingList.contains(movieRepository.get(movieId))) {
+                            movieRankingList.add(movieRepository.get(movieId));
+                        }
+                    }
+                    if (movieRankingList.size() >= N) {return movieRankingList;}
+                }
+            }
+        }
+
+        //You can't really reach this point... but anyways
+        return movieRankingList;
     }
 }

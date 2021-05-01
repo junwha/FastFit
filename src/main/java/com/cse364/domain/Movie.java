@@ -45,7 +45,12 @@ public class Movie {
         return true;
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Movie)) { return false; }
+        Movie movie = (Movie) o;
+        return id == movie.id;
+    }
 
     // Setters
     public void setLink(String link) {

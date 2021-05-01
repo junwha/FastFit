@@ -3,6 +3,7 @@ package com.cse364.app;
 import com.cse364.domain.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RankingService {
     private MovieRepository movieRepository;
@@ -15,34 +16,36 @@ public class RankingService {
         this.ratingRepository = ratingRepository;
     }
 
-    private Map<Double, List<Integer>> getRankedMovieMapFromSelectRatings(List<Rating> ratings) {
-        HashMap<Integer, List<Integer>> ratingsByMovie = new HashMap<>();
-        
+    /**
+     * Returns a list of MovieWithRatings,
+     * sorted by their average ratings (in descending order)
+     * given the ratings information.
+     */
+    private List<MovieWithRatings> rankMovies(List<Rating> ratings) {
+        // movie id -> movie with ratings
+        HashMap<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
+
+        // Fill ratedMovies
         for (Rating rating : ratings) {
-            if (ratingsByMovie.containsKey(rating.getMovie().getId())) {
-                ratingsByMovie.get(rating.getMovie().getId()).add(rating.getRating());
+            int movieId = rating.getMovie().getId();
+            if (ratedMovies.containsKey(movieId)) {
+                ratedMovies.get(movieId).addRating(rating.getRating());
             } else {
-                List<Integer> newList = new ArrayList<>();
-                newList.add(rating.getRating());
-                ratingsByMovie.put(rating.getMovie().getId(), newList);
+                ratedMovies.put(movieId, new MovieWithRatings(
+                        rating.getMovie(),
+                        List.of(rating.getRating())
+                ));
             }
         }
 
-        Map<Double, List<Integer>> movieRankingMap = new TreeMap<>(Collections.reverseOrder());
-        for (Integer movieId : ratingsByMovie.keySet()) {
-            List<Integer> numbers = ratingsByMovie.get(movieId);
-            int sum = 0;
-            for (Integer num : numbers) {
-                sum = sum + num;
-            }
-            double average = sum / numbers.size();
-            if(!movieRankingMap.containsKey(average)) {
-                movieRankingMap.put(average, new ArrayList<>());
-            }
-            movieRankingMap.get(average).add(movieId);
-        }
-        
-        return movieRankingMap;
+        // Sort movies by average rating
+        List<MovieWithRatings> rankedMovies = ratedMovies.values()
+                .stream()
+                .sorted(new CompareByAverageRating())
+                .collect(Collectors.toList());
+
+        Collections.reverse(rankedMovies);
+        return rankedMovies;
     }
     
     private int countValidUserInfo(Gender a, Integer b, Occupation c) {
@@ -52,6 +55,7 @@ public class RankingService {
         if (c != null) {validNum += 1;}
         return validNum;
     }
+
     /*
      * Return Top N Movie rated by similar user
      */
@@ -63,17 +67,16 @@ public class RankingService {
             ratingsBySimilarUser.addAll(ratingRepository.filterByUser(user));
         }
 
-        Map<Double, List<Integer>> movieRankingMap = getRankedMovieMapFromSelectRatings(ratingsBySimilarUser);
-        
-        List<Movie> movieRankingList = new ArrayList<>();
-        for (List<Integer> movieIds : movieRankingMap.values()) {
-            for (Integer movieId : movieIds) {
-                if (genres.isEmpty() || movieRepository.get(movieId).hasOneOfGenres(genres)) {
-                    movieRankingList.add(movieRepository.get(movieId));
-                }
-                
-                if (movieRankingList.size() >= N) {return movieRankingList;}
+        List<MovieWithRatings> rankedMovies = rankMovies(ratingsBySimilarUser);
+        List<Movie> topNMovies = new ArrayList<>();
+
+        for (MovieWithRatings movieWithRatings : rankedMovies) {
+            Movie movie = movieWithRatings.movie;
+            if (genres.isEmpty() || movie.hasOneOfGenres(genres)) {
+                topNMovies.add(movie);
             }
+
+            if (topNMovies.size() >= N) { return topNMovies; }
         }
 
         //At this point, First search with all given input gave less than N movies.
@@ -110,21 +113,21 @@ public class RankingService {
                 secondaryRatingsBySimilarUser.addAll(ratingRepository.filterByUser(user));
             }
 
-            Map<Double, List<Integer>> secondaryRankingMap = getRankedMovieMapFromSelectRatings(secondaryRatingsBySimilarUser);
-            
-            for (List<Integer> movieIds : secondaryRankingMap.values()) {
-                for (Integer movieId : movieIds) {
-                    if (genres.isEmpty() || movieRepository.get(movieId).hasOneOfGenres(genres)) {
-                        if (!movieRankingList.contains(movieRepository.get(movieId))) {
-                            movieRankingList.add(movieRepository.get(movieId));
-                        }
+            List<MovieWithRatings> rankedMovies2 = rankMovies(secondaryRatingsBySimilarUser);
+
+            for (MovieWithRatings movieWithRatings : rankedMovies2) {
+                Movie movie = movieWithRatings.movie;
+                if (genres.isEmpty() || movie.hasOneOfGenres(genres)) {
+                    if (!topNMovies.contains(movie)) {
+                        topNMovies.add(movie);
                     }
-                    if (movieRankingList.size() >= N) {return movieRankingList;}
                 }
+
+                if (topNMovies.size() >= N) { return topNMovies; }
             }
         }
 
         //You can't really reach this point... but anyways
-        return movieRankingList;
+        return topNMovies;
     }
 }

@@ -63,7 +63,7 @@ public class RankingServiceTest {
             userStorage.add(user);
             // Specify the head and tail ratings of top 10
             ratingStorage.add(new Rating(ratedBySimilarUsers.get(0), user, 5, 0));
-            ratingStorage.add(new Rating(ratedBySimilarUsers.get(9), user, 1, 0));
+            ratingStorage.add(new Rating(ratedBySimilarUsers.get(9), user, 2, 0));
 
             // Middle ratings
             for(Movie movie : ratedBySimilarUsers.subList(1, 9)){

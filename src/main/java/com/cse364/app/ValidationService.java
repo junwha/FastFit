@@ -26,6 +26,7 @@ public class ValidationService {
     public List<Genre> validateGenres(List<String> genreNames) throws GenreValidationException {
         List<Genre> genres = new ArrayList<>();
         for (String name : genreNames) {
+            if (name.equals("")) continue; // Ignore empty strings
             Genre genre = genreRepository.searchByName(name);
             if (genre == null) { throw new GenreValidationException(name); }
             if (!genres.contains(genre)) genres.add(genre);
@@ -52,24 +53,24 @@ public class ValidationService {
     public UserInfo validateUserInfo(
             String genderString, String ageString, String occupationString
     ) throws UserInfoValidationException {
-        Gender gender;
-        int age;
-        Occupation occupation;
+        Gender gender = null;
+        int age = 0;
+        Occupation occupation = null;
 
         try {
-            gender = validateGender(genderString);
+            if (!genderString.equals("")) gender = validateGender(genderString);
         } catch (GenderValidationException e) {
             throw new UserInfoValidationException("gender", genderString);
         }
 
         try {
-            age = Integer.parseInt(ageString);
+            if (!ageString.equals("")) age = Integer.parseInt(ageString);
         } catch (NumberFormatException e) {
             throw new UserInfoValidationException("age", ageString);
         }
 
         try {
-            occupation = validateOccupation(occupationString);
+            if (!occupationString.equals("")) occupation = validateOccupation(occupationString);
         } catch (OccupationValidationException e) {
             throw new UserInfoValidationException("occupation", occupationString);
         }

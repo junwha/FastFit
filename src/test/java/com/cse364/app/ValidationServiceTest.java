@@ -34,11 +34,26 @@ public class ValidationServiceTest {
     @Test
     public void testValidateGenres() {
         try {
-            List<Genre> genres = validationService.validateGenres(List.of("genreC", "genreB", "genreA"));
+            List<Genre> genres;
+            genres = validationService.validateGenres(List.of("genreC", "genreB", "genreA"));
             assertEquals(genres, List.of(
                     new Genre("genreC"),
                     new Genre("genreB"),
                     new Genre("genreA")
+            ));
+
+            // Containing empty string
+            genres = validationService.validateGenres(List.of("genreA", "", "genreB"));
+            assertEquals(genres, List.of(
+                    new Genre("genreA"),
+                    new Genre("genreB")
+            ));
+
+            // Containing duplicates
+            genres = validationService.validateGenres(List.of("genreA", "genreB", "genreA"));
+            assertEquals(genres, List.of(
+                    new Genre("genreA"),
+                    new Genre("genreB")
             ));
         } catch(GenreValidationException e) {
             fail("must not throw when given valid genre names");
@@ -98,8 +113,15 @@ public class ValidationServiceTest {
     @Test
     public void testValidateUserInfo() {
         try {
-            UserInfo userInfo = validationService.validateUserInfo("F", "10", "ocpC");
-            UserInfo expected = new UserInfo(Gender.F, 10, new Occupation(3, "ocpC"), null);
+            UserInfo userInfo, expected;
+
+            userInfo = validationService.validateUserInfo("F", "10", "ocpC");
+            expected = new UserInfo(Gender.F, 10, new Occupation(3, "ocpC"), null);
+            assertEquals(userInfo, expected);
+
+            // Containing empty string
+            userInfo = validationService.validateUserInfo("", "", "");
+            expected = new UserInfo(null, 0, null, null);
             assertEquals(userInfo, expected);
         } catch(UserInfoValidationException e) {
             fail("must not throw when given valid user info");

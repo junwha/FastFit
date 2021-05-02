@@ -21,7 +21,7 @@ public class RankingService {
      * sorted by their average ratings (in descending order)
      * given the ratings information.
      */
-    private List<MovieWithRatings> rankMovies(List<Rating> ratings) {
+    List<MovieWithRatings> rankMovies(List<Rating> ratings) {
         // movie id -> movie with ratings
         Map<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
 
@@ -48,7 +48,7 @@ public class RankingService {
         return rankedMovies;
     }
     
-    private int countValidUserInfo(Gender a, Integer b, Occupation c) {
+    int countValidUserInfo(Gender a, Integer b, Occupation c) {
         int validNum = 0;
         if (a != null) {validNum += 1;}
         if (b>0) {validNum += 1;}
@@ -96,7 +96,7 @@ public class RankingService {
     /**
      * Return HashSet of users with i similar characteristics based on given subsetmaking Sets
      */   
-    private Set<User> findUserOfiSimilarUserInfo(Set<Gender> genVar, Set<Integer> ageVar, Set<Occupation> occVar, int i) {
+    Set<User> findUserOfiSimilarUserInfo(Set<Gender> genVar, Set<Integer> ageVar, Set<Occupation> occVar, int i) {
         Set<User> users = new HashSet<>();
         for (Gender genderIter : genVar) {
             for (Integer ageIter : ageVar) {
@@ -115,7 +115,7 @@ public class RankingService {
     /**
      * When getTopNMovie couldn't find N movies with all matching userInfo
      */
-    private List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
+    List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
         int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
         
         Set<Gender> genVar= new HashSet<>();

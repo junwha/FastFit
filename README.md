@@ -117,3 +117,34 @@ is [3.177143].
 - Data (.dat file) reading/parsing design & implementation
 - Revising average rating method implementation 
 - Rating/Occupation class refactoring
+
+
+
+## Milestone 2
+
+### What We've Finished
+- Implemented new features of program which receive 3 and 4 arguments
+- Designed and implemented Movie Ranking algorithm 
+- Ranking algorithm make Top N Ranking with similar user and can specified with some genres
+
+- Installed JaCoCo and Implemented Unit Test
+- Refactored previous works and introduced Onion Architecture
+
+### Roles
+
+한동규 @queuedq
+- JaCoCo installing for testing
+- Introduced Onion Architecture
+  - Repository Pattern
+- Infrastructure Layer redesign
+  - Unit-testable DataLoader class by using DTO
+  - Logic seperation from Main class (Config: initializing Repositoies and Services, Controller: UI)
+  - Validation Service seperation from Controller class
+
+심재환 @jaehwan1912
+
+
+홍준화 @junwha0511
+- Data loading (link.dat)
+- Unit test for existing class
+- Ranking Algorithm Design & Implement

@@ -1,11 +1,9 @@
 package com.cse364.app;
 
+import com.cse364.app.exceptions.GenderValidationException;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.OccupationValidationException;
-import com.cse364.domain.Genre;
-import com.cse364.domain.GenreRepository;
-import com.cse364.domain.Occupation;
-import com.cse364.domain.OccupationRepository;
+import com.cse364.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +40,15 @@ public class ValidationService {
         Occupation occupation = occupationRepository.searchByName(occupationName);
         if (occupation == null) { throw new OccupationValidationException(occupationName); }
         return occupation;
+    }
+
+    /**
+     * Returns a occupation searched by a given name.
+     * If a genre name is invalid, it throws GenreValidationException.
+     */
+    public Gender validateGender(String genderString) throws GenderValidationException {
+        if (genderString.equals("M")) { return Gender.M; }
+        if (genderString.equals("F")) { return Gender.F; }
+        throw new GenderValidationException(genderString);
     }
 }

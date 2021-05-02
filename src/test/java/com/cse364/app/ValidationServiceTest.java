@@ -1,11 +1,9 @@
 package com.cse364.app;
 
+import com.cse364.app.exceptions.GenderValidationException;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.OccupationValidationException;
-import com.cse364.domain.Genre;
-import com.cse364.domain.GenreRepository;
-import com.cse364.domain.Occupation;
-import com.cse364.domain.OccupationRepository;
+import com.cse364.domain.*;
 import com.cse364.infra.InMemoryGenreRepository;
 import com.cse364.infra.InMemoryOccupationRepository;
 import org.junit.Before;
@@ -73,6 +71,26 @@ public class ValidationServiceTest {
             fail("must throw when given invalid occupation name");
         } catch(OccupationValidationException e) {
             assertEquals(e.getName(), "INVALID");
+        }
+    }
+
+    @Test
+    public void testValidateGender() {
+        try {
+            assertEquals(validationService.validateGender("M"), Gender.M);
+            assertEquals(validationService.validateGender("F"), Gender.F);
+        } catch(GenderValidationException e) {
+            fail("must not throw when given invalid gender string");
+        }
+    }
+
+    @Test
+    public void testValidateGenderThrowsWhenGivenInvalidName() {
+        try {
+            validationService.validateGender("INVALID");
+            fail("must throw when given invalid gender string");
+        } catch(GenderValidationException e) {
+            assertEquals(e.getValue(), "INVALID");
         }
     }
 }

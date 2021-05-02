@@ -35,21 +35,21 @@ public class RankingServiceTest {
         );
 
         ratedBySimilarUsers = List.of(
-                new Movie(1, "A", List.of(new Genre("X"), new Genre("Y"), new Genre("Z"))),
-                new Movie(2, "B", List.of(new Genre("X"), new Genre("Y"))),
-                new Movie(3, "C", List.of(new Genre("Z"))),
-                new Movie(4, "D", List.of(new Genre("X"), new Genre("Y"), new Genre("Z"))),
-                new Movie(5, "E", List.of(new Genre("X"), new Genre("Y"))),
-                new Movie(6, "F", List.of(new Genre("Z"))),
-                new Movie(7, "G", List.of(new Genre("X"), new Genre("Y"), new Genre("Z"))),
-                new Movie(8, "H", List.of(new Genre("X"), new Genre("Y"))),
-                new Movie(9, "I", List.of(new Genre("X"))),
-                new Movie(10, "J", List.of(new Genre("X"), new Genre("Y"), new Genre("Z")))
+                new Movie(1, "A", List.of(new Genre("X"), new Genre("Y"), new Genre("Z")), "link"),
+                new Movie(2, "B", List.of(new Genre("X"), new Genre("Y")), "link"),
+                new Movie(3, "C", List.of(new Genre("Z")), "link"),
+                new Movie(4, "D", List.of(new Genre("X"), new Genre("Y"), new Genre("Z")), "link"),
+                new Movie(5, "E", List.of(new Genre("X"), new Genre("Y")), "link"),
+                new Movie(6, "F", List.of(new Genre("Z")), "link"),
+                new Movie(7, "G", List.of(new Genre("X"), new Genre("Y"), new Genre("Z")), "link"),
+                new Movie(8, "H", List.of(new Genre("X"), new Genre("Y")), "link"),
+                new Movie(9, "I", List.of(new Genre("X")), "link"),
+                new Movie(10, "J", List.of(new Genre("X"), new Genre("Y"), new Genre("Z")), "link")
         );
 
         ratedByNotSimilarUsers = List.of(
-                new Movie(11, "K", List.of(new Genre("X"), new Genre("Y"))),
-                new Movie(12, "L", List.of(new Genre("X")))
+                new Movie(11, "K", List.of(new Genre("X"), new Genre("Y")), "link"),
+                new Movie(12, "L", List.of(new Genre("X")), "link")
         );
 
         for(Movie movie : ratedBySimilarUsers){

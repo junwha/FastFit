@@ -21,7 +21,8 @@ public class MovieTest {
         movie = new Movie(
             1,
             "Toy Story",
-            genreList
+            genreList,
+            "link1"
         );
     }
 
@@ -30,6 +31,7 @@ public class MovieTest {
         assertEquals(movie.getId(), 1);
         assertEquals(movie.getTitle(), "Toy Story");
         assertEquals(movie.getGenres(), genreList);
+        assertEquals(movie.getLink(), "link1");
     }
 
     @Test
@@ -79,12 +81,14 @@ public class MovieTest {
         assertEquals(movie, new Movie(
                 1,
                 "Toy Story",
-                genreList
+                genreList,
+                "link"
         ));
         assertNotEquals(movie, new Movie(
                 2,
                 "Hard Story",
-                genreList
+                genreList,
+                "link"
         ));
         assertNotEquals(movie, null);
     }

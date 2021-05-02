@@ -27,7 +27,8 @@ public class InMemoryRatingRepositoryTest {
                     new Genre("Animation"),
                     new Genre("Children's"),
                     new Genre("Comedy")
-                )
+                ),
+                "link1"
         );
         movie2 = new Movie(
                 2,
@@ -36,7 +37,8 @@ public class InMemoryRatingRepositoryTest {
                         new Genre("Adventure"),
                         new Genre("Children's"),
                         new Genre("Fantasy")
-                )
+                ),
+                "link2"
         );
         movie3 = new Movie(
                 3,
@@ -44,7 +46,8 @@ public class InMemoryRatingRepositoryTest {
                 List.of(
                         new Genre("Comedy"),
                         new Genre("Romance")
-                )
+                ),
+                "link3"
         );
 
         ratings = List.of(

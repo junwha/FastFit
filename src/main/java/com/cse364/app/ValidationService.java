@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationService {
-    private GenreRepository genreRepository;
-    private OccupationRepository occupationRepository;
+    private final GenreRepository genreRepository;
+    private final OccupationRepository occupationRepository;
 
     public ValidationService(GenreRepository genreRepository, OccupationRepository occupationRepository) {
         this.genreRepository = genreRepository;

@@ -33,8 +33,8 @@ public class ValidationService {
     }
 
     /**
-     * Returns a occupation searched by a given name.
-     * If a genre name is invalid, it throws GenreValidationException.
+     * Returns an occupation searched by a given name.
+     * If an occupation name is invalid, it throws OccupationValidationException.
      */
     public Occupation validateOccupation(String occupationName) throws OccupationValidationException {
         Occupation occupation = occupationRepository.searchByName(occupationName);
@@ -42,13 +42,10 @@ public class ValidationService {
         return occupation;
     }
 
-    /**
-     * Returns a occupation searched by a given name.
-     * If a genre name is invalid, it throws GenreValidationException.
-     */
     public Gender validateGender(String genderString) throws GenderValidationException {
         if (genderString.equals("M")) { return Gender.M; }
         if (genderString.equals("F")) { return Gender.F; }
         throw new GenderValidationException(genderString);
     }
+
 }

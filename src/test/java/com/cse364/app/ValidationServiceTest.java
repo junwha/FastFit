@@ -33,7 +33,7 @@ public class ValidationServiceTest {
     }
 
     @Test
-    public void testSearchGenres() {
+    public void testValidateGenres() {
         try {
             List<Genre> genres = validationService.validateGenres(List.of("genreC", "genreB", "genreA"));
             assertEquals(genres, List.of(
@@ -42,35 +42,35 @@ public class ValidationServiceTest {
                     new Genre("genreA")
             ));
         } catch(GenreValidationException e) {
-            fail("searchGenres must not throw when given valid genre names.");
+            fail("must not throw when given valid genre names");
         }
     }
 
     @Test
-    public void testSearchGenresThrowsWhenGivenInvalidName() {
+    public void testValidateGenresThrowsWhenGivenInvalidName() {
         try {
             validationService.validateGenres(List.of("genreA", "INVALID", "genreB"));
-            fail("searchGenres must throw when given invalid genre names.");
+            fail("must throw when given invalid genre names");
         } catch(GenreValidationException e) {
             assertEquals(e.getName(), "INVALID");
         }
     }
 
     @Test
-    public void testOccupationSearch() {
+    public void testValidateOccupation() {
         try {
             Occupation occupation = validationService.validateOccupation("ocpB");
             assertEquals(occupation, new Occupation(2, "ocpB"));
         } catch(OccupationValidationException e) {
-            fail("searchOccupation must not throw when given invalid occupation name.");
+            fail("must not throw when given invalid occupation name");
         }
     }
 
     @Test
-    public void testOccupationSearchThrowsWhenGivenInvalidName() {
+    public void testValidateOccupationThrowsWhenGivenInvalidName() {
         try {
             validationService.validateOccupation("INVALID");
-            fail("searchOccupation must throw when given invalid occupation name.");
+            fail("must throw when given invalid occupation name");
         } catch(OccupationValidationException e) {
             assertEquals(e.getName(), "INVALID");
         }

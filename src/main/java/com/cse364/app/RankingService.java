@@ -21,9 +21,9 @@ public class RankingService {
      * sorted by their average ratings (in descending order)
      * given the ratings information.
      */
-    private List<MovieWithRatings> rankMovies(List<Rating> ratings) {
+    List<MovieWithRatings> rankMovies(List<Rating> ratings) {
         // movie id -> movie with ratings
-        HashMap<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
+        Map<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
 
         // Fill ratedMovies
         for (Rating rating : ratings) {
@@ -48,7 +48,7 @@ public class RankingService {
         return rankedMovies;
     }
     
-    private int countValidUserInfo(Gender a, Integer b, Occupation c) {
+    int countValidUserInfo(Gender a, Integer b, Occupation c) {
         int validNum = 0;
         if (a != null) {validNum += 1;}
         if (b>0) {validNum += 1;}
@@ -56,7 +56,7 @@ public class RankingService {
         return validNum;
     }
 
-    /*
+    /**
      * Return Top N Movie rated by similar user
      */
     public List<Movie> getTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
@@ -79,33 +79,59 @@ public class RankingService {
             if (topNMovies.size() >= N) { return topNMovies; }
         }
 
-        //At this point, First search with all given input gave less than N movies.
-        //Iterate through rest of the List
-        int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
-        
-        List<Gender> genVar= new ArrayList<>();
-        List<Integer> ageVar = new ArrayList<>();
-        List<Occupation> occVar = new ArrayList<>();
-        if (userInfo.getGender() != null) {genVar.add(userInfo.getGender());}
-        genVar.add(null);
-        if (userInfo.getAge() != -1) {ageVar.add(userInfo.getAge());}
-        ageVar.add(-1);
-        if (userInfo.getOccupation() != null) {occVar.add(userInfo.getOccupation());}
-        occVar.add(null);
+        List<Movie> secondaryNMovies = secondaryTopNMovie(userInfo, N, genres);
 
-        for (int i = validUserInfoCount-1; i >= 0; i--) {
-            HashSet<User> secondarySimilarUser = new HashSet<>();
-            for (Gender genderIter : genVar) {
-                for (Integer ageIter : ageVar) {
-                    for (Occupation occIter : occVar) {
-                        if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
-                            for (User user : userRepository.filterSimilarUser(new UserInfo(genderIter, ageIter, occIter, "00000"))) {
-                                secondarySimilarUser.add(user);
-                            }
-                        }
+        for (Movie movie : secondaryNMovies) {
+            if (!topNMovies.contains(movie)) {
+                topNMovies.add(movie);
+            }
+            
+            if (topNMovies.size() >= N) { return topNMovies; }
+        }
+
+        //You really should't reach this point, but anyways...
+        return topNMovies;
+    }
+
+    /**
+     * Return HashSet of users with i similar characteristics based on given subsetmaking Sets
+     */   
+    Set<User> findUserOfiSimilarUserInfo(Set<Gender> genVar, Set<Integer> ageVar, Set<Occupation> occVar, int i) {
+        Set<User> users = new HashSet<>();
+        for (Gender genderIter : genVar) {
+            for (Integer ageIter : ageVar) {
+                for (Occupation occIter : occVar) {
+                    if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
+                        UserInfo subSimilarUser = new UserInfo(genderIter, ageIter, occIter, "00000");
+                        List<User> similarUsers = userRepository.filterSimilarUser(subSimilarUser);
+                        users.addAll(similarUsers);
                     }
                 }
             }
+        }
+        return users;
+    }
+
+    /**
+     * When getTopNMovie couldn't find N movies with all matching userInfo
+     */
+    List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
+        int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
+        
+        Set<Gender> genVar= new HashSet<>();
+        Set<Integer> ageVar = new HashSet<>();
+        Set<Occupation> occVar = new HashSet<>();
+        genVar.add(userInfo.getGender());
+        genVar.add(null);
+        ageVar.add(userInfo.getAge());
+        ageVar.add(-1);
+        occVar.add(userInfo.getOccupation());
+        occVar.add(null);
+
+        List<Movie> secondaryNMovies = new ArrayList<>();
+
+        for (int i = validUserInfoCount-1; i >= 0; i--) {
+            Set<User> secondarySimilarUser = findUserOfiSimilarUserInfo(genVar, ageVar, occVar, i);
 
             List<Rating> secondaryRatingsBySimilarUser = new ArrayList<>();
 
@@ -118,16 +144,16 @@ public class RankingService {
             for (MovieWithRatings movieWithRatings : rankedMovies2) {
                 Movie movie = movieWithRatings.movie;
                 if (genres.isEmpty() || movie.hasOneOfGenres(genres)) {
-                    if (!topNMovies.contains(movie)) {
-                        topNMovies.add(movie);
+                    if (!secondaryNMovies.contains(movie)) {
+                        secondaryNMovies.add(movie);
                     }
                 }
 
-                if (topNMovies.size() >= N) { return topNMovies; }
+                if (secondaryNMovies.size() >= N) { return secondaryNMovies; }
             }
         }
 
-        //You can't really reach this point... but anyways
-        return topNMovies;
+        //You really can't reach this point...but anyways
+        return secondaryNMovies;
     }
 }

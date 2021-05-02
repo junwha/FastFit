@@ -90,13 +90,36 @@ public class RankingServiceTest {
     }
 
     @Test
+    public void testSubFunctions(){
+        //countValidUserInfo
+        assertEquals(service.countValidUserInfo(Gender.M, 27, new Occupation(1, "others")), 3);
+        assertEquals(service.countValidUserInfo(null, -1, null), 0);
+        
+    }
+
+    @Test
     public void testGetTopNMovie(){
+        // First-order
         // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),
                 service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(0).getId());
         // Tail
         assertEquals(ratedBySimilarUsers.get(9).getId(),
                 service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(9).getId());
+
+        // Second-order
+        // Head
+        assertEquals(ratedByNotSimilarUsers.get(1).getId(),
+                service.getTopNMovie(new UserInfo(Gender.F, 37, new Occupation(2, "X"), "00000"), 10, Collections.emptyList()).get(0).getId());
+        // Tail
+        assertEquals(ratedBySimilarUsers.get(2).getId(),
+                service.getTopNMovie(new UserInfo(Gender.F, 37, new Occupation(2, "X"), "00000"), 10, Collections.emptyList()).get(9).getId());        
+
+        // Second-order with genres
+        //Head
+        assertEquals(ratedByNotSimilarUsers.get(0).getId(),
+                service.getTopNMovie(new UserInfo(Gender.F, 37, new Occupation(2, "X"), "00000"), 10, List.of(new Genre("Y"))).get(0).getId());
+
 
         List<Movie> movieRanking = service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, List.of(new Genre("X"), new Genre("Y")));
         for (Movie movie : movieRanking) {

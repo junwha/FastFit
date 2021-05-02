@@ -1,7 +1,7 @@
 package com.cse364.app;
 
-import com.cse364.app.exceptions.InvalidGenreNameException;
-import com.cse364.app.exceptions.InvalidOccupationNameException;
+import com.cse364.app.exceptions.GenreValidationException;
+import com.cse364.app.exceptions.OccupationValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.GenreRepository;
 import com.cse364.domain.Occupation;
@@ -41,7 +41,7 @@ public class ValidationServiceTest {
                     new Genre("genreB"),
                     new Genre("genreA")
             ));
-        } catch(InvalidGenreNameException e) {
+        } catch(GenreValidationException e) {
             fail("searchGenres must not throw when given valid genre names.");
         }
     }
@@ -51,7 +51,7 @@ public class ValidationServiceTest {
         try {
             validationService.searchGenres(List.of("genreA", "INVALID", "genreB"));
             fail("searchGenres must throw when given invalid genre names.");
-        } catch(InvalidGenreNameException e) {
+        } catch(GenreValidationException e) {
             assertEquals(e.getName(), "INVALID");
         }
     }
@@ -61,7 +61,7 @@ public class ValidationServiceTest {
         try {
             Occupation occupation = validationService.searchOccupation("ocpB");
             assertEquals(occupation, new Occupation(2, "ocpB"));
-        } catch(InvalidOccupationNameException e) {
+        } catch(OccupationValidationException e) {
             fail("searchOccupation must not throw when given invalid occupation name.");
         }
     }
@@ -71,7 +71,7 @@ public class ValidationServiceTest {
         try {
             validationService.searchOccupation("INVALID");
             fail("searchOccupation must throw when given invalid occupation name.");
-        } catch(InvalidOccupationNameException e) {
+        } catch(OccupationValidationException e) {
             assertEquals(e.getName(), "INVALID");
         }
     }

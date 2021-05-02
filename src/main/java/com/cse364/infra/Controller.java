@@ -3,8 +3,8 @@ package com.cse364.infra;
 import com.cse364.app.AverageRatingService;
 import com.cse364.app.ValidationService;
 import com.cse364.app.NoRatingForGenreException;
-import com.cse364.app.exceptions.InvalidGenreNameException;
-import com.cse364.app.exceptions.InvalidOccupationNameException;
+import com.cse364.app.exceptions.GenreValidationException;
+import com.cse364.app.exceptions.OccupationValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Occupation;
 import com.cse364.domain.Movie;
@@ -47,10 +47,10 @@ public class Controller {
         try {
             genres = validationService.searchGenres(Arrays.asList(genreNames.split("\\|")));
             occupation = validationService.searchOccupation(occupationName);
-        } catch(InvalidGenreNameException e) {
+        } catch(GenreValidationException e) {
             System.out.format("Error : The genre %s does not exist in database\n", e.getName());
             return;
-        } catch(InvalidOccupationNameException e) {
+        } catch(OccupationValidationException e) {
             System.out.format("Error : The occupation %s does not exist in database\n", e.getName());
             return;
         }

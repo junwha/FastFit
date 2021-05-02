@@ -1,7 +1,7 @@
 package com.cse364.app;
 
-import com.cse364.app.exceptions.InvalidGenreNameException;
-import com.cse364.app.exceptions.InvalidOccupationNameException;
+import com.cse364.app.exceptions.GenreValidationException;
+import com.cse364.app.exceptions.OccupationValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.GenreRepository;
 import com.cse364.domain.Occupation;
@@ -24,19 +24,19 @@ public class ValidationService {
      * Any duplicate genres are removed from the returned list.
      * If a genre name is invalid, it throws InvalidGenreNameException.
      */
-    public List<Genre> searchGenres(List<String> genreNames) throws InvalidGenreNameException {
+    public List<Genre> searchGenres(List<String> genreNames) throws GenreValidationException {
         List<Genre> genres = new ArrayList<>();
         for (String name : genreNames) {
             Genre genre = genreRepository.searchByName(name);
-            if (genre == null) { throw new InvalidGenreNameException(name); }
+            if (genre == null) { throw new GenreValidationException(name); }
             if (!genres.contains(genre)) genres.add(genre);
         }
         return genres;
     }
 
-    public Occupation searchOccupation(String occupationName) throws InvalidOccupationNameException {
+    public Occupation searchOccupation(String occupationName) throws OccupationValidationException {
         Occupation occupation = occupationRepository.searchByName(occupationName);
-        if (occupation == null) { throw new InvalidOccupationNameException(occupationName); }
+        if (occupation == null) { throw new OccupationValidationException(occupationName); }
         return occupation;
     }
 }

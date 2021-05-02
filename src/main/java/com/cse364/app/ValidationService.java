@@ -10,11 +10,11 @@ import com.cse364.domain.OccupationRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NameSearchService {
+public class ValidationService {
     private GenreRepository genreRepository;
     private OccupationRepository occupationRepository;
 
-    public NameSearchService(GenreRepository genreRepository, OccupationRepository occupationRepository) {
+    public ValidationService(GenreRepository genreRepository, OccupationRepository occupationRepository) {
         this.genreRepository = genreRepository;
         this.occupationRepository = occupationRepository;
     }

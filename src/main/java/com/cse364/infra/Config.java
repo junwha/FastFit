@@ -45,13 +45,13 @@ public class Config {
 
     public AverageRatingService averageRatingService;
     public RankingService rankingService;
-    public NameSearchService nameSearchService;
+    public ValidationService validationService;
 
     public Config() {
         loadRepositories();
         this.averageRatingService = new AverageRatingService(movies, ratings);
         this.rankingService = new RankingService(movies, users, ratings);
-        this.nameSearchService = new NameSearchService(genres, occupations);
+        this.validationService = new ValidationService(genres, occupations);
     }
 
     public void loadRepositories() {

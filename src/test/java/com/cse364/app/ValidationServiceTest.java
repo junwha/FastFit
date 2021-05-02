@@ -16,8 +16,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class NameSearchServiceTest {
-    private NameSearchService nameSearchService;
+public class ValidationServiceTest {
+    private ValidationService validationService;
 
     @Before
     public void init() {
@@ -29,13 +29,13 @@ public class NameSearchServiceTest {
             add(new Occupation(2, "ocpB"));
             add(new Occupation(3, "ocpC"));
         }};
-        nameSearchService = new NameSearchService(genres, occupations);
+        validationService = new ValidationService(genres, occupations);
     }
 
     @Test
     public void testSearchGenres() {
         try {
-            List<Genre> genres = nameSearchService.searchGenres(List.of("genreC", "genreB", "genreA"));
+            List<Genre> genres = validationService.searchGenres(List.of("genreC", "genreB", "genreA"));
             assertEquals(genres, List.of(
                     new Genre("genreC"),
                     new Genre("genreB"),
@@ -49,7 +49,7 @@ public class NameSearchServiceTest {
     @Test
     public void testSearchGenresThrowsWhenGivenInvalidName() {
         try {
-            nameSearchService.searchGenres(List.of("genreA", "INVALID", "genreB"));
+            validationService.searchGenres(List.of("genreA", "INVALID", "genreB"));
             fail("searchGenres must throw when given invalid genre names.");
         } catch(InvalidGenreNameException e) {
             assertEquals(e.getName(), "INVALID");
@@ -59,7 +59,7 @@ public class NameSearchServiceTest {
     @Test
     public void testOccupationSearch() {
         try {
-            Occupation occupation = nameSearchService.searchOccupation("ocpB");
+            Occupation occupation = validationService.searchOccupation("ocpB");
             assertEquals(occupation, new Occupation(2, "ocpB"));
         } catch(InvalidOccupationNameException e) {
             fail("searchOccupation must not throw when given invalid occupation name.");
@@ -69,7 +69,7 @@ public class NameSearchServiceTest {
     @Test
     public void testOccupationSearchThrowsWhenGivenInvalidName() {
         try {
-            nameSearchService.searchOccupation("INVALID");
+            validationService.searchOccupation("INVALID");
             fail("searchOccupation must throw when given invalid occupation name.");
         } catch(InvalidOccupationNameException e) {
             assertEquals(e.getName(), "INVALID");

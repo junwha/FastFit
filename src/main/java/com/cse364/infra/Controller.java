@@ -1,7 +1,7 @@
 package com.cse364.infra;
 
 import com.cse364.app.AverageRatingService;
-import com.cse364.app.NameSearchService;
+import com.cse364.app.ValidationService;
 import com.cse364.app.NoRatingForGenreException;
 import com.cse364.app.exceptions.InvalidGenreNameException;
 import com.cse364.app.exceptions.InvalidOccupationNameException;
@@ -16,12 +16,12 @@ import java.util.*;
 public class Controller {
     private final Config config;
     private final AverageRatingService averageRatingService;
-    private final NameSearchService nameSearchService;
+    private final ValidationService validationService;
 
     public Controller(Config config) {
         this.config = config; // TODO: Don't save config object
         this.averageRatingService = config.averageRatingService;
-        this.nameSearchService = config.nameSearchService;
+        this.validationService = config.validationService;
     }
 
     public void main(String[] args) {
@@ -45,8 +45,8 @@ public class Controller {
         List<Genre> genres;
         Occupation occupation;
         try {
-            genres = nameSearchService.searchGenres(Arrays.asList(genreNames.split("\\|")));
-            occupation = nameSearchService.searchOccupation(occupationName);
+            genres = validationService.searchGenres(Arrays.asList(genreNames.split("\\|")));
+            occupation = validationService.searchOccupation(occupationName);
         } catch(InvalidGenreNameException e) {
             System.out.format("Error : The genre %s does not exist in database\n", e.getName());
             return;

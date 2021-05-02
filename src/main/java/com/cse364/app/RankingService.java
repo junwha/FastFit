@@ -56,7 +56,7 @@ public class RankingService {
         return validNum;
     }
 
-    /*
+    /**
      * Return Top N Movie rated by similar user
      */
     public List<Movie> getTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
@@ -83,14 +83,14 @@ public class RankingService {
         //Iterate through rest of the List
         int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
         
-        List<Gender> genVar= new ArrayList<>();
-        List<Integer> ageVar = new ArrayList<>();
-        List<Occupation> occVar = new ArrayList<>();
-        if (userInfo.getGender() != null) {genVar.add(userInfo.getGender());}
+        HashSet<Gender> genVar= new HashSet<>();
+        HashSet<Integer> ageVar = new HashSet<>();
+        HashSet<Occupation> occVar = new HashSet<>();
+        genVar.add(userInfo.getGender());
         genVar.add(null);
-        if (userInfo.getAge() != -1) {ageVar.add(userInfo.getAge());}
+        ageVar.add(userInfo.getAge());
         ageVar.add(-1);
-        if (userInfo.getOccupation() != null) {occVar.add(userInfo.getOccupation());}
+        occVar.add(userInfo.getOccupation());
         occVar.add(null);
 
         for (int i = validUserInfoCount-1; i >= 0; i--) {

@@ -49,6 +49,17 @@ public class DataLoaderTest {
         );
 
         assertEquals(loadedMovies, expectedMovies);
+
+        assertTrue(!loadedMovies.get(0).equals(5));
+        List<MovieDto> wrongMovies = List.of( 
+                new MovieDto(5, "Sabrina (1995)", List.of("Comedy", "Romance"), "movie/link/0114319"),
+                new MovieDto(7, "Sabertooth (1995)", List.of("Comedy", "Romance"), "movie/link/0114319"),
+                new MovieDto(7, "Sabrina (1995)", List.of("Comedian", "Romance"), "movie/link/0114319"),
+                new MovieDto(7, "Sabrina (1995)", List.of("Comedy", "Romance"), "movie/zelda/0114319")
+        );
+        for (MovieDto mov : wrongMovies) {
+            assertTrue(!loadedMovies.get(0).equals(mov));
+        }
     }
 
     @Test

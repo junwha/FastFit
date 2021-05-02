@@ -19,10 +19,14 @@ public class Controller {
     private final RankingService rankingService;
     private final ValidationService validationService;
 
-    public Controller(Config config) {
-        this.averageRatingService = config.averageRatingService;
-        this.rankingService = config.rankingService;
-        this.validationService = config.validationService;
+    public Controller(
+            AverageRatingService averageRatingService,
+            RankingService rankingService,
+            ValidationService validationService
+    ) {
+        this.averageRatingService = averageRatingService;
+        this.rankingService = rankingService;
+        this.validationService = validationService;
     }
 
     public void main(String[] args) {

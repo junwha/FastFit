@@ -148,3 +148,6 @@ is [3.177143].
 - Data loading (link.dat)
 - Unit test for existing class
 - Ranking Algorithm Design & Implement
+  - Investigate existing algorithms
+  - Algorithm optimized for Input
+  - Rating means for similar users

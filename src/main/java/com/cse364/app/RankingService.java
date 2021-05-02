@@ -23,7 +23,7 @@ public class RankingService {
      */
     private List<MovieWithRatings> rankMovies(List<Rating> ratings) {
         // movie id -> movie with ratings
-        HashMap<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
+        Map<Integer, MovieWithRatings> ratedMovies = new HashMap<>();
 
         // Fill ratedMovies
         for (Rating rating : ratings) {
@@ -96,8 +96,8 @@ public class RankingService {
     /**
      * Return HashSet of users with i similar characteristics based on given subsetmaking Sets
      */   
-    private HashSet<User> findUserOfiSimilarUserInfo(HashSet<Gender> genVar, HashSet<Integer> ageVar, HashSet<Occupation> occVar, int i) {
-        HashSet<User> users = new HashSet<>();
+    private Set<User> findUserOfiSimilarUserInfo(Set<Gender> genVar, Set<Integer> ageVar, Set<Occupation> occVar, int i) {
+        Set<User> users = new HashSet<>();
         for (Gender genderIter : genVar) {
             for (Integer ageIter : ageVar) {
                 for (Occupation occIter : occVar) {
@@ -118,9 +118,9 @@ public class RankingService {
     private List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
         int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
         
-        HashSet<Gender> genVar= new HashSet<>();
-        HashSet<Integer> ageVar = new HashSet<>();
-        HashSet<Occupation> occVar = new HashSet<>();
+        Set<Gender> genVar= new HashSet<>();
+        Set<Integer> ageVar = new HashSet<>();
+        Set<Occupation> occVar = new HashSet<>();
         genVar.add(userInfo.getGender());
         genVar.add(null);
         ageVar.add(userInfo.getAge());
@@ -131,7 +131,7 @@ public class RankingService {
         List<Movie> secondaryNMovies = new ArrayList<>();
 
         for (int i = validUserInfoCount-1; i >= 0; i--) {
-            HashSet<User> secondarySimilarUser = findUserOfiSimilarUserInfo(genVar, ageVar, occVar, i);
+            Set<User> secondarySimilarUser = findUserOfiSimilarUserInfo(genVar, ageVar, occVar, i);
 
             List<Rating> secondaryRatingsBySimilarUser = new ArrayList<>();
 

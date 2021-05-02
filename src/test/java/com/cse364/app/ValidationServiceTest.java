@@ -3,6 +3,7 @@ package com.cse364.app;
 import com.cse364.app.exceptions.GenderValidationException;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.OccupationValidationException;
+import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.*;
 import com.cse364.infra.InMemoryGenreRepository;
 import com.cse364.infra.InMemoryOccupationRepository;
@@ -90,6 +91,44 @@ public class ValidationServiceTest {
             validationService.validateGender("INVALID");
             fail("must throw when given invalid gender string");
         } catch(GenderValidationException e) {
+            assertEquals(e.getValue(), "INVALID");
+        }
+    }
+
+    @Test
+    public void testValidateUserInfo() {
+        try {
+            UserInfo userInfo = validationService.validateUserInfo("F", "10", "ocpC");
+            UserInfo expected = new UserInfo(Gender.F, 10, new Occupation(3, "ocpC"), null);
+            assertEquals(userInfo, expected);
+        } catch(UserInfoValidationException e) {
+            fail("must not throw when given valid user info");
+        }
+    }
+
+    @Test
+    public void testValidateUserInfoThrows() {
+        try {
+            UserInfo userInfo = validationService.validateUserInfo("INVALID", "10", "ocpC");
+            fail("must throw when given invalid gender");
+        } catch(UserInfoValidationException e) {
+            assertEquals(e.getField(), "gender");
+            assertEquals(e.getValue(), "INVALID");
+        }
+
+        try {
+            UserInfo userInfo = validationService.validateUserInfo("F", "INVALID", "ocpC");
+            fail("must throw when given invalid age");
+        } catch(UserInfoValidationException e) {
+            assertEquals(e.getField(), "age");
+            assertEquals(e.getValue(), "INVALID");
+        }
+
+        try {
+            UserInfo userInfo = validationService.validateUserInfo("F", "10", "INVALID");
+            fail("must throw when given invalid occupation");
+        } catch(UserInfoValidationException e) {
+            assertEquals(e.getField(), "occupation");
             assertEquals(e.getValue(), "INVALID");
         }
     }

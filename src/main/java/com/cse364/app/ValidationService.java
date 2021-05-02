@@ -3,6 +3,7 @@ package com.cse364.app;
 import com.cse364.app.exceptions.GenderValidationException;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.OccupationValidationException;
+import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.*;
 
 import java.util.ArrayList;
@@ -48,4 +49,31 @@ public class ValidationService {
         throw new GenderValidationException(genderString);
     }
 
+    public UserInfo validateUserInfo(
+            String genderString, String ageString, String occupationString
+    ) throws UserInfoValidationException {
+        Gender gender;
+        int age;
+        Occupation occupation;
+
+        try {
+            gender = validateGender(genderString);
+        } catch (GenderValidationException e) {
+            throw new UserInfoValidationException("gender", genderString);
+        }
+
+        try {
+            age = Integer.parseInt(ageString);
+        } catch (NumberFormatException e) {
+            throw new UserInfoValidationException("age", ageString);
+        }
+
+        try {
+            occupation = validateOccupation(occupationString);
+        } catch (OccupationValidationException e) {
+            throw new UserInfoValidationException("occupation", occupationString);
+        }
+
+        return new UserInfo(gender, age, occupation, null);
+    }
 }

@@ -99,12 +99,22 @@ public class RankingServiceTest {
 
     @Test
     public void testGetTopNMovie(){
+        // First-order
         // Head
         assertEquals(ratedBySimilarUsers.get(0).getId(),
                 service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(0).getId());
         // Tail
         assertEquals(ratedBySimilarUsers.get(9).getId(),
                 service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, Collections.emptyList()).get(9).getId());
+
+        // Second-order
+        // Head
+        assertEquals(ratedByNotSimilarUsers.get(1).getId(),
+                service.getTopNMovie(new UserInfo(Gender.F, 37, new Occupation(2, "X"), "00000"), 10, Collections.emptyList()).get(0).getId());
+        // Tail
+        assertEquals(ratedBySimilarUsers.get(2).getId(),
+                service.getTopNMovie(new UserInfo(Gender.F, 37, new Occupation(2, "X"), "00000"), 10, Collections.emptyList()).get(9).getId());        
+
 
         List<Movie> movieRanking = service.getTopNMovie(new UserInfo(Gender.M, 27, new Occupation(1, "others"), "00000"), 10, List.of(new Genre("X"), new Genre("Y")));
         for (Movie movie : movieRanking) {

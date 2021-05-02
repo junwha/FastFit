@@ -113,7 +113,7 @@ public class RankingService {
     }
 
     /**
-     * When getTonNMovie couldn't find N movies with all matching userInfo
+     * When getTopNMovie couldn't find N movies with all matching userInfo
      */
     private List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
         int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());

@@ -8,7 +8,6 @@ import com.cse364.domain.Occupation;
 import com.cse364.domain.OccupationRepository;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class NameSearchService {

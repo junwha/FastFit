@@ -18,12 +18,14 @@ public class InMemoryUserRepositoryTest {
     @Test
     public void testFilterSimilarUserByUserInfo() {
         InMemoryUserRepository storage = new InMemoryUserRepository();
-        List<Integer> ageTestList = List.of(11,21,31,41,51,61);
+        List<Integer> ageTestList = List.of(11,21,31,41,46,51,61);
         List<User> ageTestUserList = List.of(new User(1, Gender.M, -1, new Occupation(1, "X"), "00000"));
         storage.add(ageTestUserList.get(0));
         for (Integer age : ageTestList) {
             assertEquals(storage.filterSimilarUser(new UserInfo(null, age, null, "00000")), List.of());
         }
+        assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, new Occupation(1, "X"), "00000")), ageTestUserList);
+        assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, null, "00000")), ageTestUserList);
         /*
         List<Gender> genVar = List.of(
                 null,

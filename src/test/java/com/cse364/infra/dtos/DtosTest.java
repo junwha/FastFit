@@ -48,6 +48,7 @@ public class DtosTest {
     @Test
     public void testMovieDto() {
         assertEquals(oriMovieDto, new MovieDto(7, "Sabrina (1995)", List.of("Comedy", "Romance"), "movie/link/0114319"));
+        assertNotEquals(oriMovieDto, 2);
         for (MovieDto mov : movieDtos) {
             assertNotEquals(oriMovieDto, mov);
         }
@@ -56,6 +57,7 @@ public class DtosTest {
     @Test
     public void testRatingDto() {
         assertEquals(oriRatingDto, new RatingDto(1, 608, 4, 978301398));
+        assertNotEquals(oriRatingDto, 3);
         for (RatingDto rat : ratingDtos) {
             assertNotEquals(oriRatingDto, rat);
         }
@@ -64,6 +66,7 @@ public class DtosTest {
     @Test
     public void testUserDto() {
         assertEquals(oriUserDto, new UserDto(4, "M", 45, 7, "02460"));
+        assertNotEquals(oriUserDto, 4);
         for (UserDto use : userDtos) {
             assertNotEquals(oriUserDto, use);
         }

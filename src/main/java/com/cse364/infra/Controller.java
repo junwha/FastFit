@@ -45,8 +45,8 @@ public class Controller {
         List<Genre> genres;
         Occupation occupation;
         try {
-            genres = validationService.searchGenres(Arrays.asList(genreNames.split("\\|")));
-            occupation = validationService.searchOccupation(occupationName);
+            genres = validationService.validateGenres(Arrays.asList(genreNames.split("\\|")));
+            occupation = validationService.validateOccupation(occupationName);
         } catch(GenreValidationException e) {
             System.out.format("Error : The genre %s does not exist in database\n", e.getName());
             return;

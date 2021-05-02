@@ -22,9 +22,9 @@ public class ValidationService {
     /**
      * Returns a list of genres searched by given genre names.
      * Any duplicate genres are removed from the returned list.
-     * If a genre name is invalid, it throws InvalidGenreNameException.
+     * If a genre name is invalid, it throws GenreValidationException.
      */
-    public List<Genre> searchGenres(List<String> genreNames) throws GenreValidationException {
+    public List<Genre> validateGenres(List<String> genreNames) throws GenreValidationException {
         List<Genre> genres = new ArrayList<>();
         for (String name : genreNames) {
             Genre genre = genreRepository.searchByName(name);
@@ -34,7 +34,11 @@ public class ValidationService {
         return genres;
     }
 
-    public Occupation searchOccupation(String occupationName) throws OccupationValidationException {
+    /**
+     * Returns a occupation searched by a given name.
+     * If a genre name is invalid, it throws GenreValidationException.
+     */
+    public Occupation validateOccupation(String occupationName) throws OccupationValidationException {
         Occupation occupation = occupationRepository.searchByName(occupationName);
         if (occupation == null) { throw new OccupationValidationException(occupationName); }
         return occupation;

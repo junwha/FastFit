@@ -35,7 +35,7 @@ public class ValidationServiceTest {
     @Test
     public void testSearchGenres() {
         try {
-            List<Genre> genres = validationService.searchGenres(List.of("genreC", "genreB", "genreA"));
+            List<Genre> genres = validationService.validateGenres(List.of("genreC", "genreB", "genreA"));
             assertEquals(genres, List.of(
                     new Genre("genreC"),
                     new Genre("genreB"),
@@ -49,7 +49,7 @@ public class ValidationServiceTest {
     @Test
     public void testSearchGenresThrowsWhenGivenInvalidName() {
         try {
-            validationService.searchGenres(List.of("genreA", "INVALID", "genreB"));
+            validationService.validateGenres(List.of("genreA", "INVALID", "genreB"));
             fail("searchGenres must throw when given invalid genre names.");
         } catch(GenreValidationException e) {
             assertEquals(e.getName(), "INVALID");
@@ -59,7 +59,7 @@ public class ValidationServiceTest {
     @Test
     public void testOccupationSearch() {
         try {
-            Occupation occupation = validationService.searchOccupation("ocpB");
+            Occupation occupation = validationService.validateOccupation("ocpB");
             assertEquals(occupation, new Occupation(2, "ocpB"));
         } catch(OccupationValidationException e) {
             fail("searchOccupation must not throw when given invalid occupation name.");
@@ -69,7 +69,7 @@ public class ValidationServiceTest {
     @Test
     public void testOccupationSearchThrowsWhenGivenInvalidName() {
         try {
-            validationService.searchOccupation("INVALID");
+            validationService.validateOccupation("INVALID");
             fail("searchOccupation must throw when given invalid occupation name.");
         } catch(OccupationValidationException e) {
             assertEquals(e.getName(), "INVALID");

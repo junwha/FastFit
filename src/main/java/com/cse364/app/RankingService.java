@@ -102,9 +102,9 @@ public class RankingService {
             for (Integer ageIter : ageVar) {
                 for (Occupation occIter : occVar) {
                     if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
-                        for (User user : userRepository.filterSimilarUser(new UserInfo(genderIter, ageIter, occIter, "00000"))) {
-                            users.add(user);
-                        }
+                        UserInfo subSimilarUser = new UserInfo(genderIter, ageIter, occIter, "00000");
+                        List<User> similarUsers = userRepository.filterSimilarUser(subSimilarUser);
+                        users.addAll(similarUsers);
                     }
                 }
             }

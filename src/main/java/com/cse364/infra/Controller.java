@@ -1,28 +1,33 @@
 package com.cse364.infra;
 
+import com.cse364.app.AverageRatingService;
+import com.cse364.app.NameSearchService;
 import com.cse364.app.NoRatingForGenreException;
+import com.cse364.app.exceptions.InvalidGenreNameException;
+import com.cse364.app.exceptions.InvalidOccupationNameException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Occupation;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Gender;
 import com.cse364.domain.UserInfo;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 public class Controller {
     private final Config config;
+    private final AverageRatingService averageRatingService;
+    private final NameSearchService nameSearchService;
 
     public Controller(Config config) {
-        this.config = config;
+        this.config = config; // TODO: Don't save config object
+        this.averageRatingService = config.averageRatingService;
+        this.nameSearchService = config.nameSearchService;
     }
 
     public void main(String[] args) {
         //Select behaviour by input length
         if (args.length == 2) {
-            getAverageRating(args);
+            getAverageRating(args[0], args[1]);
         } else if (args.length == 3) {
             getTop10Movies(args);
         } else if (args.length == 4) {
@@ -35,25 +40,34 @@ public class Controller {
         }
     }
 
-    void getAverageRating(String[] args) {
-        HashSet<Genre> genres = new HashSet<>();
-        for (String genreName : args[0].split("\\|")) {
-            Genre genre = config.genres.searchByName(genreName);
-            if (genre == null) {
-                System.out.format("Error : The genre %s does not exist in database\n", genreName);
-                System.exit(0);
-            }
-            genres.add(genre);
+    void getAverageRating(String genreNames, String occupationName) {
+        // Search and validate genre/occupation
+        List<Genre> genres;
+        Occupation occupation;
+        try {
+            genres = nameSearchService.searchGenres(Arrays.asList(genreNames.split("\\|")));
+            occupation = nameSearchService.searchOccupation(occupationName);
+        } catch(InvalidGenreNameException e) {
+            System.out.format("Error : The genre %s does not exist in database\n", e.getName());
+            return;
+        } catch(InvalidOccupationNameException e) {
+            System.out.format("Error : The occupation %s does not exist in database\n", e.getName());
+            return;
         }
 
-        Occupation occupation = config.occupations.searchByName(args[1]);
+        // Get the average rating
+        try {
+            double average = averageRatingService.averageRating(genres, occupation);
 
-        if (occupation == null) {
-            System.out.format("Error : The occupation %s does not exist in database\n", args[1]);
-            System.exit(0);
+            System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
+            System.out.format("rated by people with occupation [%s]\n", occupation.getName());
+            System.out.format("is [%f].\n", average);
+        } catch (NoRatingForGenreException e) {
+            System.out.format(
+                    "Error : There were no ratings given to movies with genre [%s] by people with occupation [%s]\n",
+                    formatGenres(genres, ", "), occupation.getName()
+            );
         }
-
-        printAverageRating(new ArrayList<>(genres), occupation);
     }
 
     void getTop10Movies(String[] args) {
@@ -98,21 +112,6 @@ public class Controller {
             if (i < genres.size() - 1) { sb.append(divider); }
         }
         return sb.toString();
-    }
-
-    void printAverageRating(List<Genre> genres, Occupation occupation){
-        try {
-            double average = config.averageRatingService.averageRating(genres, occupation);
-
-            System.out.format("Average rating of movies with genres [%s]\n", formatGenres(genres, ", "));
-            System.out.format("rated by people with occupation [%s]\n", occupation.getName());
-            System.out.format("is [%f].\n", average);
-        } catch (NoRatingForGenreException e) {
-            System.out.format(
-                    "Error : There were no ratings given to movies with genre [%s] by people with occupation [%s]\n",
-                    formatGenres(genres, ", "), occupation.getName()
-            );
-        }
     }
 
     /*

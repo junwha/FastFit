@@ -49,17 +49,6 @@ public class DataLoaderTest {
         );
 
         assertEquals(loadedMovies, expectedMovies);
-
-        assertTrue(!loadedMovies.get(0).equals(5));
-        List<MovieDto> wrongMovies = List.of( 
-                new MovieDto(5, "Sabrina (1995)", List.of("Comedy", "Romance"), "movie/link/0114319"),
-                new MovieDto(7, "Sabertooth (1995)", List.of("Comedy", "Romance"), "movie/link/0114319"),
-                new MovieDto(7, "Sabrina (1995)", List.of("Comedian", "Romance"), "movie/link/0114319"),
-                new MovieDto(7, "Sabrina (1995)", List.of("Comedy", "Romance"), "movie/zelda/0114319")
-        );
-        for (MovieDto mov : wrongMovies) {
-            assertTrue(!loadedMovies.get(0).equals(mov));
-        }
     }
 
     @Test
@@ -72,18 +61,6 @@ public class DataLoaderTest {
         );
 
         assertEquals(loadedUsers, expectedUsers);
-
-        assertTrue(!loadedUsers.get(0).equals(5));
-        List<UserDto> wrongUsers = List.of(
-                new UserDto(5, "M", 45, 7, "02460"),
-                new UserDto(4, "F", 45, 7, "02460"),
-                new UserDto(4, "M", 47, 7, "02460"),
-                new UserDto(4, "M", 45, 9, "02460"),
-                new UserDto(4, "M", 45, 7, "24680")
-        );
-        for (UserDto use : wrongUsers) {
-            assertTrue(!loadedUsers.get(0).equals(use));
-        }
     }
 
     @Test
@@ -96,16 +73,5 @@ public class DataLoaderTest {
         );
 
         assertEquals(loadedRatings, expectedRatings);
-
-        assertTrue(!loadedRatings.get(0).equals("142857"));
-        List<RatingDto> wrongRatings = List.of( 
-                new RatingDto(2, 608, 4, 978301398),
-                new RatingDto(1, 404, 4, 978301398),
-                new RatingDto(1, 608, 3, 978301398),
-                new RatingDto(1, 608, 4, 123456789)
-        );
-        for (RatingDto rat : wrongRatings) {
-            assertTrue(!loadedRatings.get(0).equals(rat));
-        }
     }
 }

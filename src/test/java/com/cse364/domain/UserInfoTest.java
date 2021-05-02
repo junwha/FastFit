@@ -22,6 +22,8 @@ public class UserInfoTest {
         UserInfo userInfo3 = new UserInfo(Gender.F, 40, new Occupation(2, "ocpB"), "11111");
         UserInfo userInfo4 = new UserInfo(Gender.M, 25, new Occupation(2, "ocpB"), "00000"); 
         UserInfo userInfo5 = new UserInfo(Gender.M, 25, new Occupation(1, "ocpA"), "11111");
+        UserInfo userInfo6 = new UserInfo(Gender.F, 25, new Occupation(1, "ocpA"), "11111"); 
+        UserInfo userInfo7 = new UserInfo(Gender.F, 45, new Occupation(1, "ocpA"), "11111");
 
         assertNotSame(userInfo1, userInfo2);
         assertEquals(userInfo1, userInfo2);
@@ -29,5 +31,7 @@ public class UserInfoTest {
         assertNotEquals(userInfo1, null);
         assertNotEquals(userInfo1, userInfo4);
         assertNotEquals(userInfo1, userInfo5);
+        assertNotEquals(userInfo5, userInfo6);
+        assertNotEquals(userInfo6, userInfo7);
     }
 }

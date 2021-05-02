@@ -4,7 +4,12 @@ import com.cse364.infra.*;
 
 public class Main {
     public static void main(String args[]) {
-        Config config = new Config();
+        Config config = new Config(
+                "./data/movies.dat",
+                "./data/links.dat",
+                "./data/users.dat",
+                "./data/ratings.dat"
+        );
         Controller controller = new Controller(
                 config.averageRatingService,
                 config.rankingService,

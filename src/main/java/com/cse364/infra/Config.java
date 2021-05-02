@@ -47,24 +47,24 @@ public class Config {
     public RankingService rankingService;
     public ValidationService validationService;
 
-    public Config() {
-        loadRepositories();
+    public Config(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
+        loadRepositories(moviesDb, linksDb, usersDb, ratingsDb);
         this.averageRatingService = new AverageRatingService(movies, ratings);
         this.rankingService = new RankingService(movies, users, ratings);
         this.validationService = new ValidationService(genres, occupations);
     }
 
-    public void loadRepositories() {
+    public void loadRepositories(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
         // Open data files
         FileReader moviesFile = null;
         FileReader linksFile = null;
         FileReader usersFile = null;
         FileReader ratingsFile = null;
         try {
-            moviesFile = new FileReader("./data/movies.dat");
-            linksFile = new FileReader("./data/links.dat");
-            usersFile = new FileReader("./data/users.dat");
-            ratingsFile = new FileReader("./data/ratings.dat");
+            moviesFile = new FileReader(moviesDb);
+            linksFile = new FileReader(linksDb);
+            usersFile = new FileReader(usersDb);
+            ratingsFile = new FileReader(ratingsDb);
         } catch(FileNotFoundException e) {
             System.out.println("ERROR: Some data file is missing. Please try to clone the repo again.");
             System.out.println(e.getMessage());

@@ -204,7 +204,7 @@ we call these informations as 'User data' and users who have same User data as '
 
 홍준화 @junwha0511
 - Data loading (link.dat)
-- Unit test for existing class
+- Unit test for existing classes
 - Ranking Algorithm Design & Implement
   - Investigate existing algorithms
   - Algorithm optimized for Input

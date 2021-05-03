@@ -26,24 +26,5 @@ public class InMemoryUserRepositoryTest {
         }
         assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, new Occupation(1, "X"), "00000")), ageTestUserList);
         assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, null, "00000")), ageTestUserList);
-        /*
-        List<Gender> genVar = List.of(
-                null,
-                Gender.F
-        );
-        List<Integer> ageVar = List.of(
-                null.
-                -1
-        );
-        List<Occupation> occVar = List.of(
-                null,
-                new Occupation(1, "X")
-        );
-        UserInfo baseInfo1 = new UserInfo()
-        List<User> userList1 = new ArrayList<>();
-        for (int i=-1; i<65; i = i + 10) {
-            userList1.add(new User(i, Gender.M, i, new Occupation(1, "X"), "00000"));
-        }
-        */
     }
 }

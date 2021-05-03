@@ -72,7 +72,7 @@ public class Config {
         }
 
         // Load data from files
-        List<MovieDto> loadedMovies = DataLoader.loadMovies(moviesFile, linksFile, "http://www.imdb.com/title/tt/");
+        List<MovieDto> loadedMovies = DataLoader.loadMovies(moviesFile, linksFile, "http://www.imdb.com/title/tt");
         List<UserDto> loadedUsers = DataLoader.loadUsers(usersFile);
         List<RatingDto> loadedRatings = DataLoader.loadRatings(ratingsFile);
 

@@ -14,37 +14,38 @@ public class InMemoryUserRepositoryTest {
         storage.add(user);
         assertEquals(storage.get(1), user);
     }
-
+    
     @Test
-    public void testFilterSimilarUser(){
+    public void testFilterSimilarUserByUserInfo() {
         InMemoryUserRepository storage = new InMemoryUserRepository();
-        List<User> similarUsers = List.of(
-                new User(1, Gender.M, 56, new Occupation(1, "others"), "00000"),
-                new User(2, Gender.M, 56, new Occupation(1, "others"), "00000"),
-                new User(3, Gender.M, 56, new Occupation(1, "others"), "00000")
+        InMemoryUserRepository storage2 = new InMemoryUserRepository();
+
+        List<Integer> ageTestList = List.of(11,21,31,41,46,51,61);
+        List<Integer> changedAge = List.of(1,18,25,35,45,50,56);
+
+        List<User> ageTestUserList = List.of(new User(1, Gender.M, -1, new Occupation(1, "X"), "00000"));
+        List<User> ageTestUserList2 = List.of(
+                new User(1, Gender.M, 1, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 18, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 25, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 35, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 45, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 50, new Occupation(1, "X"), "00000"),
+                new User(1, Gender.M, 56, new Occupation(1, "X"), "00000")
         );
-        List<User> notSimilarUsers = List.of(
-                new User(4, Gender.F, 25, new Occupation(1, "others"), "00000"),
-                new User(5, Gender.M, 35, new Occupation(1, "others"), "00000"),
-                new User(6, Gender.M, 25, new Occupation(2, "X"), "00000")
-        );
 
-        for(User user : similarUsers){
-            storage.add(user);
+        storage.add(ageTestUserList.get(0));
+
+        for (Integer age : ageTestList) {
+            assertEquals(storage.filterSimilarUser(new UserInfo(null, age, null, "00000")), List.of());
         }
-        for(User user : notSimilarUsers){
-            storage.add(user);
+        
+        for (int i=0; i<7; i++) {
+            storage2.add(ageTestUserList2.get(i));
+            assertEquals((Object) storage2.filterSimilarUser(new UserInfo(null, ageTestList.get(i), null, "00000")).get(0).getAge(), changedAge.get(i));
         }
-
-        //Similar
-        assertEquals(storage.filterSimilarUser(new User(7, Gender.M, 56, new Occupation(1, "others"), "00000")), similarUsers);
-        assertEquals(storage.filterSimilarUser(new User(7, Gender.M, 100, new Occupation(1, "others"), "00000")), similarUsers);
-
-        //Not Similar
-        assertEquals(storage.filterSimilarUser(new User(8, Gender.F, 12, new Occupation(3, "Y"), "00000")), List.of());
-        assertEquals(storage.filterSimilarUser(new User(8, Gender.M, 21, new Occupation(3, "Y"), "00000")), List.of());
-        assertEquals(storage.filterSimilarUser(new User(8, Gender.F, 37, new Occupation(1, "others"), "00000")), List.of());
-        assertEquals(storage.filterSimilarUser(new User(8, Gender.F, 48, new Occupation(3, "Y"), "00000")), List.of());
-        assertEquals(storage.filterSimilarUser(new User(8, Gender.F, 51, new Occupation(3, "Y"), "00000")), List.of());
+        
+        assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, new Occupation(1, "X"), "00000")), ageTestUserList);
+        assertEquals(storage.filterSimilarUser(new UserInfo(null, -5, null, "00000")), ageTestUserList);
     }
 }

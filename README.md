@@ -182,25 +182,25 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 ### Roles
 
 한동규 @queuedq
-- JaCoCo installing for testing
+- JaCoCo setup for checking branch coverage
 - Introduced The Onion Architecture
-  - Introduced Repository Pattern
-- Infrastructure Layer redesign
-  - Unit-testable DataLoader class by using DTO
-  - Logic separation from Main class (Config: initializing Repositories and Services, Controller: UI)
-  - Validation Service separation from Controller class
+  - Introduced repository pattern
+- Infrastructure layer redesign
+  - Refactored DataLoader using DTO so that it becomes unit-testable
+  - Separated Config (initializing repositories and services), Controller (UI) from Main
+  - Separated validation logic (as app service) from Controller
 
 심재환 @jaehwan1912
-- Separate service calls based on input number
-- Ranking Algorithm Improvement
-  - Logic Modification
+- Input parsing, error handling and connecting to services in Controller
+- Ranking algorithm improvement
+  - Implemented ranking algorithm for secondary similar users
   - Refactoring
-- Unit Test Enhancement for better testing & coverage
+- Writing unit tests for higher branch covering
 
 홍준화 @junwha0511
 - Data loading (link.dat)
-- Unit test for existing classes
-- Ranking Algorithm Design & Implement
-  - Investigate existing algorithms
-  - Algorithm optimized for Input
-  - Rating means for similar users
+- Unit test for existing classes from Milestone 1
+- Ranking algorithm design & implementation
+  - Investigated existing algorithms
+  - Designed ranking algorithm considering both effectiveness and efficiency
+  - Implemented ranking algorithm for (primary) similar users

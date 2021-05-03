@@ -99,7 +99,7 @@ public class Controller {
 
         System.out.println("The movie we recommend are:");
         for (Movie movie : topRank) {
-            System.out.format("%s\n", movie.getTitle());
+            System.out.format("%s (%s)\n", movie.getTitle(), movie.getLink());
         }
     }
 

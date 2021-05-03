@@ -46,6 +46,6 @@ public class InMemoryUserRepositoryTest {
         }
         
         assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, new Occupation(1, "X"), "00000")), ageTestUserList);
-        assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, null, "00000")), ageTestUserList);
+        assertEquals(storage.filterSimilarUser(new UserInfo(null, -5, null, "00000")), ageTestUserList);
     }
 }

@@ -122,6 +122,10 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 - Unemployed
 - Writer
 
+### List of Possible Genders
+
+Either `F` or `M`, where `F` means femail and `M` means male.
+
 ## Milestone 1
 
 ### What We've Finished

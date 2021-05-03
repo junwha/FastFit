@@ -167,7 +167,7 @@ Kelly's Heroes (1970)
 ### About Ranking Algorithm
 
 #### Our algorithm is here
-`com.cse364.app.RankingService` 
+[`com.cse364.app.RankingService`](https://github.com/junwha0511/CSE-364-Software-Engineering/blob/documentation/%2356/src/main/java/com/cse364/app/RankingService.java)
  
 #### What 'Similar User' means
 In our algorithm, similar user is the user who have same User data as input.

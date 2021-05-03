@@ -195,7 +195,7 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 - Ranking algorithm improvement
   - Implemented ranking algorithm for secondary similar users
   - Refactoring
-- Writing unit tests for higher branch covering
+- Writing unit tests for higher branch coverage
 
 홍준화 @junwha0511
 - Data loading (link.dat)

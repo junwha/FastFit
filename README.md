@@ -152,48 +152,43 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 - Revising average rating method implementation 
 - Rating/Occupation class refactoring
 
-
-
 ## Milestone 2
 
 ### What We've Finished
-- Implemented new features of program which receive 3 and 4 arguments
-- Designed and implemented Movie Ranking algorithm 
-- Ranking algorithm make Top N Ranking with similar user and can specified with some genres
 
-- Installed JaCoCo and Implemented Unit Test
-- Refactored previous works and introduced Onion Architecture
+- Designed and implemented a movie ranking algorithm
+- Introduced The Onion Architecture
+- Achieved high branch coverage of unit tests (using JaCoCo)
 
 ### About Ranking Algorithm
 
 #### Our algorithm is here
 [`com.cse364.app.RankingService`](https://github.com/junwha0511/CSE-364-Software-Engineering/blob/documentation/%2356/src/main/java/com/cse364/app/RankingService.java)
  
-#### What 'Similar User' means
-In our algorithm, similar user is the user who have same User data as input.
+#### Terminology
 
-User has three informations, {Gender, Age, Occupation}.
+**Similar user** : A user that matches all given user information (gender, age, occupation).
+**Secondary similar user**: A user that matches given user information only partially.
+**Match count** : Number of matching properties of secondary similar user. 
 
-we call these informations as 'User data' and users who have same User data as 'Similar User'.
+#### Algorithm Description
 
-#### Process of algorithm
-1. Find similar users as input from User Repository 
-2. Calculate average of all rating for each movie rated by similar users
-3. If the number of Movie rated by similar user is larger or equal than N, return Top N Movies
-4. Else, find secondary similar user with excluding one information of user data and repeat the above process
-5. If secondary similar user case fail to find N movie, find N Movie as cut down on the information by one
-
+1. Find all similar users according to the given user information. 
+2. Calculate average of all ratings for each movie rated by similar users.
+3. If the number of movie rated by similar user is larger or equal than `N`, return top `N` movies.
+4. Otherwise, repeat finding secondary similar users by decrementing match count. 
+5. Append the new rankings obtained from secondary similar users to the ranking list, until the list has `N` movies.
 
 ### Roles
 
 한동규 @queuedq
 - JaCoCo installing for testing
-- Introduced Onion Architecture
-  - Repository Pattern
+- Introduced The Onion Architecture
+  - Introduced Repository Pattern
 - Infrastructure Layer redesign
   - Unit-testable DataLoader class by using DTO
-  - Logic seperation from Main class (Config: initializing Repositoies and Services, Controller: UI)
-  - Validation Service seperation from Controller class
+  - Logic separation from Main class (Config: initializing Repositories and Services, Controller: UI)
+  - Validation Service separation from Controller class
 
 심재환 @jaehwan1912
 - Separate service calls based on input number

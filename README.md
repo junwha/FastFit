@@ -163,7 +163,7 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 ### About Ranking Algorithm
 
 #### Our algorithm is here
-[`com.cse364.app.RankingService`](https://github.com/junwha0511/CSE-364-Software-Engineering/blob/documentation/%2356/src/main/java/com/cse364/app/RankingService.java)
+[`com.cse364.app.RankingService`](src/main/java/com/cse364/app/RankingService.java)
  
 #### Terminology
 

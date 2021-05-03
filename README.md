@@ -62,21 +62,19 @@ Genre/occupation inputs are case-insensitive, and any special characters and whi
 ### Movie Recommendation Example
 
 ```
-$ java -cp ... "M" 25 other
+$ java ... "M" 25 other
 The movie we recommend are:
 Two Family House (2000)
 Our Town (1940)
 ...
-
 ```
 
 ```
-$ java -cp ... F "" artist "Action|Comedy"
+$ java ... F "" artist "Action|Comedy"
 The movie we recommend are:
 Love & Sex (2000)
 Kelly's Heroes (1970)
 ...
-
 ```
 
 ### List of Possible Genres

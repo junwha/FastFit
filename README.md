@@ -167,9 +167,9 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
  
 #### Terminology
 
-**Similar user** : A user that matches all given user information (gender, age, occupation).
-**Secondary similar user**: A user that matches given user information only partially.
-**Match count** : Number of matching properties of secondary similar user. 
+- **Similar user** : A user that matches all given user information (gender, age, occupation).
+- **Secondary similar user**: A user that matches given user information only partially.
+- **Match count** : Number of matching properties of secondary similar user. 
 
 #### Algorithm Description
 

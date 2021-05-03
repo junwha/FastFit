@@ -166,10 +166,10 @@ Kelly's Heroes (1970)
 
 ### About Ranking Algorithm
 
-#### Class in which our algorithm is implemented
+#### Our algorithm is here
 `com.cse364.app.RankingService` 
  
-#### Similar User
+#### What 'Similar User' means
 In our algorithm, similar user is the user who have same User data as input.
 User have three informations {Gender, Age, Occupation}.
 we call these informations as 'User data' and users who have same User data as 'Similar User'.

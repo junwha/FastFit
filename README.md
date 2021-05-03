@@ -142,7 +142,11 @@ is [3.177143].
   - Validation Service seperation from Controller class
 
 심재환 @jaehwan1912
-
+- Separate service calls based on input number
+- Ranking Algorithm Improvement
+  - Logic Modification
+  - Refactoring
+- Unit Test Enhancement for better testing & coverage
 
 홍준화 @junwha0511
 - Data loading (link.dat)

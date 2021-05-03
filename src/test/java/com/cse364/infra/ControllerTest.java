@@ -19,6 +19,7 @@ public class ControllerTest {
         controller.main(new String[]{"adventure|children's", "artist"});
         controller.main(new String[]{"F", "25", "grad student"});
         controller.main(new String[]{"", "", ""});
-        controller.main(new String[]{"F", "25", "grad student", "animation"});
+        controller.main(new String[]{"F", "25", "grad student", "animation|comedy"});
+        controller.main(new String[]{"F", "25", "grad student", ""});
     }
 }

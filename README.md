@@ -165,13 +165,23 @@ Kelly's Heroes (1970)
 - Refactored previous works and introduced Onion Architecture
 
 ### About Ranking Algorithm
-Implemented Class: com.cse364.app.RankingService 
-1. Find similar users as input from User Repository (Here, similar user is the user who have same User data as input)
+
+#### Class in which our algorithm is implemented
+`com.cse364.app.RankingService` 
+ 
+#### Similar User
+In our algorithm, similar user is the user who have same User data as input.
+User have three informations {Gender, Age, Occupation}.
+we call these informations as 'User data' and users who have same User data as 'Similar User'.
+
+#### Process of algorithm
+1. Find similar users as input from User Repository 
 2. Calculate average of all rating for each movie rated by similar users
 3. If the number of Movie rated by similar user is larger or equal than N, return Top N Movies
 4. Else, find secondary similar user with excluding one information of user data and repeat the above process
 5. If secondary similar user case fail to find N movie, find N Movie as cut down on the information by one
- 
+
+
 ### Roles
 
 한동규 @queuedq

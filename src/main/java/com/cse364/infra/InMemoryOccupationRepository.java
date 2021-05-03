@@ -1,16 +1,14 @@
-package com.cse364;
+package com.cse364.infra;
 
 import java.util.HashMap;
 import java.util.List;
+import com.cse364.domain.*;
 
-public class OccupationStorage {
+public class InMemoryOccupationRepository implements OccupationRepository {
     private HashMap<Integer, Occupation> occupationById = new HashMap<>();
     private HashMap<String, Occupation> occupationByAlias = new HashMap<>();
 
-    /**
-     * Initializes OccupationStorage.
-     */
-    OccupationStorage() { }
+    public InMemoryOccupationRepository() { }
 
     /**
      * Adds an occupation to the storage.
@@ -33,21 +31,11 @@ public class OccupationStorage {
         }
     }
 
-    /**
-     * Returns a Occupation by id.
-     * If there is no occupation with given id, it returns `null`.
-     */
-    public Occupation getOccupationById(int id) {
+    public Occupation get(int id) {
         return occupationById.get(id);
     }
 
-    /**
-     * Returns a Occupation corresponding to the given name or alias.
-     * The search is case-insensitive.
-     * Also, special characters (except for '/') and whitespaces are ignored.
-     * If the name is not a valid occupation name, it returns `null`.
-     */
-    public Occupation getOccupationByName(String name) {
+    public Occupation searchByName(String name) {
         return occupationByAlias.get(getSearchName(name));
     }
 
@@ -57,6 +45,6 @@ public class OccupationStorage {
      * This method is for normalizing the Genre names for easier search.
      */
     private static String getSearchName(String name) {
-        return name.toLowerCase().replaceAll("[^a-z0-9\\/]", "");
+        return name.toLowerCase().replaceAll("[^a-z0-9/]", "");
     }
 }

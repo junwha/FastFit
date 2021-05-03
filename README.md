@@ -64,16 +64,16 @@ Genre/occupation inputs are case-insensitive, and any special characters and whi
 ```
 $ java ... "M" 25 other
 The movie we recommend are:
-Two Family House (2000)
-Our Town (1940)
+Two Family House (2000) (http://www.imdb.com/title/tt0202641)
+Our Town (1940) (http://www.imdb.com/title/tt0032881)
 ...
 ```
 
 ```
 $ java ... F "" artist "Action|Comedy"
 The movie we recommend are:
-Love & Sex (2000)
-Kelly's Heroes (1970)
+Love & Sex (2000) (http://www.imdb.com/title/tt0234137)
+Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 ...
 ```
 

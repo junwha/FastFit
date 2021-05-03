@@ -36,6 +36,10 @@ public class Controller {
         } else if (args.length == 3) {
             getTop10Movies(args[0], args[1], args[2], "");
         } else if (args.length == 4) {
+            if (args[3].equals("")) {
+                System.out.println("Error: Category input should not be empty.");
+                return;
+            }
             getTop10Movies(args[0], args[1], args[2], args[3]);
         } else {
             System.out.println("Input Error : Input format is...\n" +

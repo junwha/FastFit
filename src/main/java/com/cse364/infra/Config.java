@@ -13,6 +13,9 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+ * Configuration class creates beans of objects
+ */
 @Configuration
 public class Config {
     public GenreRepository genres = new InMemoryGenreRepository(List.of(
@@ -124,6 +127,7 @@ public class Config {
         this.ratings = ratings;
     }
 
+    // Create Beans
     @Bean
     public MovieRepository moviesBean(){
         return this.movies;

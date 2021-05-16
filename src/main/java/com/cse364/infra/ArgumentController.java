@@ -14,12 +14,12 @@ import com.cse364.domain.UserInfo;
 
 import java.util.*;
 
-public class Controller {
+public class ArgumentController {
     private final AverageRatingService averageRatingService;
     private final RankingService rankingService;
     private final ValidationService validationService;
 
-    public Controller(
+    public ArgumentController(
             AverageRatingService averageRatingService,
             RankingService rankingService,
             ValidationService validationService

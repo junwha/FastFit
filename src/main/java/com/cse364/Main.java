@@ -10,11 +10,11 @@ public class Main {
                 "./data/users.dat",
                 "./data/ratings.dat"
         );
-        Controller controller = new Controller(
+        ArgumentController argumentController = new ArgumentController(
                 config.averageRatingService,
                 config.rankingService,
                 config.validationService
         );
-        controller.main(args);
+        argumentController.main(args);
     }
 }

@@ -26,6 +26,17 @@ public class InMemoryMovieRepositoryTest {
     }
 
     @Test
+    public void testGetByTitle() {
+        for(Movie movie : movies) {
+            storage.add(movie);
+        }
+
+        assertEquals(storage.get("A"), movies.get(0));
+        assertEquals(storage.get("B"), movies.get(1));
+        assertNull(storage.get("ABADACADABRA"));
+    }
+
+    @Test
     public void testAll(){
         for(Movie movie : movies){
             storage.add(movie);

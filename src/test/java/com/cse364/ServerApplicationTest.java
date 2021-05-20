@@ -47,26 +47,27 @@ public class ServerApplicationTest {
 
     @Test
     public void controllerTest() throws Exception {
-        testUsersRecommendations("", "", "", "");
-        testUsersRecommendations("F", "10", "", "");
-        testUsersRecommendations("F", "20", "Doctor", "");
+        int expectedLength = 10;
+        testRecommendationResult("", "", "", "", expectedLength);
+        testRecommendationResult("F", "10", "", "", expectedLength);
+        testRecommendationResult("F", "20", "Doctor", "", expectedLength);
 
-        testUsersRecommendations("", "", "", "Horror");
-        testUsersRecommendations("F", "10", "", "Horror|Comedy");
-        testUsersRecommendations("F", "20", "Doctor", "Horror|Comedy|Children's");
+        testRecommendationResult("", "", "", "Horror", expectedLength);
+        testRecommendationResult("F", "10", "", "Horror|Comedy", expectedLength);
+        testRecommendationResult("F", "20", "Doctor", "Horror|Comedy|Children's", expectedLength);
 
         // TODO: test with invalid data after handle errors
 
     }
 
-    private void testUsersRecommendations(String gender, String age, String occupation, String genreNames) throws Exception{
+    private void testRecommendationResult(String gender, String age, String occupation, String genreNames, int expectedLength) throws Exception{
         this.mockMvc.perform(get("/users/recommendations")
                 .param("gender", gender)
                 .param("age", age)
                 .param("occupation", occupation)
                 .param("genreNames",  genreNames)
         )
-                .andExpect(jsonPath("$", hasSize(10)))
+                .andExpect(jsonPath("$", hasSize(expectedLength)))
                 .andDo(print()).andExpect(status().isOk());
     }
 }

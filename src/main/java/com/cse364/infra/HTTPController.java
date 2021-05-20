@@ -19,18 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/*
- * Rest Controller map each method to exterior access
- */
 @RestController
 public class HTTPController {
     private final AverageRatingService averageRatingService;
     private final RankingService rankingService;
     private final ValidationService validationService;
 
-    /*
-     * Each Service instance(Singleton) come from Beans of Spring
-     */
     public HTTPController(
             AverageRatingService averageRatingService,
             RankingService rankingService,
@@ -41,15 +35,12 @@ public class HTTPController {
         this.validationService = validationService;
     }
 
-    /*
-     * Return recommendations from user input
-     */
     @GetMapping("/users/recommendations")
     public List<Movie> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
                      @RequestParam(value = "age", defaultValue = "") String age,
                      @RequestParam(value = "occupation", defaultValue = "") String occupation,
                      @RequestParam(value="genreNames", defaultValue="") String genreNames) {
-    //@RequestPram link GET parameter to method parameter
+
         return getTop10Movies(gender, age, occupation, genreNames);
     }
 

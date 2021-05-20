@@ -10,10 +10,12 @@ import com.cse364.app.AverageRatingService;
 import com.cse364.app.RankingService;
 import com.cse364.app.ValidationService;
 
+import com.cse364.infra.dtos.MovieViewDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,12 +40,18 @@ public class HttpController {
      * Return recommendations from user input
      */
     @GetMapping("/users/recommendations")
-    public List<Movie> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
+    public List<MovieViewDto> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
                                        @RequestParam(value = "age", defaultValue = "") String age,
                                        @RequestParam(value = "occupation", defaultValue = "") String occupation,
                                        @RequestParam(value="genreNames", defaultValue="") String genreNames) {
         //@RequestPram link GET parameter to method parameter
-        return getTop10Movies(gender, age, occupation, genreNames);
+
+        List<MovieViewDto> movieView = new ArrayList<>();
+
+        for(Movie movie : getTop10Movies(gender, age, occupation, genreNames)){
+            movieView.add(new MovieViewDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
+        }
+        return movieView;
     }
 
     List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {

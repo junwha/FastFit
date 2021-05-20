@@ -4,16 +4,11 @@ import com.cse364.domain.*;
 import com.cse364.app.*;
 import com.cse364.infra.dtos.*;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import javax.annotation.PostConstruct;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Configuration
 public class Config {
     public GenreRepository genres = new InMemoryGenreRepository(List.of(
             "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary",
@@ -52,13 +47,7 @@ public class Config {
     public RankingService rankingService;
     public ValidationService validationService;
 
-    private String moviesDb = "./data/movies.dat";
-    private String linksDb = "./data/links.dat";
-    private String usersDb = "./data/users.dat";
-    private String ratingsDb = "./data/ratings.dat";
-
-    @PostConstruct
-    public void init() {
+    public Config(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
         loadRepositories(moviesDb, linksDb, usersDb, ratingsDb);
         this.averageRatingService = new AverageRatingService(movies, ratings);
         this.rankingService = new RankingService(movies, users, ratings);
@@ -123,45 +112,4 @@ public class Config {
         this.users = users;
         this.ratings = ratings;
     }
-
-    @Bean
-    public MovieRepository moviesBean(){
-        return this.movies;
-    }
-
-    @Bean
-    public UserRepository usersBean(){
-        return this.users;
-    }
-
-    @Bean
-    public RatingRepository ratingsBean(){
-        return this.ratings;
-    }
-
-    @Bean
-    public OccupationRepository occupationsBean(){
-        return this.occupations;
-    }
-
-    @Bean
-    public GenreRepository genresBean(){
-        return this.genres;
-    }
-
-    @Bean
-    public AverageRatingService averageRatingServiceBean(){
-        return this.averageRatingService;
-    }
-
-    @Bean
-    public RankingService rankingServiceBean(){
-        return this.rankingService;
-    }
-
-    @Bean
-    public ValidationService validationServiceBean(){
-        return this.validationService;
-    }
-
 }

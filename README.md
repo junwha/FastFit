@@ -27,7 +27,7 @@ How to check coverage: After running the test command, open `target/site/jacoco/
 ### Average Rating
 
 ```
-$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [genre1|genre2|...] [occupation]
+$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.CommandLineMainCa [genre1|genre2|...] [occupation]
 ```
 
 The program takes genre(s) and an occupation as inputs, and shows the average rating score of all movies having given genres, rated by the people with given occupation.
@@ -48,7 +48,7 @@ is [3.177143].
 ### Movie Recommendation based on User Information (and Genres)
 
 ```
-$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.Main [gender] [age] [occupation] [genre1|genre2|...]
+$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.CommandLineMain [gender] [age] [occupation] [genre1|genre2|...]
 ```
 
 The program takes user informations(gender, age, occupation) and optionally genre(s) as inputs, and shows top 10 movies rated by similar users of given information. If genre(s) are specified, all output movies will have at least one of the specified genre(s).

@@ -9,5 +9,5 @@ public interface UserRepository {
      */
     User get(int id);
 
-    List<User> filterSimilarUser(UserInfo compareUser);
+    List<User> getSimilarUsers(UserInfo userInfo, int similarity);
 }

@@ -21,8 +21,8 @@ public class InMemoryUserRepository implements UserRepository {
         return users.get(id);
     }
 
-    public List<User> filterSimilarUser(UserInfo compareUser){
-        int age = compareUser.getAge();
+    public List<User> getSimilarUsers(UserInfo userInfo, int similarity) {
+        int age = userInfo.getAge();
 
         if(age <= 0){ age = -1; }
         else if(age < 18){ age = 1; }
@@ -37,8 +37,8 @@ public class InMemoryUserRepository implements UserRepository {
 
         for(User user: users.values()){
             if((age == -1 || age == user.getAge())
-                    && (compareUser.getGender() == null || compareUser.getGender().equals(user.getGender()))
-                    && (compareUser.getOccupation() == null || compareUser.getOccupation().equals(user.getOccupation()))){
+                    && (userInfo.getGender() == null || userInfo.getGender().equals(user.getGender()))
+                    && (userInfo.getOccupation() == null || userInfo.getOccupation().equals(user.getOccupation()))){
                 userList.add(user);
             }
         }

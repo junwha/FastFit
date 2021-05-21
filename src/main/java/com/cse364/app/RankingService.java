@@ -60,7 +60,7 @@ public class RankingService {
      * Return Top N Movie rated by similar user
      */
     public List<Movie> getTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
-        List<User> similarUser = userRepository.filterSimilarUser(userInfo);
+        List<User> similarUser = userRepository.getSimilarUsers(userInfo, 0);
         List<Rating> ratingsBySimilarUser = new ArrayList<>();
         
         for (User user : similarUser) {
@@ -103,7 +103,7 @@ public class RankingService {
                 for (Occupation occIter : occVar) {
                     if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
                         UserInfo subSimilarUser = new UserInfo(genderIter, ageIter, occIter, "00000");
-                        List<User> similarUsers = userRepository.filterSimilarUser(subSimilarUser);
+                        List<User> similarUsers = userRepository.getSimilarUsers(subSimilarUser, 0);
                         users.addAll(similarUsers);
                     }
                 }

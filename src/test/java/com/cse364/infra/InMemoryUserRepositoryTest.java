@@ -37,15 +37,18 @@ public class InMemoryUserRepositoryTest {
         storage.add(ageTestUserList.get(0));
 
         for (Integer age : ageTestList) {
-            assertEquals(storage.filterSimilarUser(new UserInfo(null, age, null, "00000")), List.of());
+            assertEquals(
+                    storage.getSimilarUsers(new UserInfo(null, age, null, "00000"), 0),
+                    List.of()
+            );
         }
         
         for (int i=0; i<7; i++) {
             storage2.add(ageTestUserList2.get(i));
-            assertEquals((Object) storage2.filterSimilarUser(new UserInfo(null, ageTestList.get(i), null, "00000")).get(0).getAge(), changedAge.get(i));
+            assertEquals((Object) storage2.getSimilarUsers(new UserInfo(null, ageTestList.get(i), null, "00000"), 0).get(0).getAge(), changedAge.get(i));
         }
         
-        assertEquals(storage.filterSimilarUser(new UserInfo(null, -1, new Occupation(1, "X"), "00000")), ageTestUserList);
-        assertEquals(storage.filterSimilarUser(new UserInfo(null, -5, null, "00000")), ageTestUserList);
+        assertEquals(storage.getSimilarUsers(new UserInfo(null, -1, new Occupation(1, "X"), "00000"), 0), ageTestUserList);
+        assertEquals(storage.getSimilarUsers(new UserInfo(null, -5, null, "00000"), 0), ageTestUserList);
     }
 }

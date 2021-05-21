@@ -1,11 +1,12 @@
 package com.cse364.domain;
 
+import lombok.NonNull;
 import lombok.Value;
 
 @Value
 public class User {
     int id;
-    UserInfo info;
+    @NonNull UserInfo info;
 
     public User(int id, Gender gender, int age, Occupation occupation, String zipCode) {
         this.id = id;

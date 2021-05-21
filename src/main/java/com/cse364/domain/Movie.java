@@ -1,5 +1,6 @@
 package com.cse364.domain;
 
+import lombok.NonNull;
 import lombok.Value;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.List;
 @Value
 public class Movie {
     int id;
-    String title;
-    List<Genre> genres;
-    String link;
+    @NonNull String title;
+    @NonNull List<Genre> genres;
+    @NonNull String link;
 
     /**
      * Returns whether this movie has given genre.

@@ -1,20 +1,15 @@
 package com.cse364.domain;
 
+import lombok.Value;
+
 import java.util.List;
-import java.util.ArrayList;
 
+@Value
 public class Movie {
-    private int id;
-    private String title;
-    private List<Genre> genres;
-    private String link;
-
-    public Movie(int id, String title, List<Genre> genres, String link){
-        this.id = id;
-        this.title = title;
-        this.genres = genres;
-        this.link = link;
-    }
+    int id;
+    String title;
+    List<Genre> genres;
+    String link;
 
     /**
      * Returns whether this movie has given genre.
@@ -52,10 +47,4 @@ public class Movie {
         Movie movie = (Movie) o;
         return id == movie.id;
     }
-
-    // Getters
-    public int getId() { return id; }
-    public String getTitle() { return title; }
-    public List<Genre> getGenres() { return genres; }
-    public String getLink() { return link; }
 }

@@ -1,10 +1,15 @@
 package com.cse364.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class User {
     private int id;
     private UserInfo info;
 
-    public User(int id, Gender gender, int age, Occupation occupation, String zipCode){
+    public User(int id, Gender gender, int age, Occupation occupation, String zipCode) {
         this.id = id;
         this.info = new UserInfo(gender, age, occupation, zipCode);
     }
@@ -17,7 +22,6 @@ public class User {
     }
 
     // Getters
-    public int getId() { return id; }
     public Gender getGender() { return info.getGender(); }
     public int getAge() { return info.getAge(); }
     public Occupation getOccupation() { return info.getOccupation(); }

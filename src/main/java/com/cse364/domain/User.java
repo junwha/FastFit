@@ -1,13 +1,11 @@
 package com.cse364.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
-@AllArgsConstructor
+@Value
 public class User {
-    private int id;
-    private UserInfo info;
+    int id;
+    UserInfo info;
 
     public User(int id, Gender gender, int age, Occupation occupation, String zipCode) {
         this.id = id;

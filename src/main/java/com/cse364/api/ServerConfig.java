@@ -1,5 +1,6 @@
-package com.cse364.infra;
+package com.cse364.api;
 
+import com.cse364.infra.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

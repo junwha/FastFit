@@ -1,19 +1,12 @@
 package com.cse364.domain;
 
-import java.util.Map;
+import lombok.NonNull;
+import lombok.Value;
 
+@Value
 public class Occupation {
-    private int id;
-    private String name;
-
-    // Getters
-    public int getId() { return id; }
-    public String getName() { return name; }
-
-    public Occupation(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    int id;
+    @NonNull String name;
 
     @Override
     public boolean equals(Object o) {

@@ -27,7 +27,7 @@ How to check coverage: After running the test command, open `target/site/jacoco/
 ### Average Rating
 
 ```
-$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.CommandLineMainCa [genre1|genre2|...] [occupation]
+$ java -cp target/cse364-project-1.0-SNAPSHOT.jar com.cse364.CommandLineMain [genre1|genre2|...] [occupation]
 ```
 
 The program takes genre(s) and an occupation as inputs, and shows the average rating score of all movies having given genres, rated by the people with given occupation.

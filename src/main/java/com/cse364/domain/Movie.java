@@ -40,10 +40,21 @@ public class Movie {
      * Returns whether this movie has all given genres.
      */
     public boolean hasAllGenres(List<Genre> genres) {
-        for (Genre genre: genres) {
+        for (Genre genre : genres) {
             if (!hasGenre(genre)) { return false; }
         }
         return true;
+    }
+
+    /**
+     * Returns how much genres the two movies have in common.
+     */
+    public int numOfMatchingGenres(Movie movie) {
+        int num = 0;
+        for (Genre genre : this.genres) {
+            if (movie.hasGenre(genre)) { num++; }
+        }
+        return num;
     }
 
     @Override

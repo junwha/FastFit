@@ -1,6 +1,6 @@
 package com.cse364.api;
 
-import com.cse364.api.dtos.MovieViewDto;
+import com.cse364.api.dtos.MovieDto;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
@@ -42,18 +42,18 @@ public class HttpController {
      * Return recommendations from user input
      */
     @GetMapping("/users/recommendations")
-    public List<MovieViewDto> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
-                                              @RequestParam(value = "age", defaultValue = "") String age,
-                                              @RequestParam(value = "occupation", defaultValue = "") String occupation,
-                                              @RequestParam(value="genreNames", defaultValue="") String genreNames) {
+    public List<MovieDto> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
+                                          @RequestParam(value = "age", defaultValue = "") String age,
+                                          @RequestParam(value = "occupation", defaultValue = "") String occupation,
+                                          @RequestParam(value="genreNames", defaultValue="") String genreNames) {
         //@RequestPram link GET parameter to method parameter
 
-        List<MovieViewDto> movieView = new ArrayList<>();
+        List<MovieDto> movies = new ArrayList<>();
 
         for(Movie movie : getTop10Movies(gender, age, occupation, genreNames)){
-            movieView.add(new MovieViewDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
+            movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
-        return movieView;
+        return movies;
     }
 
     List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {

@@ -5,12 +5,12 @@ import com.cse364.domain.Movie;
 
 import java.util.List;
 
-public class MovieViewDto {
+public class MovieDto {
     String title;
     String genre;
     String imdb;
 
-    public MovieViewDto(String title, String genre, String imdb){
+    public MovieDto(String title, String genre, String imdb){
         this.title = title;
         this.genre = genre;
         this.imdb = imdb;

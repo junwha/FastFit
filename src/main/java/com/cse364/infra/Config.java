@@ -1,4 +1,4 @@
-package com.cse364.cli;
+package com.cse364.infra;
 
 import com.cse364.domain.*;
 import com.cse364.app.*;

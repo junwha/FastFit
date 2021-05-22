@@ -1,6 +1,6 @@
 package com.cse364;
 
-import com.cse364.cli.Config;
+import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
 
 public class CommandLineMain {

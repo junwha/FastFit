@@ -11,7 +11,7 @@ import com.cse364.app.AverageRatingService;
 import com.cse364.app.RankingService;
 import com.cse364.app.ValidationService;
 
-import com.cse364.cli.Config;
+import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

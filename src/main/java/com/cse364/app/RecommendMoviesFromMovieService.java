@@ -111,6 +111,7 @@ public class RecommendMoviesFromMovieService {
         List<Movie> rankedMovies = new ArrayList<>();
         for (MovieWithRatings mwr : rankedMovieWithRatings) {
             if (rankedMovies.size() == limit) { break; }
+            if (originalMovie.equals(mwr.movie)) { continue; }
             rankedMovies.add(mwr.movie);
         }
 

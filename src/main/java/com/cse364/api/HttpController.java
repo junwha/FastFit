@@ -1,5 +1,6 @@
-package com.cse364.infra;
+package com.cse364.api;
 
+import com.cse364.api.dtos.MovieViewDto;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
@@ -10,7 +11,8 @@ import com.cse364.app.AverageRatingService;
 import com.cse364.app.RankingService;
 import com.cse364.app.ValidationService;
 
-import com.cse364.infra.dtos.MovieViewDto;
+import com.cse364.cli.Config;
+import com.cse364.cli.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,9 +43,9 @@ public class HttpController {
      */
     @GetMapping("/users/recommendations")
     public List<MovieViewDto> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
-                                       @RequestParam(value = "age", defaultValue = "") String age,
-                                       @RequestParam(value = "occupation", defaultValue = "") String occupation,
-                                       @RequestParam(value="genreNames", defaultValue="") String genreNames) {
+                                              @RequestParam(value = "age", defaultValue = "") String age,
+                                              @RequestParam(value = "occupation", defaultValue = "") String occupation,
+                                              @RequestParam(value="genreNames", defaultValue="") String genreNames) {
         //@RequestPram link GET parameter to method parameter
 
         List<MovieViewDto> movieView = new ArrayList<>();

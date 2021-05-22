@@ -1,5 +1,7 @@
 package com.cse364.infra;
 
+import com.cse364.cli.Config;
+import com.cse364.cli.Controller;
 import org.junit.Test;
 
 public class ControllerTest {

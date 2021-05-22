@@ -1,5 +1,6 @@
 package com.cse364.infra;
 
+import com.cse364.cli.Config;
 import org.junit.Test;
 
 public class ConfigTest {

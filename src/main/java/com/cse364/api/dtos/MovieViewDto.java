@@ -1,4 +1,4 @@
-package com.cse364.infra.dtos;
+package com.cse364.api.dtos;
 
 import com.cse364.domain.Genre;
 import com.cse364.domain.Movie;

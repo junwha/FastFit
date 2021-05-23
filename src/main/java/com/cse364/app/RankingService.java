@@ -98,45 +98,13 @@ public class RankingService {
     }
 
     /**
-     * Return HashSet of users with i similar characteristics based on given subsetmaking Sets
-     */   
-    Set<User> findUserOfiSimilarUserInfo(Set<Gender> genVar, Set<Integer> ageVar, Set<Occupation> occVar, int i) {
-        Set<User> users = new HashSet<>();
-        for (Gender genderIter : genVar) {
-            for (Integer ageIter : ageVar) {
-                for (Occupation occIter : occVar) {
-                    if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
-                        UserInfo subSimilarUser = new UserInfo(genderIter, ageIter, occIter, "00000");
-                        // TODO: iterate similarity
-                        List<User> similarUsers = userService.getSimilarUsers(subSimilarUser, 3);
-                        users.addAll(similarUsers);
-                    }
-                }
-            }
-        }
-        return users;
-    }
-
-    /**
      * When getTopNMovie couldn't find N movies with all matching userInfo
      */
     List<Movie> secondaryTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
-        int validUserInfoCount = countValidUserInfo(userInfo.getGender(), userInfo.getAge(), userInfo.getOccupation());
-        
-        Set<Gender> genVar= new HashSet<>();
-        Set<Integer> ageVar = new HashSet<>();
-        Set<Occupation> occVar = new HashSet<>();
-        genVar.add(userInfo.getGender());
-        genVar.add(null);
-        ageVar.add(userInfo.getAge());
-        ageVar.add(-1);
-        occVar.add(userInfo.getOccupation());
-        occVar.add(null);
-
         List<Movie> secondaryNMovies = new ArrayList<>();
 
-        for (int i = validUserInfoCount-1; i >= 0; i--) {
-            Set<User> secondarySimilarUser = findUserOfiSimilarUserInfo(genVar, ageVar, occVar, i);
+        for (int similarity = 3 - 1; similarity >= 0; similarity--) {
+            Set<User> secondarySimilarUser = new HashSet<>(userService.getSimilarUsers(userInfo, similarity));
 
             List<Rating> secondaryRatingsBySimilarUser = new ArrayList<>();
 

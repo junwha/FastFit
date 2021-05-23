@@ -14,11 +14,11 @@ import com.cse364.app.ValidationService;
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +28,6 @@ public class HttpController {
     private final AverageRatingService averageRatingService;
     private final RankingService rankingService;
     private final ValidationService validationService;
-
     /*
      * Config instance(Singleton) come from Beans of Spring
      */
@@ -58,7 +57,7 @@ public class HttpController {
         return movies;
     }
 
-    List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) throws ResponseStatusException {
+    List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {
         // Validate user info and genre names
         UserInfo userInfo;
         List<Genre> genres;
@@ -66,7 +65,6 @@ public class HttpController {
         try {
             userInfo = validationService.validateUserInfo(gender, age, occupation);
         } catch (UserInfoValidationException e) {
-            System.out.format("Invalid user information for field %s: %s", e.getField(), e.getValue());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, String.format("Invalid user information for field %s: %s", e.getField(), e.getValue()));
         }
@@ -74,7 +72,6 @@ public class HttpController {
         try {
             genres = validationService.validateGenres(Arrays.asList(genreNames.split("\\|")));
         } catch (GenreValidationException e) {
-            System.out.format("Error : The genre %s does not exist in database\n", e.getName());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, String.format("Error : The genre %s does not exist in database\n", e.getName()));
         }
@@ -83,4 +80,10 @@ public class HttpController {
 
         return topRank;
     }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public Object handleError(Exception exception){
+        return exception.getMessage();
+    }
+
 }

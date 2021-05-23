@@ -21,6 +21,10 @@ public class InMemoryUserRepository implements UserRepository {
         return users.get(id);
     }
 
+    public List<User> all() {
+        return new ArrayList<>(users.values());
+    }
+
     public List<User> getSimilarUsers(UserInfo userInfo, int similarity) {
         int age = userInfo.getAge();
 

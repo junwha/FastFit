@@ -13,7 +13,4 @@ public interface UserRepository {
      * Returns all users.
      */
     List<User> all();
-
-    // TODO: remove this deprecated method
-    List<User> getSimilarUsers(UserInfo userInfo, int similarity);
 }

@@ -10,6 +10,11 @@ public class User {
     int id;
     @NonNull UserInfo info;
 
+    public User(int id, UserInfo info) {
+        this.id = id;
+        this.info = info;
+    }
+
     public User(int id, Gender gender, int age, Occupation occupation, String zipCode) {
         this.id = id;
         this.info = new UserInfo(gender, age, occupation, zipCode);

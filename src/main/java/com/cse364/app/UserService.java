@@ -10,7 +10,7 @@ import java.util.List;
 public class UserService {
     UserRepository userRepository;
 
-    UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

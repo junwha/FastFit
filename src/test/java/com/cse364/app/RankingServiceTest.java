@@ -86,7 +86,7 @@ public class RankingServiceTest {
             }
         }
 
-        service = new RankingService(movieStorage, userStorage, ratingStorage);
+        service = new RankingService(movieStorage, ratingStorage, new UserService(userStorage));
     }
 
     @Test

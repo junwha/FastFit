@@ -7,13 +7,17 @@ import java.util.stream.Collectors;
 
 public class RankingService {
     private MovieRepository movieRepository;
-    private UserRepository userRepository;
     private RatingRepository ratingRepository;
+    private UserService userService;
 
-    public RankingService(MovieRepository movieRepository, UserRepository userRepository, RatingRepository ratingRepository){
+    public RankingService(
+            MovieRepository movieRepository,
+            RatingRepository ratingRepository,
+            UserService userService
+    ) {
         this.movieRepository = movieRepository;
-        this.userRepository = userRepository;
         this.ratingRepository = ratingRepository;
+        this.userService = userService;
     }
 
     /**
@@ -60,7 +64,7 @@ public class RankingService {
      * Return Top N Movie rated by similar user
      */
     public List<Movie> getTopNMovie(UserInfo userInfo, int N, List<Genre> genres) {
-        List<User> similarUser = userRepository.getSimilarUsers(userInfo, 0);
+        List<User> similarUser = userService.getSimilarUsers(userInfo, 3);
         List<Rating> ratingsBySimilarUser = new ArrayList<>();
         
         for (User user : similarUser) {
@@ -103,7 +107,8 @@ public class RankingService {
                 for (Occupation occIter : occVar) {
                     if (countValidUserInfo(genderIter, ageIter, occIter) == i) {
                         UserInfo subSimilarUser = new UserInfo(genderIter, ageIter, occIter, "00000");
-                        List<User> similarUsers = userRepository.getSimilarUsers(subSimilarUser, 0);
+                        // TODO: iterate similarity
+                        List<User> similarUsers = userService.getSimilarUsers(subSimilarUser, 3);
                         users.addAll(similarUsers);
                     }
                 }

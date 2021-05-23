@@ -13,9 +13,11 @@ import com.cse364.app.ValidationService;
 
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +58,7 @@ public class HttpController {
         return movies;
     }
 
-    List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {
+    List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) throws ResponseStatusException {
         // Validate user info and genre names
         UserInfo userInfo;
         List<Genre> genres;
@@ -65,14 +67,16 @@ public class HttpController {
             userInfo = validationService.validateUserInfo(gender, age, occupation);
         } catch (UserInfoValidationException e) {
             System.out.format("Invalid user information for field %s: %s", e.getField(), e.getValue());
-            return List.of();
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, String.format("Invalid user information for field %s: %s", e.getField(), e.getValue()));
         }
 
         try {
             genres = validationService.validateGenres(Arrays.asList(genreNames.split("\\|")));
         } catch (GenreValidationException e) {
             System.out.format("Error : The genre %s does not exist in database\n", e.getName());
-            return List.of();
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, String.format("Error : The genre %s does not exist in database\n", e.getName()));
         }
 
         List<Movie> topRank = rankingService.getTopNMovie(userInfo, 10, genres);

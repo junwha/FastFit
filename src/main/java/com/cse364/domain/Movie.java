@@ -1,11 +1,13 @@
 package com.cse364.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.util.List;
 
 @Value
+@EqualsAndHashCode(of="id")
 public class Movie {
     int id;
     @NonNull String title;
@@ -40,12 +42,5 @@ public class Movie {
             if (!hasGenre(genre)) { return false; }
         }
         return true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Movie)) { return false; }
-        Movie movie = (Movie) o;
-        return id == movie.id;
     }
 }

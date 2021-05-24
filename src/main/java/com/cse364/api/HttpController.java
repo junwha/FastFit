@@ -48,11 +48,11 @@ public class HttpController {
         String gender = jsonObject.get("gender");
         String age = jsonObject.get("age");
         String occupation = jsonObject.get("occupation");
-        String genre = jsonObject.get("genre");	
+        String genre = jsonObject.get("genres");
 
         if (gender == null || age == null || occupation == null || genre == null) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "At least one of gender, age, occupation or genre are not specified.\n"
+                    HttpStatus.BAD_REQUEST, "At least one of gender, age, occupation or genres are not specified.\n"
             );
         } 
 

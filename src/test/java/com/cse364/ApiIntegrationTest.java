@@ -63,12 +63,12 @@ public class ApiIntegrationTest {
 
     }
 
-    private void testRecommendationResult(String gender, String age, String occupation, String genre, int expectedLength) throws Exception{
+    private void testRecommendationResult(String gender, String age, String occupation, String genres, int expectedLength) throws Exception{
         Map<String, String> jsonObj = Map.ofEntries(
                 entry("gender", gender),
                 entry("age", age),
                 entry("occupation", occupation),
-                entry("genre", genre)
+                entry("genres", genres)
         );
         String jsonString = new ObjectMapper().writeValueAsString(jsonObj);
         this.mockMvc.perform(get("/users/recommendations")

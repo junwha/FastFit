@@ -34,4 +34,18 @@ public class UserInfoTest {
         assertNotEquals(userInfo5, userInfo6);
         assertNotEquals(userInfo6, userInfo7);
     }
+
+    @Test
+    public void testGetSimilarity() {
+        UserInfo user1 = new UserInfo(Gender.M, 25, new Occupation(1, "A"), "00000");
+        UserInfo user2 = new UserInfo(Gender.M, 25, new Occupation(1, "A"), "00000");
+        UserInfo user3 = new UserInfo(Gender.F, 40, new Occupation(2, "B"), "00000");
+        UserInfo user4 = new UserInfo(null, -1, null, "00000");
+
+        assertEquals(user1.getSimilarity(user2), 3);
+        assertEquals(user1.getSimilarity(user3), 0);
+        assertEquals(user3.getSimilarity(user1), 0);
+        assertEquals(user1.getSimilarity(user4), 3);
+        assertEquals(user4.getSimilarity(user1), 3);
+    }
 }

@@ -1,11 +1,13 @@
 package com.cse364.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.util.List;
 
 @Value
+@EqualsAndHashCode(of="id")
 public class Movie {
     int id;
     @NonNull String title;
@@ -36,16 +38,20 @@ public class Movie {
      * Returns whether this movie has all given genres.
      */
     public boolean hasAllGenres(List<Genre> genres) {
-        for (Genre genre: genres) {
+        for (Genre genre : genres) {
             if (!hasGenre(genre)) { return false; }
         }
         return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Movie)) { return false; }
-        Movie movie = (Movie) o;
-        return id == movie.id;
+    /**
+     * Returns how much genres the two movies have in common.
+     */
+    public int numOfMatchingGenres(Movie movie) {
+        int num = 0;
+        for (Genre genre : this.genres) {
+            if (movie.hasGenre(genre)) { num++; }
+        }
+        return num;
     }
 }

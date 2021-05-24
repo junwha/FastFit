@@ -1,9 +1,6 @@
 package com.cse364.app;
 
-import com.cse364.app.exceptions.GenderValidationException;
-import com.cse364.app.exceptions.GenreValidationException;
-import com.cse364.app.exceptions.OccupationValidationException;
-import com.cse364.app.exceptions.UserInfoValidationException;
+import com.cse364.app.exceptions.*;
 import com.cse364.domain.*;
 
 import java.util.ArrayList;
@@ -45,16 +42,26 @@ public class ValidationService {
     }
 
     public Gender validateGender(String genderString) throws GenderValidationException {
-        if (genderString.equals("M")) { return Gender.M; }
-        if (genderString.equals("F")) { return Gender.F; }
+        if (genderString.equalsIgnoreCase("M")) { return Gender.M; }
+        if (genderString.equalsIgnoreCase("F")) { return Gender.F; }
         throw new GenderValidationException(genderString);
+    }
+
+    public int validateAge(String ageString) throws AgeValidationException {
+        try {
+            int age = Integer.parseInt(ageString);
+            if (age < 0) throw new AgeValidationException(ageString);
+            return age;
+        } catch (NumberFormatException e) {
+            throw new AgeValidationException(ageString);
+        }
     }
 
     public UserInfo validateUserInfo(
             String genderString, String ageString, String occupationString
     ) throws UserInfoValidationException {
         Gender gender = null;
-        int age = 0;
+        int age = -1;
         Occupation occupation = null;
 
         try {
@@ -64,8 +71,8 @@ public class ValidationService {
         }
 
         try {
-            if (!ageString.equals("")) age = Integer.parseInt(ageString);
-        } catch (NumberFormatException e) {
+            if (!ageString.equals("")) age = validateAge(ageString);
+        } catch (AgeValidationException e) {
             throw new UserInfoValidationException("age", ageString);
         }
 

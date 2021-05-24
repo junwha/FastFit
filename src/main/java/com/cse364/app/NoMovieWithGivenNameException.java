@@ -9,6 +9,7 @@ public class NoMovieWithGivenNameException extends Exception {
 
     public String getValue() {
         return value;
+    }
 
     public NoMovieWithGivenNameException(String value) {
         this.value = value;

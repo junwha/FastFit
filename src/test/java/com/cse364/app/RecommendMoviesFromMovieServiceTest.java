@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import static org.junit.Assert.*;
+import org.junit.Assert;
+
 
 public class RecommendMoviesFromMovieServiceTest {
     private RecommendMoviesFromMovieService service;
@@ -64,11 +66,24 @@ public class RecommendMoviesFromMovieServiceTest {
     }
 
     @Test
+    public void wrongMovieNameTest() {
+        try {
+            service.recommendMoviesFromTitle("THIS IS YOUR DOOM!", 10);
+            Assert.fail("Error not thrown for wrong moviename.");
+        } catch (NoMovieWithGivenNameException e) {
+            assertEquals(e.getValue(), "THIS IS YOUR DOOM!");
+        }
+    }
+
+    @Test
     public void recommendMoviesFromTitleTest() {
         // The one rated distinctMovie rated movie A only.
-        assertEquals(service.recommendMoviesFromTitle(distinctMovie.getTitle(), 10), 
-                List.of(movies.get(0)));
-        assertEquals(service.recommendMoviesFromTitle(movies.get(0).getTitle(), 9).get(8),
-                movies.get(2));
+        try {
+            assertEquals(service.recommendMoviesFromTitle(distinctMovie.getTitle(), 10), 
+                    List.of(movies.get(0)));
+            assertEquals(service.recommendMoviesFromTitle(movies.get(0).getTitle(), 9).get(8),
+                    movies.get(2));
+        } catch (Exception e) {
+        }
     }
 }

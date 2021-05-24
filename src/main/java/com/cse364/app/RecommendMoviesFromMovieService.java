@@ -20,8 +20,11 @@ public class RecommendMoviesFromMovieService {
      * list size is not bigger than limit,
      * ranked by how much the raters of the movie rated other movies
      */
-    public List<Movie> recommendMoviesFromTitle(String title, Integer limit) {
+    public List<Movie> recommendMoviesFromTitle(String title, Integer limit) throws NoMovieWithGivenNameException{
         Movie originalMovie = movieRepository.get(title);
+        if (originalMovie == null) {
+            throw new NoMovieWithGivenNameException(title);
+        }
 
         List<Rating> originalMovieRatings = ratingRepository.filterByMovie(originalMovie);
 

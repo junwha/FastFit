@@ -10,7 +10,14 @@ public interface MovieRepository {
     Movie get(int id);
 
     /**
+     * Returns a Movie by title.
+     * if no movie with given name, return 'null'
+     */
+    Movie get(String title);
+
+    /**
      * Returns a list of all movies.
      */
     List<Movie> all();
+
 }

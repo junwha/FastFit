@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HttpController {
@@ -43,12 +44,13 @@ public class HttpController {
      * Return recommendations from user input
      */
     @GetMapping("/users/recommendations")
-    public List<MovieDto> recommendations(@RequestParam(value = "gender", defaultValue = "") String gender,
-                                          @RequestParam(value = "age", defaultValue = "") String age,
-                                          @RequestParam(value = "occupation", defaultValue = "") String occupation,
-                                          @RequestParam(value="genreNames", defaultValue="") String genreNames) {
+    public List<MovieDto> recommendations(@RequestBody Map<String, String> jsonObject) {
+        String gender = jsonObject.get("gender");
+        String age = jsonObject.get("age");
+        String occupation = jsonObject.get("occupation");
+        String genreNames = jsonObject.get("genreNames");	
         //@RequestPram link GET parameter to method parameter
-
+        System.out.println(gender+" "+age+" "+occupation+" "+genreNames);
         List<MovieDto> movies = new ArrayList<>();
 
         for(Movie movie : getTop10Movies(gender, age, occupation, genreNames)){

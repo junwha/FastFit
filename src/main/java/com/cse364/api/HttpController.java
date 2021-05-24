@@ -48,12 +48,14 @@ public class HttpController {
         String gender = jsonObject.get("gender");
         String age = jsonObject.get("age");
         String occupation = jsonObject.get("occupation");
-        String genreNames = jsonObject.get("genreNames");	
+        String genre = jsonObject.get("genre");	
+
+        if (gender == null || age == null || occupation == null || genre == null) { /*TODO unspecified input*/ } 
+
         //@RequestPram link GET parameter to method parameter
-        System.out.println(gender+" "+age+" "+occupation+" "+genreNames);
         List<MovieDto> movies = new ArrayList<>();
 
-        for(Movie movie : getTop10Movies(gender, age, occupation, genreNames)){
+        for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
             movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
         return movies;

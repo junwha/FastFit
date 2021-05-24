@@ -1,14 +1,18 @@
 package com.cse364;
 
 import com.cse364.infra.Config;
+import static java.util.Map.entry;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.hasSize;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -43,7 +47,7 @@ public class ApiIntegrationTest {
         assertThat(config.validationService).isNotNull();
 
     }
-    /*
+    
     @Test
     public void controllerTest() throws Exception {
         int expectedLength = 10;
@@ -59,15 +63,20 @@ public class ApiIntegrationTest {
 
     }
 
-    private void testRecommendationResult(String gender, String age, String occupation, String genreNames, int expectedLength) throws Exception{
+    private void testRecommendationResult(String gender, String age, String occupation, String genre, int expectedLength) throws Exception{
+        Map<String, String> jsonObj = Map.ofEntries(
+                entry("gender", gender),
+                entry("age", age),
+                entry("occupation", occupation),
+                entry("genre", genre)
+        );
+        String jsonString = new ObjectMapper().writeValueAsString(jsonObj);
         this.mockMvc.perform(get("/users/recommendations")
-                .param("gender", gender)
-                .param("age", age)
-                .param("occupation", occupation)
-                .param("genreNames",  genreNames)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString)
         )
                 .andExpect(jsonPath("$", hasSize(expectedLength)))
                 .andExpect(status().isOk());
     }
-    */
+    
 }

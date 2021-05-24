@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +19,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -59,8 +63,15 @@ public class ApiIntegrationTest {
         testRecommendationResult("F", "10", "", "Horror|Comedy", expectedLength);
         testRecommendationResult("F", "20", "Doctor", "Horror|Comedy|Children's", expectedLength);
 
-        // TODO: test with invalid data after handle errors
+        testRecommendationResult("", "", "", "Horror", expectedLength);
+        testRecommendationResult("F", "10", "", "Horror|Comedy", expectedLength);
+        testRecommendationResult("F", "20", "Doctor", "Horror|Comedy|Children's", expectedLength);
 
+        testRecommendationResult("Toy Story (1995)", "10");
+        testRecommendationResult("TOYStor y(1995)", "10");
+        testRecommendationResult("Jumanji (1995)", "15");
+        testRecommendationResult("Grumpier Old Men (1995)", "16");
+        testRecommendationResult("What About Bob? (1991)", "30");
     }
 
     private void testRecommendationResult(String gender, String age, String occupation, String genres, int expectedLength) throws Exception{
@@ -78,5 +89,18 @@ public class ApiIntegrationTest {
                 .andExpect(jsonPath("$", hasSize(expectedLength)))
                 .andExpect(status().isOk());
     }
-    
+
+    private void testRecommendationResult(String title, String limit) throws Exception{
+        Map<String, String> jsonObj = Map.ofEntries(
+                entry("title", title),
+                entry("limit", limit)
+        );
+        String jsonString = new ObjectMapper().writeValueAsString(jsonObj);
+        this.mockMvc.perform(get("/movies/recommendations")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString)
+        )       .andExpect(jsonPath("$", hasSize(Integer.parseInt(limit))))
+                .andExpect(status().isOk());
+
+    }
 }

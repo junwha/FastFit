@@ -47,14 +47,14 @@ public class Config {
     public AverageRatingService averageRatingService;
     public RankingService rankingService;
     public ValidationService validationService;
-    public RecommendByMovieService recommendByMovieService;
-r
+    public RecommendByMovieService recommandByMovieService;
+
     public Config(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
         loadRepositories(moviesDb, linksDb, usersDb, ratingsDb);
         this.averageRatingService = new AverageRatingService(movies, ratings);
         this.rankingService = new RankingService(movies, ratings, new UserService(users));
         this.validationService = new ValidationService(genres, occupations);
-        this.recommendByMovieService = new RecommendByMovieService(movies, ratings);
+        this.recommandByMovieService = new RecommendByMovieService(movies, ratings);
     }
 
     public void loadRepositories(String moviesDb, String linksDb, String usersDb, String ratingsDb) {

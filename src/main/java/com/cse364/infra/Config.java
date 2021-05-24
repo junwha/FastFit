@@ -50,7 +50,7 @@ public class Config {
     public Config(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
         loadRepositories(moviesDb, linksDb, usersDb, ratingsDb);
         this.averageRatingService = new AverageRatingService(movies, ratings);
-        this.rankingService = new RankingService(movies, users, ratings);
+        this.rankingService = new RankingService(movies, ratings, new UserService(users));
         this.validationService = new ValidationService(genres, occupations);
     }
 

@@ -86,15 +86,7 @@ public class RankingServiceTest {
             }
         }
 
-        service = new RankingService(movieStorage, userStorage, ratingStorage);
-    }
-
-    @Test
-    public void testSubFunctions(){
-        //countValidUserInfo
-        assertEquals(service.countValidUserInfo(Gender.M, 27, new Occupation(1, "others")), 3);
-        assertEquals(service.countValidUserInfo(null, -1, null), 0);
-        
+        service = new RankingService(movieStorage, ratingStorage, new UserService(userStorage));
     }
 
     @Test

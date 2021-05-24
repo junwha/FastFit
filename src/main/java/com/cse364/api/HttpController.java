@@ -50,11 +50,21 @@ public class HttpController {
         String occupation = jsonObject.get("occupation");
         String genre = jsonObject.get("genre");	
 
-        if (gender == null || age == null || occupation == null || genre == null) { /*TODO unspecified input*/ } 
+        if (gender == null || age == null || occupation == null || genre == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "At least one of gender, age, occupation or genre are not specified.\n"
+            );
+        } 
 
         //@RequestPram link GET parameter to method parameter
         List<MovieDto> movies = new ArrayList<>();
-
+        /*
+        try {
+            List<Movie> movieList = getTop10Movies(gender, age, occupation, genre);
+        } catch (NullPointerException e) {
+            HttpStatus.BAD_REQUEST
+        }
+        */
         for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
             movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }

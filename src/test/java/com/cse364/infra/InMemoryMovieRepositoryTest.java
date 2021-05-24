@@ -10,8 +10,8 @@ import com.cse364.domain.*;
 public class InMemoryMovieRepositoryTest {
     private InMemoryMovieRepository storage;
     private List<Movie> movies = List.of(
-            new Movie(1, "A", null, "link1"),
-            new Movie(2, "B", null, "link1")
+            new Movie(1, "A", List.of(), "link1"),
+            new Movie(2, "B", List.of(), "link1")
     );
 
     @Before

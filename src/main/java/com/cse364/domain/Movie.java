@@ -1,20 +1,18 @@
 package com.cse364.domain;
 
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.Value;
+
 import java.util.List;
-import java.util.ArrayList;
 
+@Value
+@EqualsAndHashCode(of="id")
 public class Movie {
-    private int id;
-    private String title;
-    private List<Genre> genres;
-    private String link;
-
-    public Movie(int id, String title, List<Genre> genres, String link){
-        this.id = id;
-        this.title = title;
-        this.genres = genres;
-        this.link = link;
-    }
+    int id;
+    @NonNull String title;
+    @NonNull List<Genre> genres;
+    @NonNull String link;
 
     /**
      * Returns whether this movie has given genre.
@@ -56,17 +54,4 @@ public class Movie {
         }
         return num;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Movie)) { return false; }
-        Movie movie = (Movie) o;
-        return id == movie.id;
-    }
-
-    // Getters
-    public int getId() { return id; }
-    public String getTitle() { return title; }
-    public List<Genre> getGenres() { return genres; }
-    public String getLink() { return link; }
 }

@@ -7,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import static org.junit.Assert.*;
 import org.junit.Assert;
 
 
-public class RecommendMoviesFromMovieServiceTest {
-    private RecommendMoviesFromMovieService service;
+public class RecommendByMovieServiceTest {
+    private RecommendByMovieService service;
     private List<Movie> movies;
     private List<User> users;
     private Movie distinctMovie;
@@ -62,7 +62,7 @@ public class RecommendMoviesFromMovieServiceTest {
         ratingStorage.add(new Rating(movies.get(0), distinctUser, 3, 0));
         ratingStorage.add(new Rating(movies.get(2), users.get(0), 4, 0));
 
-        service = new RecommendMoviesFromMovieService(movieStorage, ratingStorage);
+        service = new RecommendByMovieService(movieStorage, ratingStorage);
     }
 
     @Test

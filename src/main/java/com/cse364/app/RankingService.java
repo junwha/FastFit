@@ -51,14 +51,6 @@ public class RankingService {
         Collections.reverse(rankedMovies);
         return rankedMovies;
     }
-    
-    int countValidUserInfo(Gender a, Integer b, Occupation c) {
-        int validNum = 0;
-        if (a != null) {validNum += 1;}
-        if (b>0) {validNum += 1;}
-        if (c != null) {validNum += 1;}
-        return validNum;
-    }
 
     /**
      * Return Top N Movie rated by similar user

@@ -90,14 +90,6 @@ public class RankingServiceTest {
     }
 
     @Test
-    public void testSubFunctions(){
-        //countValidUserInfo
-        assertEquals(service.countValidUserInfo(Gender.M, 27, new Occupation(1, "others")), 3);
-        assertEquals(service.countValidUserInfo(null, -1, null), 0);
-        
-    }
-
-    @Test
     public void testGetTopNMovie(){
         // First-order
         // Head

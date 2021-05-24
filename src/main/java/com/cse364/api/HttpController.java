@@ -1,6 +1,7 @@
 package com.cse364.api;
 
 import com.cse364.api.dtos.MovieDto;
+import com.cse364.app.RecommendByMovieService;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +29,8 @@ public class HttpController {
     private final AverageRatingService averageRatingService;
     private final RankingService rankingService;
     private final ValidationService validationService;
+    private final RecommendByMovieService recommendByMovieService;
+
     /*
      * Config instance(Singleton) come from Beans of Spring
      */
@@ -38,6 +40,7 @@ public class HttpController {
         this.averageRatingService = config.averageRatingService;
         this.rankingService = config.rankingService;
         this.validationService = config.validationService;
+        this.recommendByMovieService = config.recommendByMovieService;
     }
 
     /*

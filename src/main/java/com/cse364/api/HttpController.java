@@ -1,16 +1,12 @@
 package com.cse364.api;
 
 import com.cse364.api.dtos.MovieDto;
-import com.cse364.app.RecommendByMovieService;
+import com.cse364.app.*;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Movie;
 import com.cse364.domain.UserInfo;
-
-import com.cse364.app.AverageRatingService;
-import com.cse364.app.RankingService;
-import com.cse364.app.ValidationService;
 
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
@@ -47,7 +43,7 @@ public class HttpController {
      * Return recommendations from user input
      */
     @GetMapping("/users/recommendations")
-    public List<MovieDto> recommendations(@RequestBody Map<String, String> jsonObject) {
+    public List<MovieDto> recommendationsByUserinfo(@RequestBody Map<String, String> jsonObject) {
         String gender = jsonObject.get("gender");
         String age = jsonObject.get("age");
         String occupation = jsonObject.get("occupation");
@@ -59,7 +55,6 @@ public class HttpController {
             );
         } 
 
-        //@RequestPram link GET parameter to method parameter
         List<MovieDto> movies = new ArrayList<>();
         /*
         try {
@@ -98,6 +93,36 @@ public class HttpController {
         return topRank;
     }
 
+    @GetMapping("/movies/recommendations")
+    public List<MovieDto> recommendationsByMovie(@RequestBody Map<String, String> jsonObject) {
+        String title = jsonObject.get("title");
+        int limit;
+        try {
+            if (jsonObject.containsKey("limit")) {
+                limit = Integer.parseInt(jsonObject.get("limit"));
+            } else {
+                limit = 10;
+            }
+        } catch (NumberFormatException exception) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "'limit' input must be integer\n"
+            );
+        }
+
+        List<MovieDto> movies = new ArrayList<>();
+
+        try {
+           for (Movie movie : recommendByMovieService.recommendMoviesFromTitle(title, limit)) {
+               movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
+           }
+        } catch (NoMovieWithGivenNameException exception) {
+           throw new ResponseStatusException(
+                   HttpStatus.BAD_REQUEST, String.format("Error : The movie %s does not exist in database\n", title)
+           );
+        }
+
+        return movies;
+    }
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(Exception exception){
         return exception.getMessage();

@@ -46,6 +46,13 @@ For multiple input of genres, you can separate the genres with vertical bars `|`
 If you do not want to specify an information, please include "info_name": "" within the JSON object.
 Genre/occupation inputs are case-insensitive, and any special characters and whitespaces will be ignored.
 
+### Movie Recommendation based on User Information (and Genres) Example
+
+```
+curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "", "occupation": "other", "genres": ""}'
+[{"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},{"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},{"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},{"title":"Lured (1947)","genre":"Crime","imdb":"http://www.imdb.com/title/tt0039589"},{"title":"Freedom for Us (� nous la libert� ) (1931)","genre":"Comedy","imdb":"http://www.imdb.com/title/tt0022599"},{"title":"Bells, The (1926)","genre":"Crime|Drama","imdb":"http://www.imdb.com/title/tt0016640"},{"title":"Vampyros Lesbos (Las Vampiras) (1970)","genre":"Horror","imdb":"http://www.imdb.com/title/tt0066380"},{"title":"Ulysses (Ulisse) (1954)","genre":"Adventure","imdb":"http://www.imdb.com/title/tt0047630"},{"title":"Room at the Top (1959)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0053226"},{"title":"Three Ages, The (1923)","genre":"Comedy","imdb":"http://www.imdb.com/title/tt0014538"}]
+```
+
 ### Movie Recommendation based on one Movie Title
 
 ```
@@ -56,6 +63,13 @@ You can send a GET request with a JSON object including a movie title and option
 
 If limit is not specified, server will send you at max 10 movies.
 Title input is case-insensitive, and any whitespace will be ignored.
+
+### Movie Recommendation based on one Movie Title Example
+
+```
+$ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story(1995)", "limit": "10"}'
+[{"title":"Goofy Movie, A (1995)","genre":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},{"title":"Aladdin (1992)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},{"title":"Space Jam (1996)","genre":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},{"title":"Aladdin and the King of Thieves (1996)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0115491"},{"title":"Hercules (1997)","genre":"Adventure|Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0119282"},{"title":"Jungle Book, The (1967)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0061852"},{"title":"Lady and the Tramp (1955)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0048280"},{"title":"Little Mermaid, The (1989)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0097757"},{"title":"Steamboat Willie (1940)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0019422"},{"title":"American Tail, An (1986)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0090633"}]
+```
 
 ## Usage (Command Line)
 
@@ -271,11 +285,14 @@ Input age must be greater or equal than 0.
 ### Roles
 
 @queuedq
-
+- Adopted Project Lombok for simplitying domain model objects
+- Refactored ranking service using user info similarity notion
+- Modified validation for age and gender for ranking service
+- Helped troubleshooting Spring Boot adoption
 
 @jaehwan1912
-- Modified API and Test to correctly accept JSON as input 
-- Recommendation by Movie algorithm design & implementation
+- Recommendation by Movie algorithm design & implementation & test
+- Helped troubleshooting REST input problem & test modification
 - README
 
 @junwha0511

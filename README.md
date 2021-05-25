@@ -40,9 +40,10 @@ You can send a GET request and a correctly formed JSON object to get the results
 $ curl -X GET [http://address_to_server:8080/users/recommendations] -H 'Content-type:application/json' -d '{"gender": "[gender]", "age": "[age]", "occupation": "[occupation]", "genres": "[genre1|genre2|...]"}'
 ```
 
-You can send a GET request with a JSON object including user informations(gender, age, occupation) and optionally genre(s) as inputs, and server will send you top 10 movies rated by similar users of given information. If genre(s) are specified, all output movies will have at least one of the specified genre(s).
+You can send a GET request with a JSON object including user informations(gender, age, occupation) and genre(s) as inputs, and server will send you top 10 movies rated by similar users of given information. If genre(s) are specified, all output movies will have at least one of the specified genre(s).
 
 For multiple input of genres, you can separate the genres with vertical bars `|`.
+If you do not want to specify an information, please include "info": "" within the JSON object.
 Genre/occupation inputs are case-insensitive, and any special characters and whitespaces will be ignored.
 
 ### Movie Recommendation based on one Movie Title

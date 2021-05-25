@@ -88,6 +88,12 @@ public class HttpController {
     @GetMapping("/movies/recommendations")
     public List<MovieDto> recommendationsByMovie(@RequestBody Map<String, String> jsonObject) {
         String title = jsonObject.get("title");
+
+        if (title == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Title should be specified"
+            );
+        }
         int limit;
         try {
             if (jsonObject.containsKey("limit")) {

@@ -9,7 +9,7 @@
 ### About Ranking Algorithm
 
 #### Our algorithm is here
-[`com.cse364.app.RankingService`](src/main/java/com/cse364/app/RankingService.java)
+[`com.cse364.app.RankingService`](/src/main/java/com/cse364/app/RankingService.java)
 
 #### Terminology
 

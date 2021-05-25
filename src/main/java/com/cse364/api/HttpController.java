@@ -101,9 +101,11 @@ public class HttpController {
             } else {
                 limit = 10;
             }
+            
+            if (limit <= 0) { throw new NumberFormatException(); }
         } catch (NumberFormatException exception) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "'limit' input must be integer\n"
+                    HttpStatus.BAD_REQUEST, "'limit' input must be positive integer\n"
             );
         }
 

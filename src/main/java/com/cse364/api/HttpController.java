@@ -11,6 +11,7 @@ import com.cse364.domain.UserInfo;
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
@@ -125,7 +126,7 @@ public class HttpController {
     }
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(Exception exception){
-        return exception.getMessage();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
 }

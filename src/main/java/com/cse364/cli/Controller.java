@@ -1,4 +1,4 @@
-package com.cse364.infra;
+package com.cse364.cli;
 
 import com.cse364.app.AverageRatingService;
 import com.cse364.app.RankingService;
@@ -110,7 +110,7 @@ public class Controller {
     /**
      * return String of genres combined with divider
      */
-    String formatGenres(List<Genre> genres, String divider) {
+    public static String formatGenres(List<Genre> genres, String divider) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < genres.size(); i++) {
             sb.append(genres.get(i).getName());

@@ -1,33 +1,40 @@
 package com.cse364.domain;
 
-import java.util.Objects;
+import lombok.Value;
 
+@Value
 public class UserInfo {
-    private Gender gender;
-    private int age;
-    private Occupation occupation;
-    private String zipCode;
+    Gender gender;
+    int age;
+    Occupation occupation;
+    String zipCode;
 
-    public UserInfo(Gender gender, int age, Occupation occupation, String zipCode) {
-        this.gender = gender;
-        this.age = age;
-        this.occupation = occupation;
-        this.zipCode = zipCode;
+    public int getSimilarity(UserInfo another) {
+        int similarity = 0;
+        if (gender == null || another.gender == null || gender.equals(another.gender)) {
+            similarity++;
+        }
+        if (age == -1 || another.age == -1 || areAgesSimilar(age, another.age)) {
+            similarity++;
+        }
+        if (occupation == null || another.occupation == null || occupation.equals(another.occupation)) {
+            similarity++;
+        }
+        return similarity;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof UserInfo)) { return false; }
-        UserInfo userInfo = (UserInfo) o;
-        return Objects.equals(gender, userInfo.gender) &&
-                age == userInfo.age &&
-                Objects.equals(occupation, userInfo.occupation) &&
-                Objects.equals(zipCode, userInfo.zipCode);
+    // TODO: separate Age class
+    static boolean areAgesSimilar(int age1, int age2) {
+        return normalizeAge(age1) == normalizeAge(age2);
     }
 
-    // Getters
-    public Gender getGender() { return gender; }
-    public int getAge() { return age; }
-    public Occupation getOccupation() { return occupation; }
-    public String getZipCode() { return zipCode; }
+    static int normalizeAge(int age) {
+        if (age < 18) return 1;
+        else if (age < 25) return 18;
+        else if (age < 35) return 25;
+        else if (age < 45) return 35;
+        else if (age < 50) return 45;
+        else if (age < 56) return 50;
+        else return 56;
+    }
 }

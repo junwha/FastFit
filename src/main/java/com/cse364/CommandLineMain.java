@@ -1,8 +1,9 @@
 package com.cse364;
 
-import com.cse364.infra.*;
+import com.cse364.infra.Config;
+import com.cse364.cli.Controller;
 
-public class Main {
+public class CommandLineMain {
     public static void main(String args[]) {
         Config config = new Config(
                 "./data/movies.dat",

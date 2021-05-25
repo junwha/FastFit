@@ -1,9 +1,6 @@
 package com.cse364.app;
 
-import com.cse364.app.exceptions.GenderValidationException;
-import com.cse364.app.exceptions.GenreValidationException;
-import com.cse364.app.exceptions.OccupationValidationException;
-import com.cse364.app.exceptions.UserInfoValidationException;
+import com.cse364.app.exceptions.*;
 import com.cse364.domain.*;
 import com.cse364.infra.InMemoryGenreRepository;
 import com.cse364.infra.InMemoryOccupationRepository;
@@ -111,6 +108,35 @@ public class ValidationServiceTest {
     }
 
     @Test
+    public void testValidateAge() {
+        try {
+            assertEquals(validationService.validateAge("10"), 10);
+        } catch(AgeValidationException e) {
+            fail("must not throw when given valid age string");
+        }
+    }
+
+    @Test
+    public void testValidateAgeThrowsWhenGivenNonInteger() {
+        try {
+            validationService.validateAge("INVALID");
+            fail("must throw when given invalid age string");
+        } catch(AgeValidationException e) {
+            assertEquals(e.getValue(), "INVALID");
+        }
+    }
+
+    @Test
+    public void testValidateAgeThrowsWhenGivenNegativeInteger() {
+        try {
+            validationService.validateAge("-10");
+            fail("must throw when given negative age");
+        } catch(AgeValidationException e) {
+            assertEquals(e.getValue(), "-10");
+        }
+    }
+
+    @Test
     public void testValidateUserInfo() {
         try {
             UserInfo userInfo, expected;
@@ -121,7 +147,7 @@ public class ValidationServiceTest {
 
             // Containing empty string
             userInfo = validationService.validateUserInfo("", "", "");
-            expected = new UserInfo(null, 0, null, null);
+            expected = new UserInfo(null, -1, null, null);
             assertEquals(userInfo, expected);
         } catch(UserInfoValidationException e) {
             fail("must not throw when given valid user info");

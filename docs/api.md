@@ -1,4 +1,4 @@
-## Usage (REST API Server)
+# Usage (REST API Server)
 
 ## Running a Server
 
@@ -12,26 +12,59 @@ $ mvn spring-boot:run
 
 - If you want to know which genres, occupations, etc. you can use as an input,
   please see [Available Inputs](available-inputs.md) page.
-- You can send a GET request with JSON body.
-- The response is returned as a JSON object.
+- The request/response bodies are JSON objects. (`Content-type` is always `application/json`.)
+- If unrelated fields are given in the request body, they will be ignored.
+- If a request object does not follow the specification (e.g. a required field is not given in the request body, a field contains invalid value, etc.), the server will return a response with `400 BAD REQUEST` status code. The body will contain a field `message` which describes the error and a field `status` which describes status code.
 
-### Movie Recommendation based on User Information (and Genres)
+### Movie Recommendation Based on User Information
 
-```
-$ curl -X GET [http://address_to_server:8080/users/recommendations] -H 'Content-type:application/json' -d '{"gender": "[gender]", "age": "[age]", "occupation": "[occupation]", "genres": "[genre1|genre2|...]"}'
-```
+- **Endpoint :** `/users/recommendations`
 
-You can send a GET request with a JSON object including user informations(gender, age, occupation) and genre(s) as inputs, and server will send you top 10 movies rated by similar users of given information. If genre(s) are specified, all output movies will have at least one of the specified genre(s).
+- **HTTP Method :** `GET`
 
-For multiple input of genres, you can separate the genres with vertical bars `|`.
-If you do not want to specify an information, please include "info_name": "" within the JSON object.
-Genre/occupation inputs are case-insensitive, and any special characters and whitespaces will be ignored.
+#### Description
 
-### Movie Recommendation based on User Information (and Genres) Example
+Returns top 10 movies rated by similar users of given information. You can optionally specify genres so that the returned movies have at least one of the specified genres.
 
-```
+If you don't want to specify some of gender/age/occupation information, please put empty strings (`""`) at those fields.
+
+Gender and occupation are matched case-insensitively. Also, any special characters and whitespaces will be ignored.
+
+#### Request
+
+**Required parameters**
+
+- `gender` (string) : User information - gender. Only `"F"` and `"M"` are available.
+- `age` (string) : User information - age. It should be at least 0.
+- `occupation` (string) : User information - occupation. The available inputs are listed in [Available Inputs](available-inputs.md) page.
+
+**Optional Parameters**
+
+- `genres` (string) : If this field is specified, the returned movies will have at least one of the specified genres. To specify multiple genres, you can separate the genres with vertical bars (`|`).
+
+#### Response
+
+Returns a list of movie information objects. Movie information objects has following fields:
+
+- `title` (string) : The title of the movie.
+- `genre` (string) : The genres of the movie.
+- `imdb` (string) : IMDB link of the movie.
+
+#### Example Request
+
+```shell
 curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "", "occupation": "other", "genres": ""}'
-[{"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},{"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},{"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},{"title":"Lured (1947)","genre":"Crime","imdb":"http://www.imdb.com/title/tt0039589"},{"title":"Freedom for Us (� nous la libert� ) (1931)","genre":"Comedy","imdb":"http://www.imdb.com/title/tt0022599"},{"title":"Bells, The (1926)","genre":"Crime|Drama","imdb":"http://www.imdb.com/title/tt0016640"},{"title":"Vampyros Lesbos (Las Vampiras) (1970)","genre":"Horror","imdb":"http://www.imdb.com/title/tt0066380"},{"title":"Ulysses (Ulisse) (1954)","genre":"Adventure","imdb":"http://www.imdb.com/title/tt0047630"},{"title":"Room at the Top (1959)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0053226"},{"title":"Three Ages, The (1923)","genre":"Comedy","imdb":"http://www.imdb.com/title/tt0014538"}]
+```
+
+#### Example Response
+
+```json
+[
+	{"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
+	{"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
+	{"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
+	...
+]
 ```
 
 ### Movie Recommendation based on one Movie Title

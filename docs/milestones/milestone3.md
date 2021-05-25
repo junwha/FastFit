@@ -10,7 +10,7 @@
 ### About Recommendation by Movie Algorithm
 
 #### Our algorithm is here
-[`com.cse364.app.RecommendByMovieService`](/src/main/java/com/cse364/app/RecommendByMovieService)
+[`com.cse364.app.RecommendByMovieService`](/src/main/java/com/cse364/app/RecommendByMovieService.java)
 
 #### Design Choice
 

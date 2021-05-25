@@ -6,6 +6,13 @@
 $ mvn spring-boot:run
 ```
 
+or
+
+
+```
+$ java -jar target/cse364-project-1.0-SNAPSHOT.jar
+```
+
 ## API Specification
 
 ### Preliminaries

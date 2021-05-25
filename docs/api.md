@@ -47,7 +47,7 @@ Gender and occupation are matched case-insensitively. Also, any special characte
 Returns a list of movie information objects. Movie information objects has following fields:
 
 - `title` (string) : The title of the movie.
-- `genre` (string) : The genres of the movie.
+- `genres` (string) : The genres of the movie.
 - `imdb` (string) : IMDB link of the movie.
 
 #### Example Request
@@ -60,9 +60,9 @@ curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:applica
 
 ```json
 [
-    {"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
-    {"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
-    {"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
+    {"title":"Our Town (1940)","genres":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
+    {"title":"Two Women (La Ciociara) (1961)","genres":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
+    {"title":"Criminal Lovers (Les Amants Criminels) (1999)","genres":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
     ...
 ]
 ```
@@ -94,7 +94,7 @@ You should include the year of release for the movie in the title field, because
 Returns a list of movie information objects. Movie information objects has following fields:
 
 - `title` (string) : The title of the movie.
-- `genre` (string) : The genres of the movie.
+- `genres` (string) : The genres of the movie.
 - `imdb` (string) : IMDB link of the movie.
 
 #### Example Request
@@ -107,9 +107,9 @@ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:applic
 
 ```json
 [
-    {"title":"Goofy Movie, A (1995)","genre":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},
-    {"title":"Aladdin (1992)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},
-    {"title":"Space Jam (1996)","genre":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},
+    {"title":"Goofy Movie, A (1995)","genres":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},
+    {"title":"Aladdin (1992)","genres":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},
+    {"title":"Space Jam (1996)","genres":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},
     ...
 ]
 ```

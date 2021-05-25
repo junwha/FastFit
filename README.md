@@ -52,8 +52,9 @@ Genre/occupation inputs are case-insensitive, and any special characters and whi
 $ curl -X GET [http://address_to_server:8080/users/recommendations] -H 'Content-type:application/json' -d '{"title": "[title_of_the_movie]"[,"limit": "max_number_of_list_of_movie"]}'
 ```
 
-You can send a GET request with a JSON object including a movie title and optionally limit number as inputs, and server will send you the list of recommended movies(at max limit) based on the given movie. If limit is not specified, server will send you at max 10 movies.
+You can send a GET request with a JSON object including a movie title and optionally limit number as inputs, and server will send you the list of recommended movies(at max limit) based on the given movie.
 
+If limit is not specified, server will send you at max 10 movies.
 Title input is case-insensitive, and any whitespace will be ignored.
 
 ## Usage (Command Line)

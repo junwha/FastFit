@@ -284,18 +284,18 @@ Input age must be greater or equal than 0.
 
 ### Roles
 
-@queuedq
+한동규 @queuedq
 - Adopted Project Lombok for simplitying domain model objects
 - Refactored ranking service using user info similarity notion
 - Modified validation for age and gender for ranking service
 - Helped troubleshooting Spring Boot adoption
 
-@jaehwan1912
+심재환 @jaehwan1912
 - Recommendation by Movie algorithm design & implementation & test
 - Helped troubleshooting REST input problem & test modification
 - README
 
-@junwha0511
+홍준화 @junwha0511
 - Spring setting
 - Implemented REST API (MVC, Mapping)
 - Write Spring Test (MockMVC)

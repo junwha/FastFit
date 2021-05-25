@@ -22,7 +22,15 @@ $ mvn test
 
 How to check coverage: After running the test command, open `target/site/jacoco/index.html` file in the browser.
 
-## Usage
+## Usage (Server & Client)
+
+### Serverside
+
+```
+$ 
+```
+
+## Usage (Command Line)
 
 ### Average Rating
 

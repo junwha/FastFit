@@ -1,4 +1,4 @@
-package com.cse364.infra;
+package com.cse364.cli;
 
 import com.cse364.app.AverageRatingService;
 import com.cse364.app.RankingService;

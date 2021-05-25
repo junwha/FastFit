@@ -5,12 +5,12 @@ import com.cse364.domain.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RecommendMoviesFromMovieService {
+public class RecommendByMovieService {
     private MovieRepository movieRepository;
     private RatingRepository ratingRepository;    
 
 
-    public RecommendMoviesFromMovieService(MovieRepository movieRepository, RatingRepository ratingRepository) {
+    public RecommendByMovieService(MovieRepository movieRepository, RatingRepository ratingRepository) {
         this.movieRepository = movieRepository;
         this.ratingRepository = ratingRepository;
     }

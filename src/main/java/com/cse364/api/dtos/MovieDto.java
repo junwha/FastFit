@@ -5,6 +5,6 @@ import lombok.Value;
 @Value
 public class MovieDto {
     String title;
-    String genre;
+    String genres;
     String imdb;
 }

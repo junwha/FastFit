@@ -11,14 +11,12 @@ import com.cse364.domain.UserInfo;
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class HttpController {
@@ -56,13 +54,7 @@ public class HttpController {
         } 
 
         List<MovieDto> movies = new ArrayList<>();
-        /*
-        try {
-            List<Movie> movieList = getTop10Movies(gender, age, occupation, genre);
-        } catch (NullPointerException e) {
-            HttpStatus.BAD_REQUEST
-        }
-        */
+
         for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
             movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
@@ -96,6 +88,12 @@ public class HttpController {
     @GetMapping("/movies/recommendations")
     public List<MovieDto> recommendationsByMovie(@RequestBody Map<String, String> jsonObject) {
         String title = jsonObject.get("title");
+
+        if (title == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Title should be specified"
+            );
+        }
         int limit;
         try {
             if (jsonObject.containsKey("limit")) {
@@ -103,9 +101,11 @@ public class HttpController {
             } else {
                 limit = 10;
             }
+            
+            if (limit <= 0) { throw new NumberFormatException(); }
         } catch (NumberFormatException exception) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "'limit' input must be integer\n"
+                    HttpStatus.BAD_REQUEST, "'limit' input must be positive integer\n"
             );
         }
 
@@ -124,8 +124,13 @@ public class HttpController {
         return movies;
     }
     @ExceptionHandler(ResponseStatusException.class)
-    public Object handleError(Exception exception){
-        return exception.getMessage();
+    public Object handleError(ResponseStatusException exception){
+        Map<String, String> jsonObject = new HashMap<>();
+
+        jsonObject.put("message", exception.getReason());
+        jsonObject.put("status", String.valueOf(exception.getStatus().value()));
+
+        return ResponseEntity.status(exception.getStatus()).body(jsonObject);
     }
 
 }

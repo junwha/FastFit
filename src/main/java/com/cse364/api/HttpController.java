@@ -54,13 +54,7 @@ public class HttpController {
         } 
 
         List<MovieDto> movies = new ArrayList<>();
-        /*
-        try {
-            List<Movie> movieList = getTop10Movies(gender, age, occupation, genre);
-        } catch (NullPointerException e) {
-            HttpStatus.BAD_REQUEST
-        }
-        */
+
         for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
             movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
@@ -101,9 +95,11 @@ public class HttpController {
             } else {
                 limit = 10;
             }
+            
+            if (limit <= 0) { throw new NumberFormatException(); }
         } catch (NumberFormatException exception) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "'limit' input must be integer\n"
+                    HttpStatus.BAD_REQUEST, "'limit' input must be positive integer\n"
             );
         }
 

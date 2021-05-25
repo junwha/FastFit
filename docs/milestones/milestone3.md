@@ -1,6 +1,11 @@
 ## Milestone 3
 
 ### What We've Finished
+- Seperated Command Line Program (Milestone1 & Milestone2)
+- Designed and Implemented recommendation by movie algorithm
+- Introduced Spring boot and implemented REST API for recommendation services
+- Achived high branch coverage of unit test
+- Adopted Lombok for simplifying domain model objects
 
 ### About Recommendation by Movie Algorithm
 

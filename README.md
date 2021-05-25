@@ -22,15 +22,15 @@ $ mvn test
 
 How to check coverage: After running the test command, open `target/site/jacoco/index.html` file in the browser.
 
-## Usage (Server & Client)
+## Usage (REST API Server)
 
-## Serverside
+## Running a Server
 
 ```
 $ mvn spring-boot:run
 ```
 
-## Clientside
+## API Specification
 
 You can send a GET request and a correctly formed JSON object to get the results as a JSON object.
  
@@ -71,7 +71,7 @@ $ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:appl
 [{"title":"Goofy Movie, A (1995)","genre":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},{"title":"Aladdin (1992)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},{"title":"Space Jam (1996)","genre":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},{"title":"Aladdin and the King of Thieves (1996)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0115491"},{"title":"Hercules (1997)","genre":"Adventure|Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0119282"},{"title":"Jungle Book, The (1967)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0061852"},{"title":"Lady and the Tramp (1955)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0048280"},{"title":"Little Mermaid, The (1989)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0097757"},{"title":"Steamboat Willie (1940)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0019422"},{"title":"American Tail, An (1986)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0090633"}]
 ```
 
-## Usage (Command Line)
+## Usage (Command Line Program)
 
 ### Average Rating
 

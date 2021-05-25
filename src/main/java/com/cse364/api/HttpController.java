@@ -54,13 +54,7 @@ public class HttpController {
         } 
 
         List<MovieDto> movies = new ArrayList<>();
-        /*
-        try {
-            List<Movie> movieList = getTop10Movies(gender, age, occupation, genre);
-        } catch (NullPointerException e) {
-            HttpStatus.BAD_REQUEST
-        }
-        */
+
         for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
             movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }

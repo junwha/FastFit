@@ -35,7 +35,7 @@ Gender and occupation are matched case-insensitively. Also, any special characte
 **Required parameters**
 
 - `gender` (string) : User information - gender. Only `"F"` and `"M"` are available.
-- `age` (string) : User information - age. It should be at least 0.
+- `age` (string) : User information - age. You should wrap the integer value with `""` so to make string type. Age should be at least 0.
 - `occupation` (string) : User information - occupation. The available inputs are listed in [Available Inputs](available-inputs.md) page.
 
 **Optional Parameters**
@@ -60,27 +60,56 @@ curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:applica
 
 ```json
 [
-	{"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
-	{"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
-	{"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
-	...
+    {"title":"Our Town (1940)","genre":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
+    {"title":"Two Women (La Ciociara) (1961)","genre":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
+    {"title":"Criminal Lovers (Les Amants Criminels) (1999)","genre":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
+    ...
 ]
 ```
 
-### Movie Recommendation based on one Movie Title
+### Related Movie Recommendation
 
+- **Endpoint :** `/users/recommendations`
+
+- **HTTP Method :** `GET`
+
+#### Description
+
+Returns movie recommendations based on the given movie title. The maximum number of movies returned can optionally be specified by the `limit` field.
+
+You should include the year of release for the movie in the title field, because there are movies that have the same names but different years of release. The title is matched case-insensitively and any whitespaces will be ignored.
+
+#### Request
+
+**Required parameters**
+
+- `title` (string) : The movie title. You should include the year of release for the movie. (See an example below.)
+
+**Optional Parameters**
+
+- `limit` (string) : If this field is specified, at most `limit` movies will be returned. You should wrap the integer value with `""` so to make string type. If this field is not specified, it defaults to 10.
+
+#### Response
+
+Returns a list of movie information objects. Movie information objects has following fields:
+
+- `title` (string) : The title of the movie.
+- `genre` (string) : The genres of the movie.
+- `imdb` (string) : IMDB link of the movie.
+
+#### Example Request
+
+```shell
+curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story (1995)", "limit": "10"}'
 ```
-$ curl -X GET [http://address_to_server:8080/movies/recommendations] -H 'Content-type:application/json' -d '{"title": "[title_of_the_movie(year_of_release)]"[,"limit": "max_number_of_list_of_movie"]}'
-```
 
-You can send a GET request with a JSON object including a movie title and optionally limit number as inputs, and server will send you the list of recommended movies(at max limit) based on the given movie. You should include the year of release for the movie as shown in the use reference above.
+#### Example Response
 
-If limit is not specified, server will send you at max 10 movies.
-Title input is case-insensitive, and any whitespace will be ignored.
-
-### Movie Recommendation based on one Movie Title Example
-
-```
-$ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story(1995)", "limit": "10"}'
-[{"title":"Goofy Movie, A (1995)","genre":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},{"title":"Aladdin (1992)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},{"title":"Space Jam (1996)","genre":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},{"title":"Aladdin and the King of Thieves (1996)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0115491"},{"title":"Hercules (1997)","genre":"Adventure|Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0119282"},{"title":"Jungle Book, The (1967)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0061852"},{"title":"Lady and the Tramp (1955)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0048280"},{"title":"Little Mermaid, The (1989)","genre":"Animation|Children's|Comedy|Musical|Romance","imdb":"http://www.imdb.com/title/tt0097757"},{"title":"Steamboat Willie (1940)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0019422"},{"title":"American Tail, An (1986)","genre":"Animation|Children's|Comedy","imdb":"http://www.imdb.com/title/tt0090633"}]
+```json
+[
+    {"title":"Goofy Movie, A (1995)","genre":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},
+    {"title":"Aladdin (1992)","genre":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},
+    {"title":"Space Jam (1996)","genre":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},
+    ...
+]
 ```

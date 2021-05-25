@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class HttpController {
@@ -125,8 +122,13 @@ public class HttpController {
         return movies;
     }
     @ExceptionHandler(ResponseStatusException.class)
-    public Object handleError(Exception exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    public Object handleError(ResponseStatusException exception){
+        Map<String, String> jsonObject = new HashMap<>();
+
+        jsonObject.put("message", exception.getReason());
+        jsonObject.put("status", String.valueOf(exception.getStatus().value()));
+
+        return ResponseEntity.status(exception.getStatus()).body(jsonObject);
     }
 
 }

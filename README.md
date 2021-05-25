@@ -161,6 +161,10 @@ Kelly's Heroes (1970) (http://www.imdb.com/title/tt0065938)
 
 Either `F` or `M`, where `F` means femail and `M` means male.
 
+### Range of Possible Age
+
+Input age must be greater or equal than 0.
+
 ## Milestone 1
 
 ### What We've Finished

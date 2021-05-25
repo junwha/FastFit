@@ -32,5 +32,5 @@ How to check coverage: After running the test command, open `target/site/jacoco/
 
 ## Usage
 
-- [Command Line Program](/docs/milestones/cli.md)
-- [REST API Server](/docs/milestones/api.md)
+- [Command Line Program](/docs/cli.md)
+- [REST API Server](/docs/api.md)

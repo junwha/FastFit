@@ -1,11 +1,11 @@
 ## Milestone 3
 
 ### What We've Finished
-- Seperated Command Line Program (Milestone1 & Milestone2)
-- Designed and Implemented recommendation by movie algorithm
-- Introduced Spring boot and implemented REST API for recommendation services
+- Seperated command line program (Milestone1 & Milestone2) from API server
+- Designed and implemented related movie recommendation algorithm
+- Introduced Spring Boot and implemented REST API for recommendation services
 - Achived high branch coverage of unit test
-- Adopted Lombok for simplifying domain model objects
+- Adopted Project Lombok for simplifying domain model objects
 
 ### About Recommendation by Movie Algorithm
 
@@ -33,14 +33,15 @@ Thus, in a large scale, filtering it by matching number of genres and average ra
 - Refactored ranking service using user info similarity notion
 - Modified validation for age and gender for ranking service
 - Helped troubleshooting Spring Boot adoption
+- Wrote API spec documentation
 
 심재환 @jaehwan1912
 - Recommendation by Movie algorithm design & implementation & test
 - Helped troubleshooting REST input problem & test modification
-- README
+- Wrote README
 
 홍준화 @junwha0511
-- Spring setting
-- Implemented REST API (MVC, Mapping)
-- Write Spring Test (MockMVC)
-- Spring Error handling
+- Set up Spring Boot
+- Implemented REST API (mapping to services)
+- Wrote API server integration test using MockMVC
+- Handled API server errors

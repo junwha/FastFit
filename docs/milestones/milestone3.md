@@ -12,7 +12,10 @@
 #### Our algorithm is here
 [`com.cse364.app.RecommendByMovieService`](/src/main/java/com/cse364/app/RecommendByMovieService)
 
-#### Terminology
+#### Design Choice
+
+If one person watched a movie, he/she has a relatively high possibility to have watched another movie similar to it and reviewed it.
+Thus, in a large scale, filtering it by matching number of genres and average ratings from those users will give movies recommendable and similar to the given one.
 
 #### Algorithm Description
 

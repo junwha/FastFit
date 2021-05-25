@@ -1,6 +1,11 @@
 ## Milestone 3
 
 ### What We've Finished
+- Seperated Command Line Program (Milestone1 & Milestone2)
+- Designed and Implemented recommendation by movie algorithm
+- Introduced Spring boot and implemented REST API for recommendation services
+- Achived high branch coverage of unit test
+- Adopted Lombok for simplifying domain model objects
 
 ### About Recommendation by Movie Algorithm
 
@@ -21,7 +26,7 @@
 ### Roles
 
 한동규 @queuedq
-- Adopted Project Lombok for simplitying domain model objects
+- Adopted Project Lombok for simplifying domain model objects
 - Refactored ranking service using user info similarity notion
 - Modified validation for age and gender for ranking service
 - Helped troubleshooting Spring Boot adoption

@@ -1,5 +1,13 @@
 # CSE-364-Software-Engineering
 
+What we've done in each milestones:
+
+- [Milestone 1](docs/milestones/milestone1.md)
+- [Milestone 2](docs/milestones/milestone2.md)
+- [Milestone 3](docs/milestones/milestone3.md)
+
+---
+
 ## Docker Build and Run
 
 ```
@@ -178,126 +186,3 @@ Either `F` or `M`, where `F` means femail and `M` means male.
 ### Range of Possible Age
 
 Input age must be greater or equal than 0.
-
-## Milestone 1
-
-### What We've Finished
-
-- Created Dockerfile for environment setup.
-- Created run.sh for cloning directory / building & executing program.
-
-- Implemented program that calculates the average rating score of the movies with specified genres, rated by people with given occupation.
-
-### Roles
-
-한동규 @queuedq
-- Suggestions for Git/Github utilization, coding conventions, overall advices, etc.
-- Docker setup
-- Overall refactoring
-- Testing, Exception handling
-
-심재환 @jaehwan1912
-- Input reading/parsing and average rating method design & implementation
-- Exception handling
-- Average rating method refactoring
-- Documentation
-
-홍준화 @junwha0511
-- Dockerfile draft
-- Java project creation
-- Data (.dat file) reading/parsing design & implementation
-- Revising average rating method implementation 
-- Rating/Occupation class refactoring
-
-## Milestone 2
-
-### What We've Finished
-
-- Designed and implemented a movie ranking algorithm
-- Introduced The Onion Architecture
-- Achieved high branch coverage of unit tests (using JaCoCo)
-
-### About Ranking Algorithm
-
-#### Our algorithm is here
-[`com.cse364.app.RankingService`](src/main/java/com/cse364/app/RankingService.java)
- 
-#### Terminology
-
-- **Similar user** : A user that matches all given user information (gender, age, occupation).
-- **Secondary similar user**: A user that matches given user information only partially.
-- **Match count** : Number of matching properties of secondary similar user. 
-
-#### Algorithm Description
-
-1. Find all similar users according to the given user information. 
-2. Calculate average of all ratings for each movie rated by similar users.
-3. If the number of movie rated by similar user is larger or equal than `N`, return top `N` movies.
-4. Otherwise, repeat finding secondary similar users by decrementing match count. 
-5. Append the new rankings obtained from secondary similar users to the ranking list, until the list has `N` movies.
-
-### Roles
-
-한동규 @queuedq
-- JaCoCo setup for checking branch coverage
-- Introduced The Onion Architecture
-  - Introduced repository pattern
-- Infrastructure layer redesign
-  - Refactored DataLoader using DTO so that it becomes unit-testable
-  - Separated Config (initializing repositories and services), Controller (UI) from Main
-  - Separated validation logic (as app service) from Controller
-
-심재환 @jaehwan1912
-- Input parsing, error handling and connecting to services in Controller
-- Ranking algorithm improvement
-  - Implemented ranking algorithm for secondary similar users
-  - Refactoring
-- Writing unit tests for higher branch coverage
-
-홍준화 @junwha0511
-- Data loading (link.dat)
-- Unit test for existing classes from Milestone 1
-- Ranking algorithm design & implementation
-  - Investigated existing algorithms
-  - Designed ranking algorithm considering both effectiveness and efficiency
-  - Implemented ranking algorithm for (primary) similar users
-
-## Milestone 3
-
-### What We've Finished
-
-### About Recommendation by Movie Algorithm
-
-#### Our algorithm is here
-[`com.cse364.app.RecommendByMovieService`](src/main/java/com/cse364/app/RecommendByMovieService)
-
-#### Terminology
-
-#### Algorithm Description
-
-1. Find the movie by given title.
-2. Find all users who rated the movie.
-3. Find all ratings from users of step 2.
-4. Group all movies that had ratings in step 3, in decreasing order of number of matching genres.
-5. Calculate average per movie from all ratings in step 3.
-6. Return top `limit` movies, in more significant order the matching genres and in less significant order the average rating.
-
-### Roles
-
-한동규 @queuedq
-- Adopted Project Lombok for simplitying domain model objects
-- Refactored ranking service using user info similarity notion
-- Modified validation for age and gender for ranking service
-- Helped troubleshooting Spring Boot adoption
-
-심재환 @jaehwan1912
-- Recommendation by Movie algorithm design & implementation & test
-- Helped troubleshooting REST input problem & test modification
-- README
-
-홍준화 @junwha0511
-- Spring setting
-- Implemented REST API (MVC, Mapping)
-- Write Spring Test (MockMVC)
-- Spring Error handling
-

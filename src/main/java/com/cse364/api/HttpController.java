@@ -7,9 +7,11 @@ import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Movie;
 import com.cse364.domain.UserInfo;
+import com.cse364.domain.GenreRepository;
 
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
+import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +41,26 @@ public class HttpController {
     }
     
     @RequestMapping("/")
-    public String index() {
-        return "index.html";
+    public String index(@RequestParam(name="firstText", required=false, defaultValue="default-placeholder") 
+            String firstText, Model model) {
+
+        indexFill(model);
+        model.addAttribute("firstText", firstText);
+        return "index";
+    }
+
+    void indexFill(Model model) {
+        //Top 10 all genres
+        List<Movie> top10all = getTop10Movies("", "", "", "");
+        model.addAttribute("top10all", top10all);
+
+        //Top 10 trending genres
+        List<String> trendingGenres = List.of("Action", "Drama", "Animation");
+        Map<String, List<Movie>> top10trending = new TreeMap<>();
+        for (String genre : trendingGenres) {
+            top10trending.put(genre, getTop10Movies("", "", "", genre));
+        }
+        model.addAttribute("top10trending", top10trending);
     }
 
     /*

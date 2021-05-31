@@ -10,6 +10,15 @@
 
 <p th:text="${firstText}">placeholder-text</p>
 
+<tr>
+    <td>
+        <a href="users/recommendations.html">Recommendation from your information</a>
+    </td>
+    <td> 
+        <a href="movies/recommendations.html">Recommendation from a movie choice</a>
+    </td>
+</tr>
+
 <h2>Recommendations</h2>
 <tr>
     <td th:each="movie : ${top10all}">

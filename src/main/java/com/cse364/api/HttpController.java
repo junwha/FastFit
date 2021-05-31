@@ -40,7 +40,7 @@ public class HttpController {
         this.recommendByMovieService = config.recommendByMovieService;
     }
     
-    @RequestMapping("/")
+    @RequestMapping(value={"", "/", "/index.html"})
     public String index(@RequestParam(name="firstText", required=false, defaultValue="default-placeholder") 
             String firstText, Model model) {
 

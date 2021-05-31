@@ -14,11 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
-@RestController
+@org.springframework.stereotype.Controller
 public class HttpController {
     private final AverageRatingService averageRatingService;
     private final RankingService rankingService;
@@ -36,11 +37,17 @@ public class HttpController {
         this.validationService = config.validationService;
         this.recommendByMovieService = config.recommendByMovieService;
     }
+    
+    @RequestMapping("/")
+    public String index() {
+        return "index.html";
+    }
 
     /*
      * Return recommendations from user input
      */
     @GetMapping("/users/recommendations")
+    @ResponseBody
     public List<MovieDto> recommendationsByUserinfo(@RequestBody Map<String, String> jsonObject) {
         String gender = jsonObject.get("gender");
         String age = jsonObject.get("age");
@@ -86,6 +93,7 @@ public class HttpController {
     }
 
     @GetMapping("/movies/recommendations")
+    @ResponseBody
     public List<MovieDto> recommendationsByMovie(@RequestBody Map<String, String> jsonObject) {
         String title = jsonObject.get("title");
 

@@ -3,13 +3,8 @@ package com.cse364.domain;
 import lombok.NonNull;
 import lombok.Value;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 @Value
 public class Occupation {
-    @Id
     int id;
     @NonNull String name;
 

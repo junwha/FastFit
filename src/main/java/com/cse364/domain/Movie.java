@@ -6,15 +6,9 @@ import lombok.Value;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 @Value
 @EqualsAndHashCode(of="id")
 public class Movie {
-
-    @Id
     int id;
     @NonNull String title;
     @NonNull List<Genre> genres;

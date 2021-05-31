@@ -8,8 +8,8 @@ import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.OccupationValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
-import com.cse364.domain.Movie;
 import com.cse364.domain.Occupation;
+import com.cse364.domain.Movie;
 import com.cse364.domain.UserInfo;
 
 import java.util.*;

@@ -18,9 +18,8 @@ public class Movie {
     @Id
     int id;
     @NonNull String title;
-    @DBRef
     @NonNull List<Genre> genres;
-    @NonNull String link;
+    String link;
 
     /**
      * Returns whether this movie has given genre.

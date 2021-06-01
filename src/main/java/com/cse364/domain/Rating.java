@@ -9,9 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "rating")
 @Value
 public class Rating {
-    @DBRef
     @NonNull Movie movie;
-    @DBRef
     @NonNull User user;
     int rating;
     @Id

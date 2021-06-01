@@ -89,8 +89,7 @@ public class Config {
                     movie.id,
                     movie.title,
                     movie.genres.stream().map(name -> new Genre(name)).collect(Collectors.toList()),
-                    movie.link,
-                    ""
+                    movie.link
             ));
         }
         for (UserDto user: loadedUsers) {

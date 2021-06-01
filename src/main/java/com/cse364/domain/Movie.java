@@ -1,6 +1,5 @@
 package com.cse364.domain;
 
-import com.mongodb.lang.Nullable;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
@@ -21,7 +20,7 @@ public class Movie {
     @NonNull String title;
     @NonNull List<Genre> genres;
     String link;
-    @Nullable String poster;
+    String poster;
 
     /**
      * Returns whether this movie has given genre.

@@ -4,10 +4,50 @@
 <head>
     <title>Movie From Info</title>
 
+<script>
+function searchWithUserInfo() {
+    var toggle = 0;
+    var gender = document.getElementById("gender").value;
+    var age = document.getElementById("age").value;
+    var occupation = document.getElementById("occupation").value;
+    var genres = document.getElementById("genres").value;
+    var addr = "recommendations.html?";
+    if (gender != "") {addr = addr + "gender=" + gender; toggle = 1;}
+    if (age != "") {
+        if (toggle == 1) {addr = addr + "&";}
+        addr = addr + "age=" + age; toggle = 1;
+    }
+    if (occupation != "") {
+        if (toggle == 1) {addr = addr + "&";}
+        addr = addr + "occupation=" + occupation; toggle = 1;
+    }
+    if (genres != "") {
+        if (toggle == 1) {addr = addr + "&";}
+        addr = addr + "genres=" + genres.replace("|", "%7C"); toggle = 1;
+    }
+    window.open(addr, "_self");
+}
+</script>
 </head>
 
 <body>
-    <p>Would you implement something</p>
+<h2>Search with user information</h2>
+
+<div>
+<span>Gender:</span><input type="text" id="gender" name="gender"><br>
+<span>Age:</span><input type="text" id="age" name="age"><br>
+<span>Occupation:</span><input type="text" id="occupation" name="occupation"><br>
+<span>Genres:</span><input type="text" id="genres" name="genres"><br>
+<button onclick="searchWithUserInfo()">Search with Info</button>
+</div>
+
+<tr>
+    <td th:each="movie : ${top10custom}">
+        <a th:href="${movie.link}">
+            <img src="${movie.poster}" th:alt="${movie.title}" width="100" height="150" />
+        </a>
+    </td>
+</tr>
 </body>
 
 </html>

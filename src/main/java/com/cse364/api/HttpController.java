@@ -64,13 +64,39 @@ public class HttpController {
     }
 
     @RequestMapping("/users/recommendations.html")
-    public String usersrecommendations(Model model) {
+    public String usersrecommendations(@RequestParam(name="gender", defaultValue="") String gender,
+                                        @RequestParam(name="age", defaultValue="") String age,
+                                        @RequestParam(name="occupation", defaultValue="") String occupation,
+                                        @RequestParam(name="genres", defaultValue="") String genres,
+                                        Model model) {
+        usersrecommendationsFill(gender, age, occupation, genres, model);
         return "usersrecommendations";
     }
 
+    void usersrecommendationsFill(String gender, String age, String occupation, String genres, Model model) {
+
+        // Top 10 search results
+        List<Movie> top10custom = getTop10Movies(gender, age, occupation, genres);
+        model.addAttribute("top10custom", top10custom);
+    }
+
     @RequestMapping("/movies/recommendations.html")
-    public String moviesrecommendations(Model model) {
+    public String moviesrecommendations(@RequestParam(name="title", defaultValue="") String title, Model model) {
+        moviesrecommendationsFill(title, model);
         return "moviesrecommendations";
+    }
+
+    void moviesrecommendationsFill(String title, Model model) {
+
+        // Top 10 search results
+        List<Movie> top10custom = new ArrayList<>();
+        try {
+            top10custom = recommendByMovieService.recommendMoviesFromTitle(title, 10);
+        } catch (NoMovieWithGivenNameException exception) {
+            //TODO : Movie with given name not found
+            return;
+        }
+        model.addAttribute("top10custom", top10custom);
     }
 
     /*

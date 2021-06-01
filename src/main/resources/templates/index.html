@@ -23,7 +23,7 @@
 <tr>
     <td th:each="movie : ${top10all}">
         <a th:href="${movie.link}">
-            <img src="${movie.poster}" alt="placeholder-top10all" width="100" height="150" />
+            <img src="${movie.poster}" th:alt="${movie.title}" width="100" height="150" />
         </a>
     </td>
 </tr>
@@ -33,7 +33,7 @@
 <tr>
     <td th:each="movie : ${entry.getValue()}">
         <a th:href="${movie.link}">
-            <img src="${movie.poster}" alt="placeholder-top10all" width="100" height="150" />
+            <img src="${movie.poster}" th:alt="${movie.title}" width="100" height="150" />
         </a>
     </td>
 </tr>

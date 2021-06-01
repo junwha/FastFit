@@ -24,6 +24,6 @@ public class MovieProcessor implements ItemProcessor<MovieDto, Movie> {
 
         }
 
-        return new Movie(item.getId(), item.getTitle(), genreList, "");
+        return new Movie(item.getId(), item.getTitle(), genreList, "", "");
     }
 }

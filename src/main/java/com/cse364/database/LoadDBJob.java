@@ -39,28 +39,29 @@ public class LoadDBJob {
 
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1").<User, User>chunk(10).reader(reader())
+        return stepBuilderFactory.get("step1").<UserEntity, UserEntity>chunk(10).reader(reader())
                 .writer(writer()).build();
     }
 
     @Bean
-    public FlatFileItemReader<User> reader() {
-        FlatFileItemReader<User> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("./users.csv"));
-        reader.setLineMapper(new DefaultLineMapper<User>() {{
+    public FlatFileItemReader<UserEntity> reader() {
+        FlatFileItemReader<UserEntity> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("users.csv"));
+        reader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"id", "info"});
+                setNames(new String[]{"id", "gender", "age", "occupation", "code"});
             }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<User>() {{
-                setTargetType(User.class);
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+                setTargetType(UserEntity.class);
             }});
+
         }});
         return reader;
     }
 
     @Bean
-    public MongoItemWriter<User> writer() {
-        MongoItemWriter<User> writer = new MongoItemWriter<User>();
+    public MongoItemWriter<UserEntity> writer() {
+        MongoItemWriter<UserEntity> writer = new MongoItemWriter<>();
         writer.setTemplate(mongoTemplate);
         writer.setCollection("domain");
         return writer;

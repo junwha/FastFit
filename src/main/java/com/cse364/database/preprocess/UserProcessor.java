@@ -1,11 +1,7 @@
 package com.cse364.database.preprocess;
 
-import com.cse364.database.dtos.MovieDto;
 import com.cse364.database.dtos.UserDto;
 import com.cse364.domain.Gender;
-import com.cse364.domain.Genre;
-import com.cse364.domain.Movie;
-
 
 import com.cse364.domain.User;
 import com.cse364.infra.Config;

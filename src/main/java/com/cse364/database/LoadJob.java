@@ -1,11 +1,7 @@
 package com.cse364.database;
 
-import com.cse364.database.dtos.MovieDto;
-import com.cse364.database.dtos.RatingDto;
-import com.cse364.database.dtos.UserDto;
-import com.cse364.database.processors.MovieProcessor;
-import com.cse364.database.processors.RatingProcessor;
-import com.cse364.database.processors.UserProcessor;
+import com.cse364.database.dtos.*;
+import com.cse364.database.processors.*;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Rating;
 import com.cse364.domain.User;
@@ -41,7 +37,7 @@ public class LoadJob {
 
     @Bean
     public Job readCSVFile() {
-        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie()).next(stepRating())
+        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie()).next(stepLink()).next(stepPoster()).next(stepRating())
                 .build();
     }
 
@@ -76,7 +72,7 @@ public class LoadJob {
     }
 
     @Bean
-    public UserProcessor userProcessor(){
+    public UserProcessor userProcessor() {
         return new UserProcessor();
     }
 
@@ -111,7 +107,7 @@ public class LoadJob {
     }
 
     @Bean
-    public MovieProcessor movieProcessor(){
+    public MovieProcessor movieProcessor() {
         return new MovieProcessor();
     }
 
@@ -137,6 +133,7 @@ public class LoadJob {
         return reader;
     }
 
+
     @Bean
     public MongoItemWriter<Rating> ratingWriter() {
         MongoItemWriter<Rating> writer = new MongoItemWriter<>();
@@ -146,8 +143,65 @@ public class LoadJob {
     }
 
     @Bean
-    public RatingProcessor ratingProcessor(){
+    public RatingProcessor ratingProcessor() {
         return new RatingProcessor();
+    }
+
+
+    @Bean
+    public Step stepLink() {
+        return stepBuilderFactory.get("stepLink").<LinkDto, Movie>chunk(10).reader(linkReader())
+                .processor(linkProcessor()).writer(movieWriter()).build();
+    }
+
+    @Bean
+    public FlatFileItemReader<LinkDto> linkReader() {
+        FlatFileItemReader<LinkDto> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("links.csv"));
+        reader.setLineMapper(new DefaultLineMapper<>() {{
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+                setNames(new String[]{"movie", "link"});
+            }});
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+                setTargetType(LinkDto.class);
+            }});
+
+        }});
+        return reader;
+    }
+
+
+    @Bean
+    public LinkProcessor linkProcessor() {
+        return new LinkProcessor();
+    }
+
+
+    @Bean
+    public Step stepPoster() {
+        return stepBuilderFactory.get("stepPoster").<PosterDto, Movie>chunk(10).reader(posterReader())
+                .processor(posterProcessor()).writer(movieWriter()).build();
+    }
+
+    @Bean
+    public FlatFileItemReader<PosterDto> posterReader() {
+        FlatFileItemReader<PosterDto> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("movie_poster.csv"));
+        reader.setLineMapper(new DefaultLineMapper<>() {{
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+                setNames(new String[]{"movie", "poster"});
+            }});
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+                setTargetType(PosterDto.class);
+            }});
+
+        }});
+        return reader;
+    }
+
+    @Bean
+    public PosterProcessor posterProcessor() {
+        return new PosterProcessor();
     }
 
 }

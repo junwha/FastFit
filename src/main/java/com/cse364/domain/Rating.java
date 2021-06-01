@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "rating")
 @Value
 public class Rating {
     @DBRef
@@ -14,5 +14,6 @@ public class Rating {
     @DBRef
     @NonNull User user;
     int rating;
+    @Id
     int timestamp;
 }

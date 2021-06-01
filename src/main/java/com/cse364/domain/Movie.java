@@ -7,16 +7,18 @@ import lombok.Value;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 @Value
+@Document(collection="movie")
 @EqualsAndHashCode(of="id")
 public class Movie {
 
     @Id
     int id;
     @NonNull String title;
+    @DBRef
     @NonNull List<Genre> genres;
     @NonNull String link;
 

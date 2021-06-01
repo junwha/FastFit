@@ -6,8 +6,8 @@ import lombok.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 @Value
+@Document(collection = "occupation")
 public class Occupation {
     @Id
     int id;

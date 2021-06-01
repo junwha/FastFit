@@ -1,12 +1,12 @@
-package com.cse364.database;
+package com.cse364.database.dtos;
 
 import lombok.Data;
 
 @Data
-public class UserEntity {
-    String id;
+public class UserDto {
+    int id;
     String gender;
-    String age;
+    int age;
     String occupation;
     String code;
 }

@@ -1,4 +1,4 @@
-package com.cse364.database.preprocess;
+package com.cse364.database.processors;
 
 import com.cse364.database.dtos.MovieDto;
 import com.cse364.domain.Genre;

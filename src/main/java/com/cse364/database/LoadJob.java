@@ -1,8 +1,11 @@
-package com.cse364.database.preprocess;
+package com.cse364.database;
 
 import com.cse364.database.dtos.MovieDto;
 import com.cse364.database.dtos.RatingDto;
 import com.cse364.database.dtos.UserDto;
+import com.cse364.database.processors.MovieProcessor;
+import com.cse364.database.processors.RatingProcessor;
+import com.cse364.database.processors.UserProcessor;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Rating;
 import com.cse364.domain.User;
@@ -26,7 +29,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @EnableBatchProcessing
 @Configuration
-@EnableMongoRepositories(basePackages = "com.cse364.database")
+@EnableMongoRepositories(basePackages = "com.cse364.database.repositories")
 public class LoadJob {
 
     @Autowired

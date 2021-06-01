@@ -1,4 +1,4 @@
-package com.cse364.database;
+package com.cse364.database.repositories;
 
 import com.cse364.database.dtos.UserDto;
 import com.cse364.domain.User;

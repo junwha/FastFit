@@ -1,7 +1,7 @@
-package com.cse364.database.preprocess;
+package com.cse364.database.processors;
 
-import com.cse364.database.DBMovieRepository;
-import com.cse364.database.DBUserRepository;
+import com.cse364.database.repositories.DBMovieRepository;
+import com.cse364.database.repositories.DBUserRepository;
 import com.cse364.database.dtos.RatingDto;
 import com.cse364.domain.Rating;
 import org.springframework.batch.item.ItemProcessor;

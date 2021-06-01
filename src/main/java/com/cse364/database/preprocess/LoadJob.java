@@ -1,8 +1,10 @@
 package com.cse364.database.preprocess;
 
 import com.cse364.database.dtos.MovieDto;
+import com.cse364.database.dtos.RatingDto;
 import com.cse364.database.dtos.UserDto;
 import com.cse364.domain.Movie;
+import com.cse364.domain.Rating;
 import com.cse364.domain.User;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -24,7 +26,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @EnableBatchProcessing
 @Configuration
-@EnableMongoRepositories
+@EnableMongoRepositories(basePackages = "com.cse364.database")
 public class LoadJob {
 
     @Autowired
@@ -36,7 +38,7 @@ public class LoadJob {
 
     @Bean
     public Job readCSVFile() {
-        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie())
+        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie()).next(stepRating())
                 .build();
     }
 
@@ -108,6 +110,41 @@ public class LoadJob {
     @Bean
     public MovieProcessor movieProcessor(){
         return new MovieProcessor();
+    }
+
+    @Bean
+    public Step stepRating() {
+        return stepBuilderFactory.get("stepRating").<RatingDto, Rating>chunk(10).reader(ratingReader())
+                .processor(ratingProcessor()).writer(ratingWriter()).build();
+    }
+
+    @Bean
+    public FlatFileItemReader<RatingDto> ratingReader() {
+        FlatFileItemReader<RatingDto> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("ratings.csv"));
+        reader.setLineMapper(new DefaultLineMapper<>() {{
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+                setNames(new String[]{"user", "movie", "rating", "timestamp"});
+            }});
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+                setTargetType(RatingDto.class);
+            }});
+
+        }});
+        return reader;
+    }
+
+    @Bean
+    public MongoItemWriter<Rating> ratingWriter() {
+        MongoItemWriter<Rating> writer = new MongoItemWriter<>();
+        writer.setTemplate(mongoTemplate);
+        writer.setCollection("rating");
+        return writer;
+    }
+
+    @Bean
+    public RatingProcessor ratingProcessor(){
+        return new RatingProcessor();
     }
 
 }

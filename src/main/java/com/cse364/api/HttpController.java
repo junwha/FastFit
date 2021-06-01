@@ -63,6 +63,16 @@ public class HttpController {
         model.addAttribute("top10trending", top10trending);
     }
 
+    @RequestMapping("/users/recommendations.html")
+    public String usersrecommendations(Model model) {
+        return "usersrecommendations";
+    }
+
+    @RequestMapping("/movies/recommendations.html")
+    public String moviesrecommendations(Model model) {
+        return "moviesrecommendations";
+    }
+
     /*
      * Return recommendations from user input
      */

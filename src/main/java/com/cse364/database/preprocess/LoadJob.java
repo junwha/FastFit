@@ -1,6 +1,8 @@
-package com.cse364.database;
+package com.cse364.database.preprocess;
 
-import com.cse364.domain.User;
+import com.cse364.database.dtos.MovieDto;
+import com.cse364.database.dtos.UserDto;
+import com.cse364.domain.Movie;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -22,7 +24,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableBatchProcessing
 @Configuration
 @EnableMongoRepositories
-public class LoadDBJob {
+public class LoadJob {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -33,26 +35,26 @@ public class LoadDBJob {
 
     @Bean
     public Job readCSVFile() {
-        return jobBuilderFactory.get("readCSVFile").incrementer(new RunIdIncrementer()).start(step1())
+        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie())
                 .build();
     }
 
     @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1").<UserEntity, UserEntity>chunk(10).reader(reader())
-                .writer(writer()).build();
+    public Step stepUser() {
+        return stepBuilderFactory.get("stepUser").<UserDto, UserDto>chunk(10).reader(userReader())
+                .writer(userWriter()).build();
     }
 
     @Bean
-    public FlatFileItemReader<UserEntity> reader() {
-        FlatFileItemReader<UserEntity> reader = new FlatFileItemReader<>();
+    public FlatFileItemReader<UserDto> userReader() {
+        FlatFileItemReader<UserDto> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource("users.csv"));
         reader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setNames(new String[]{"id", "gender", "age", "occupation", "code"});
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
-                setTargetType(UserEntity.class);
+                setTargetType(UserDto.class);
             }});
 
         }});
@@ -60,10 +62,46 @@ public class LoadDBJob {
     }
 
     @Bean
-    public MongoItemWriter<UserEntity> writer() {
-        MongoItemWriter<UserEntity> writer = new MongoItemWriter<>();
+    public MongoItemWriter<UserDto> userWriter() {
+        MongoItemWriter<UserDto> writer = new MongoItemWriter<>();
         writer.setTemplate(mongoTemplate);
-        writer.setCollection("domain");
+        writer.setCollection("user");
         return writer;
     }
+
+    @Bean
+    public Step stepMovie() {
+        return stepBuilderFactory.get("stepMovie").<MovieDto, Movie>chunk(10).reader(movieReader())
+                .processor(movieProcessor()).writer(movieWriter()).build();
+    }
+
+    @Bean
+    public FlatFileItemReader<MovieDto> movieReader() {
+        FlatFileItemReader<MovieDto> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("movies.csv"));
+        reader.setLineMapper(new DefaultLineMapper<>() {{
+            setLineTokenizer(new DelimitedLineTokenizer() {{
+                setNames(new String[]{"id", "title", "genres"});
+            }});
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
+                setTargetType(MovieDto.class);
+            }});
+
+        }});
+        return reader;
+    }
+
+    @Bean
+    public MongoItemWriter<Movie> movieWriter() {
+        MongoItemWriter<Movie> writer = new MongoItemWriter<>();
+        writer.setTemplate(mongoTemplate);
+        writer.setCollection("movie");
+        return writer;
+    }
+
+    @Bean
+    public MovieProcessor movieProcessor(){
+        return new MovieProcessor();
+    }
+
 }

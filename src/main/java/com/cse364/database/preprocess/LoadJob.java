@@ -3,6 +3,7 @@ package com.cse364.database.preprocess;
 import com.cse364.database.dtos.MovieDto;
 import com.cse364.database.dtos.UserDto;
 import com.cse364.domain.Movie;
+import com.cse364.domain.User;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -41,8 +42,8 @@ public class LoadJob {
 
     @Bean
     public Step stepUser() {
-        return stepBuilderFactory.get("stepUser").<UserDto, UserDto>chunk(10).reader(userReader())
-                .writer(userWriter()).build();
+        return stepBuilderFactory.get("stepUser").<UserDto, User>chunk(10).reader(userReader())
+                .processor(userProcessor()).writer(userWriter()).build();
     }
 
     @Bean
@@ -62,11 +63,16 @@ public class LoadJob {
     }
 
     @Bean
-    public MongoItemWriter<UserDto> userWriter() {
-        MongoItemWriter<UserDto> writer = new MongoItemWriter<>();
+    public MongoItemWriter<User> userWriter() {
+        MongoItemWriter<User> writer = new MongoItemWriter<>();
         writer.setTemplate(mongoTemplate);
         writer.setCollection("user");
         return writer;
+    }
+
+    @Bean
+    public UserProcessor userProcessor(){
+        return new UserProcessor();
     }
 
     @Bean

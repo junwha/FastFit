@@ -20,6 +20,7 @@ public class Movie {
     @NonNull String title;
     @NonNull List<Genre> genres;
     String link;
+    String poster;
 
     /**
      * Returns whether this movie has given genre.

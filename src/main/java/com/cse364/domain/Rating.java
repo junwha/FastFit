@@ -12,6 +12,5 @@ public class Rating {
     @NonNull Movie movie;
     @NonNull User user;
     int rating;
-    @Id
     int timestamp;
 }

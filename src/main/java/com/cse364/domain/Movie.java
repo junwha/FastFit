@@ -6,13 +6,41 @@ import lombok.Value;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 @Value
+@Document(collection="movie")
 @EqualsAndHashCode(of="id")
 public class Movie {
+    @Id
     int id;
     @NonNull String title;
     @NonNull List<Genre> genres;
-    @NonNull String link;
+    String link;
+    String poster;
+
+    @PersistenceConstructor
+    public Movie(int id, @NonNull String title, @NonNull List<Genre> genres, String link, String poster) {
+        this.id = id;
+        this.title = title;
+        this.genres = genres;
+        this.link = link;
+        this.poster = poster;
+    }
+
+    /*
+     * Backward compatible constructor
+     */
+    public Movie(int id, @NonNull String title, @NonNull List<Genre> genres, String link) {
+        this.id = id;
+        this.title = title;
+        this.genres = genres;
+        this.link = link;
+        this.poster = "";
+    }
 
     /**
      * Returns whether this movie has given genre.

@@ -41,7 +41,7 @@ public class HttpController {
     }
     
     @RequestMapping(value={"", "/", "/index.html"})
-    public String index(@RequestParam(name="firstText", required=false, defaultValue="default-placeholder") 
+    public String index(@RequestParam(name="firstText", required=false, defaultValue="Welcome to your Movie Info!") 
             String firstText, Model model) {
 
         indexFill(model);
@@ -52,6 +52,12 @@ public class HttpController {
     void indexFill(Model model) {
         //Top 10 all genres
         List<Movie> top10all = getTop10Movies("", "", "", "");
+        //TODO:hardcoded placeholder. remove when done.
+        for (Movie movie : top10all) {
+            if (movie.poster == "") {
+                movie.poster = "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@..jpg";
+            }
+        }
         model.addAttribute("top10all", top10all);
 
         //Top 10 trending genres

@@ -52,19 +52,14 @@ public class HttpController {
     void indexFill(Model model) {
         //Top 10 all genres
         List<Movie> top10all = getTop10Movies("", "", "", "");
-        //TODO:hardcoded placeholder. remove when done.
-        for (Movie movie : top10all) {
-            if (movie.poster == "") {
-                movie.poster = "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@..jpg";
-            }
-        }
+        top10all = posterPlaceholder(top10all);
         model.addAttribute("top10all", top10all);
 
         //Top 10 trending genres
         List<String> trendingGenres = List.of("Action", "Drama", "Animation");
         Map<String, List<Movie>> top10trending = new TreeMap<>();
         for (String genre : trendingGenres) {
-            top10trending.put(genre, getTop10Movies("", "", "", genre));
+            top10trending.put(genre, posterPlaceholder(getTop10Movies("", "", "", genre)));
         }
         model.addAttribute("top10trending", top10trending);
     }
@@ -82,7 +77,7 @@ public class HttpController {
     void usersrecommendationsFill(String gender, String age, String occupation, String genres, Model model) {
 
         // Top 10 search results
-        List<Movie> top10custom = getTop10Movies(gender, age, occupation, genres);
+        List<Movie> top10custom = posterPlaceholder(getTop10Movies(gender, age, occupation, genres));
         model.addAttribute("top10custom", top10custom);
     }
 
@@ -97,7 +92,7 @@ public class HttpController {
         // Top 10 search results
         List<Movie> top10custom = new ArrayList<>();
         try {
-            top10custom = recommendByMovieService.recommendMoviesFromTitle(title, 10);
+            top10custom = posterPlaceholder(recommendByMovieService.recommendMoviesFromTitle(title, 10));
         } catch (NoMovieWithGivenNameException exception) {
             //TODO : Movie with given name not found
             return;
@@ -105,6 +100,22 @@ public class HttpController {
         model.addAttribute("top10custom", top10custom);
     }
 
+    List<Movie> posterPlaceholder(List<Movie> movieList) {
+
+        String magic_poster = "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@..jpg";
+
+        List<Movie> newList = new ArrayList<>();
+        for (Movie movie : movieList) {
+            if (movie.getPoster() == "") {
+                newList.add(new Movie(movie.getId(), movie.getTitle(), movie.getGenres(),
+                        movie.getLink(), magic_poster));
+            } else {
+                newList.add(movie);
+            }
+        }
+        
+        return newList;
+    }
     /*
      * Return recommendations from user input
      */

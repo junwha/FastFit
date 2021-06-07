@@ -44,7 +44,7 @@ function searchWithUserInfo() {
 <tr>
     <td th:each="movie : ${top10custom}">
         <a th:href="${movie.link}">
-            <img src="${movie.poster}" th:alt="${movie.title}" width="100" height="150" />
+            <img th:src="${movie.poster}" th:alt="${movie.title}" width="100" height="150" />
         </a>
     </td>
 </tr>

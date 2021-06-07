@@ -3,6 +3,7 @@ package com.cse364.domain;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Getter
 @Value
 @Document(collection="movie")
 @EqualsAndHashCode(of="id")

@@ -3,7 +3,7 @@
 
 <head>
     <title>Movie From Movie</title>
-
+    <link rel="stylesheet" th:href="@{/designs/design.css}">
 <script>
 function searchWithTitle() {
     var title = document.getElementById("title").value;
@@ -15,7 +15,7 @@ function searchWithTitle() {
 </head>
 
 <body>
-<h2>Search with Movie Title</h2>
+<h2 class="submaintext">Search with Movie Title</h2>
 
 <div>
 <span>Title:</span><input type="text" id="title" name="title"><br>

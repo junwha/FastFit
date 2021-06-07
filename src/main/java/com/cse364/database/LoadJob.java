@@ -2,9 +2,13 @@ package com.cse364.database;
 
 import com.cse364.database.dtos.*;
 import com.cse364.database.processors.*;
+import com.cse364.database.repositories.DBMovieRepository;
+import com.cse364.database.repositories.DBRatingRepository;
+import com.cse364.database.repositories.DBUserRepository;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Rating;
 import com.cse364.domain.User;
+import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -16,6 +20,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +41,13 @@ public class LoadJob {
     private MongoTemplate mongoTemplate;
 
     @Bean
-    public Job readCSVFile() {
-        return jobBuilderFactory.get("load").incrementer(new RunIdIncrementer()).start(stepUser()).next(stepMovie()).next(stepLink()).next(stepPoster()).next(stepRating())
+    public Job loadDB(DBMovieRepository movies, DBUserRepository users, DBRatingRepository ratings) {
+        return jobBuilderFactory.get("loadDB").incrementer(new RunIdIncrementer())
+                .start(stepUser())
+                .next(stepMovie())
+                .next(stepLink())
+                .next(stepPoster())
+                .next(stepRating())
                 .build();
     }
 

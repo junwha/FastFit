@@ -32,7 +32,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories(basePackages = "com.cse364.database.repositories")
 public class LoadJob {
-
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
     @Autowired

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DBMovieRepository extends MongoRepository<Movie, Integer> {
-    @Query("{'title': ?0)")
-    Movie get(String title);
-
-
+    @Query("{'title': {$regex:?0, $options: i}}")
+    Movie get(String regex);
 }

@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface DBRatingRepository extends MongoRepository<Rating, String> {
-    @Query("{'movie': ?0)")
-    List<Rating> filterByMovie(Movie movie);
+    @Query("{'movie.id': ?0}")
+    List<Rating> filterByMovie(int id);
 
-    @Query("{'user': ?0)")
-    List<Rating> filterByUser(User user);
+    @Query("{'user.id': ?0}")
+    List<Rating> filterByUser(int id);
 }

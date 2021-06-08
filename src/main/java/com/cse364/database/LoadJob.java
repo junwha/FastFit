@@ -1,14 +1,13 @@
 package com.cse364.database;
 
 import com.cse364.database.dtos.*;
+import com.cse364.database.schemas.RatingSchema;
 import com.cse364.database.processors.*;
 import com.cse364.database.repositories.DBMovieRepository;
 import com.cse364.database.repositories.DBRatingRepository;
 import com.cse364.database.repositories.DBUserRepository;
 import com.cse364.domain.Movie;
-import com.cse364.domain.Rating;
 import com.cse364.domain.User;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -20,7 +19,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -122,7 +120,7 @@ public class LoadJob {
 
     @Bean
     public Step stepRating() {
-        return stepBuilderFactory.get("stepRating").<RatingDto, Rating>chunk(10).reader(ratingReader())
+        return stepBuilderFactory.get("stepRating").<RatingDto, RatingSchema>chunk(10).reader(ratingReader())
                 .processor(ratingProcessor()).writer(ratingWriter()).build();
     }
 
@@ -144,8 +142,8 @@ public class LoadJob {
 
 
     @Bean
-    public MongoItemWriter<Rating> ratingWriter() {
-        MongoItemWriter<Rating> writer = new MongoItemWriter<>();
+    public MongoItemWriter<RatingSchema> ratingWriter() {
+        MongoItemWriter<RatingSchema> writer = new MongoItemWriter<>();
         writer.setTemplate(mongoTemplate);
         writer.setCollection("rating");
         return writer;

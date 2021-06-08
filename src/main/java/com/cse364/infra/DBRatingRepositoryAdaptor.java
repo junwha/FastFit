@@ -1,16 +1,13 @@
 package com.cse364.infra;
 
+import com.cse364.database.schemas.RatingSchema;
 import com.cse364.database.repositories.DBRatingRepository;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Rating;
 import com.cse364.domain.RatingRepository;
 import com.cse364.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DBRatingRepositoryAdaptor implements RatingRepository  {
     DBRatingRepository ratings;
@@ -19,24 +16,21 @@ public class DBRatingRepositoryAdaptor implements RatingRepository  {
         this.ratings = ratings;
     }
 
-    public DBRatingRepositoryAdaptor(List<Rating> ratings){
-        for(Rating rating: ratings){
-            add(rating);
-        }
-    }
-
-    /**
-     * Adds a rating to the storage.
-     */
-    public void add(Rating rating){
-        ratings.insert(rating);
-    }
-
     public List<Rating> filterByMovie(Movie movie) {
-        return ratings.filterByMovie(movie.getId());
+        return ratings.filterByMovie(movie.getId())
+                .stream()
+                .map(DBRatingRepositoryAdaptor::fromSchema)
+                .collect(Collectors.toList());
     }
 
     public List<Rating> filterByUser(User user) {
-        return ratings.filterByUser(user.getId());
+        return ratings.filterByUser(user.getId())
+                .stream()
+                .map(DBRatingRepositoryAdaptor::fromSchema)
+                .collect(Collectors.toList());
+    }
+
+    private static Rating fromSchema(RatingSchema rating) {
+        return new Rating(rating.getMovie(), rating.getUser(), rating.getRating(), rating.getTimestamp());
     }
 }

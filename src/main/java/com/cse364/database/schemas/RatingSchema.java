@@ -1,6 +1,7 @@
 package com.cse364.database.schemas;
 
 import com.cse364.domain.Movie;
+import com.cse364.domain.Rating;
 import com.cse364.domain.User;
 import lombok.NonNull;
 import lombok.Value;
@@ -25,6 +26,10 @@ public class RatingSchema {
         this.user = user;
         this.rating = rating;
         this.timestamp = timestamp;
+    }
+
+    public Rating toDomainObject() {
+        return new Rating(movie, user, rating, timestamp);
     }
 
     @Value

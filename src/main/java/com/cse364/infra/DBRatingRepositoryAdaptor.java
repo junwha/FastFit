@@ -19,18 +19,14 @@ public class DBRatingRepositoryAdaptor implements RatingRepository  {
     public List<Rating> filterByMovie(Movie movie) {
         return ratings.filterByMovie(movie.getId())
                 .stream()
-                .map(DBRatingRepositoryAdaptor::fromSchema)
+                .map(RatingSchema::toDomainObject)
                 .collect(Collectors.toList());
     }
 
     public List<Rating> filterByUser(User user) {
         return ratings.filterByUser(user.getId())
                 .stream()
-                .map(DBRatingRepositoryAdaptor::fromSchema)
+                .map(RatingSchema::toDomainObject)
                 .collect(Collectors.toList());
-    }
-
-    private static Rating fromSchema(RatingSchema rating) {
-        return new Rating(rating.getMovie(), rating.getUser(), rating.getRating(), rating.getTimestamp());
     }
 }

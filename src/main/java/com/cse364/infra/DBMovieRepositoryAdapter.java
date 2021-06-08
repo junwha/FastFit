@@ -6,6 +6,7 @@ import com.cse364.domain.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +14,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class DBMovieRepositoryAdapter implements MovieRepository {
-    @Autowired
     DBMovieRepository movies;
 
-    public DBMovieRepositoryAdapter() { }
+    public DBMovieRepositoryAdapter(DBMovieRepository movies) {
+        this.movies = movies;
+    }
 
     /**
      * Adds a movie to the storage.
@@ -30,7 +32,12 @@ public class DBMovieRepositoryAdapter implements MovieRepository {
     }
 
     public Movie get(String title) {
-        return movies.get(title);
+        StringBuilder sb = new StringBuilder();
+        for(String i : title.split("")){
+            sb.append("["+i+"]");
+        }
+        return movies.get(sb.toString());
+//        return movies.get(title);
     }
 
     public List<Movie> all() {

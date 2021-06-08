@@ -3,6 +3,7 @@ package com.cse364.database.schemas;
 import com.cse364.domain.Movie;
 import com.cse364.domain.Rating;
 import com.cse364.domain.User;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 import org.springframework.data.annotation.Id;
@@ -11,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 @Document(collection = "rating")
-@Value
+@Data
 public class RatingSchema {
     @Id
     CompositeKey id;

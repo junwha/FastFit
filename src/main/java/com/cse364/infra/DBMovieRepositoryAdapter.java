@@ -32,12 +32,17 @@ public class DBMovieRepositoryAdapter implements MovieRepository {
     }
 
     public Movie get(String title) {
-        StringBuilder sb = new StringBuilder();
-        for(String i : title.split("")){
-            sb.append("["+i+"]");
+        List<Movie> allMovies = movies.findAll();
+
+        for (Movie mov : allMovies) {
+            if (Objects.equals(
+                    title.toLowerCase().replaceAll("\\s", ""),
+                    mov.getTitle().toLowerCase().replaceAll("\\s", "")
+            )) {
+                return mov;
+            }
         }
-        return movies.get(sb.toString());
-//        return movies.get(title);
+        return null;
     }
 
     public List<Movie> all() {

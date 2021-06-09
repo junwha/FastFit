@@ -7,6 +7,6 @@ public class UserDto {
     int id;
     String gender;
     int age;
-    String occupation;
+    int occupation;
     String code;
 }

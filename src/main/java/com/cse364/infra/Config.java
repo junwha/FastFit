@@ -1,5 +1,8 @@
 package com.cse364.infra;
 
+import com.cse364.database.repositories.DBMovieRepository;
+import com.cse364.database.repositories.DBRatingRepository;
+import com.cse364.database.repositories.DBUserRepository;
 import com.cse364.domain.*;
 import com.cse364.app.*;
 import com.cse364.infra.*;
@@ -51,6 +54,20 @@ public class Config {
 
     public Config(String moviesDb, String linksDb, String usersDb, String ratingsDb) {
         loadRepositories(moviesDb, linksDb, usersDb, ratingsDb);
+        this.averageRatingService = new AverageRatingService(movies, ratings);
+        this.rankingService = new RankingService(movies, ratings, new UserService(users));
+        this.validationService = new ValidationService(genres, occupations);
+        this.recommendByMovieService = new RecommendByMovieService(movies, ratings);
+    }
+
+    /*
+     * Constructor for server config
+     */
+    public Config(DBMovieRepository movieDB, DBUserRepository userDB, DBRatingRepository ratingDB) {
+        this.movies = new DBMovieRepositoryAdapter(movieDB);
+        this.users = new DBUserRepositoryAdaptor(userDB);
+        this.ratings = new DBRatingRepositoryAdaptor(ratingDB);
+
         this.averageRatingService = new AverageRatingService(movies, ratings);
         this.rankingService = new RankingService(movies, ratings, new UserService(users));
         this.validationService = new ValidationService(genres, occupations);

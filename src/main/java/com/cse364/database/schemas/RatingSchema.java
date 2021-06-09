@@ -34,7 +34,7 @@ public class RatingSchema {
     }
 
     @Value
-    static class CompositeKey implements Serializable {
+    static class CompositeKey{
         int movieId;
         int userId;
     }

@@ -6,6 +6,7 @@ import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.domain.Genre;
 import com.cse364.domain.Movie;
+import com.cse364.domain.MovieRepository;
 import com.cse364.domain.UserInfo;
 
 import com.cse364.infra.Config;
@@ -25,6 +26,7 @@ public class HttpController {
     private final ValidationService validationService;
     private final RecommendByMovieService recommendByMovieService;
 
+    private MovieRepository movies;
     /*
      * Config instance(Singleton) come from Beans of Spring
      */
@@ -35,6 +37,7 @@ public class HttpController {
         this.rankingService = config.rankingService;
         this.validationService = config.validationService;
         this.recommendByMovieService = config.recommendByMovieService;
+        this.movies = config.movies;
     }
 
     /*
@@ -122,6 +125,11 @@ public class HttpController {
         }
 
         return movies;
+    }
+
+    @GetMapping("/movies")
+    public List<Movie> getAllMovies(){
+        return movies.all();
     }
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(ResponseStatusException exception){

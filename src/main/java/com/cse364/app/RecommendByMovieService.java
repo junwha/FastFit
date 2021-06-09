@@ -45,7 +45,7 @@ public class RecommendByMovieService {
 
         // Iterating all ratings is time consuming, so let's sample some of them.
         List<Rating> sampledRatings = new ArrayList<>(ratings);
-        Collections.shuffle(sampledRatings);
+        Collections.shuffle(sampledRatings, new Random(12345));
 
         for (int i = 0; i < Math.min(ratings.size(), 100); i++) {
             allRatings.addAll(ratingRepository.filterByUser(sampledRatings.get(i).getUser()));

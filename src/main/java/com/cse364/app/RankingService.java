@@ -61,7 +61,7 @@ public class RankingService {
 
         // Iterating all users is time consuming, so let's sample some of them.
         List<User> sampledUsers = new ArrayList<>(similarUser);
-        Collections.shuffle(sampledUsers);
+        Collections.shuffle(sampledUsers, new Random(12345));
 
         for (int i = 0; i < Math.min(similarUser.size(), 100); i++) {
             ratingsBySimilarUser.addAll(ratingRepository.filterByUser(sampledUsers.get(i)));

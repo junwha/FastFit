@@ -12,3 +12,7 @@ h2.submaintext {
     display: flex;
     justify-content: space-between;
 }
+
+.form-label {
+    text-align: right;
+}

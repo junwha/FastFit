@@ -17,7 +17,7 @@ public class UserProcessor implements ItemProcessor<UserDto, User> {
         return new User(item.getId(),
                 item.getGender()=="M"? Gender.M:Gender.F,
                 item.getAge(),
-                config.occupations.searchByName(item.getOccupation()),
+                config.occupations.get(item.getOccupation()),
                 item.getCode());
     }
 }

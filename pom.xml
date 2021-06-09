@@ -28,6 +28,26 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <!-- For conditional job execution -->
+    <!-- specify by -P -->
+    <profiles>
+        <profile>
+            <id>init</id>
+            <properties>
+                <job.name>loadDB</job.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <job.name>NONE</job.name>
+            </properties>
+        </profile>
+    </profiles>
+
     <!--Add Packages-->
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->

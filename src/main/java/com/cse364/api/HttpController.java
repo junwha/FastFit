@@ -44,11 +44,9 @@ public class HttpController {
     }
     
     @RequestMapping(value={"", "/", "/index.html"})
-    public String index(@RequestParam(name="firstText", required=false, defaultValue="Welcome to your Movie Info!") 
-            String firstText, Model model) {
+    public String index(Model model) {
 
         indexFill(model);
-        model.addAttribute("firstText", firstText);
         return "index";
     }
 

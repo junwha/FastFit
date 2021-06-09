@@ -3,3 +3,12 @@ h2.submaintext {
     border-radius: 5px;
     color: darkgreen;
 }
+
+.hero {
+    background-color: #cdf;
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+}

@@ -105,11 +105,11 @@ public class HttpController {
 
     List<Movie> posterPlaceholder(List<Movie> movieList) {
 
-        String magic_poster = "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@..jpg";
+        String magic_poster = "https://via.placeholder.com/100x150";
 
         List<Movie> newList = new ArrayList<>();
         for (Movie movie : movieList) {
-            if (movie.getPoster() == "") {
+            if (movie.getPoster().equals("")) {
                 newList.add(new Movie(movie.getId(), movie.getTitle(), movie.getGenres(),
                         movie.getLink(), magic_poster));
             } else {

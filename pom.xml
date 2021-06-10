@@ -26,8 +26,9 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <package.type>jar</package.type>
     </properties>
-
+    <packaging>${package.type}</packaging>
     <!-- For conditional job execution -->
     <!-- specify by -P -->
     <profiles>

@@ -1,0 +1,38 @@
+FROM ubuntu:20.04
+
+# openjdk installation requires user interaction, so we need to suppress it
+# https://serverfault.com/questions/949991/how-to-install-tzdata-on-a-ubuntu-docker-image
+ENV DEBIAN_FRONTEND noninteractive
+
+# Open 8080 port
+EXPOSE 8080
+EXPOSE 27017
+
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jdk
+
+RUN apt-get install -y maven git curl wget && \
+    apt-get install -y gnupg
+
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \
+    apt-get update && \
+    apt-get install -y mongodb-org
+
+RUN mkdir -p /root/tomcat/ && cd /root/tomcat && \
+    mkdir -p /root/project && \
+    wget http://mirror.23media.de/apache/tomcat/tomcat-8/v8.5.30/bin/apache-tomcat-8.5.30.tar.gz && \
+    tar -xvf apache-tomcat-8.5.30.tar.gz
+
+# Set WORKDIR
+WORKDIR /root/project
+
+
+
+# Deploy
+COPY ./run.sh /root/project/
+COPY ./cse364-project.war /root/tomcat/apache-tomcat-8.5.30/webapps/
+
+RUN chmod +x /root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh
+
+#CMD ["/root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh", "run"]

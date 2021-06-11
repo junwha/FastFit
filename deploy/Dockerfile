@@ -6,7 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Open 8080 port
 EXPOSE 8080
-EXPOSE 27017
 
 RUN apt-get update && \
     apt-get install -y openjdk-11-jdk
@@ -17,7 +16,8 @@ RUN apt-get install -y maven git curl wget && \
 RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \
     apt-get update && \
-    apt-get install -y mongodb-org
+    apt-get install -y mongodb-org && \
+    mkdir -p /mongodb/db
 
 RUN mkdir -p /root/tomcat/ && cd /root/tomcat && \
     mkdir -p /root/project && \
@@ -27,12 +27,11 @@ RUN mkdir -p /root/tomcat/ && cd /root/tomcat && \
 # Set WORKDIR
 WORKDIR /root/project
 
-
-
 # Deploy
 COPY ./run.sh /root/project/
 COPY ./cse364-project.war /root/tomcat/apache-tomcat-8.5.30/webapps/
 
 RUN chmod +x /root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh
 
-#CMD ["/root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh", "run"]
+CMD ["mongo", "host.docker.internal:27017"]
+CMD ["/root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh", "run"]

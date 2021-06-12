@@ -31,8 +31,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
 @ActiveProfiles("test")
+//@WebMvcTest
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc

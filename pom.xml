@@ -27,16 +27,33 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <package.type>jar</package.type>
+        <host.ip>localhost</host.ip>
+        <test.ip>localhost</test.ip>
     </properties>
     <packaging>${package.type}</packaging>
     
     <!-- For conditional job execution -->
     <!-- specify by -P -->
     <profiles>
+        <!-- Enable MongoDB initializing Job -->
         <profile>
             <id>init</id>
             <properties>
                 <job.name>loadDB</job.name>
+            </properties>
+        </profile>
+        <!-- Docker setting -->
+        <profile>
+            <id>docker</id>
+            <properties>
+                <host.ip>host.docker.internal</host.ip>
+            </properties>
+        </profile>
+        <!-- War build -->
+        <profile>
+            <id>war-build</id>
+            <properties>
+                <package.type>war</package.type>
             </properties>
         </profile>
         <profile>

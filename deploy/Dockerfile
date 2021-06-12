@@ -21,17 +21,17 @@ RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
 
 RUN mkdir -p /root/tomcat/ && cd /root/tomcat && \
     mkdir -p /root/project && \
-    wget http://mirror.23media.de/apache/tomcat/tomcat-8/v8.5.30/bin/apache-tomcat-8.5.30.tar.gz && \
-    tar -xvf apache-tomcat-8.5.30.tar.gz
+    wget https://mirror.navercorp.com/apache/tomcat/tomcat-9/v9.0.46/bin/apache-tomcat-9.0.46.tar.gz && \
+    tar -xvf apache-tomcat-9.0.46.tar.gz
 
 # Set WORKDIR
 WORKDIR /root/project
 
 # Deploy
 COPY ./run.sh /root/project/
-COPY ./cse364-project.war /root/tomcat/apache-tomcat-8.5.30/webapps/
+COPY ./cse364-project.war /root/tomcat/apache-tomcat-9.0.46/webapps/
 
-RUN chmod +x /root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh
+RUN chmod +x /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh
 
 CMD ["mongo", "host.docker.internal:27017"]
-CMD ["/root/tomcat/apache-tomcat-8.5.30/bin/catalina.sh", "run"]
+CMD ["/root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh", "run"]

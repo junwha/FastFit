@@ -29,9 +29,10 @@ WORKDIR /root/project
 
 # Deploy
 COPY ./run.sh /root/project/
-COPY ./cse364-project.war /root/tomcat/apache-tomcat-9.0.46/webapps/
+COPY ./cse364-project.war /root/tomcat/apache-tomcat-9.0.46/webapps/ROOT.war
 
-RUN chmod +x /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh
+RUN rm -rf /root/tomcat/apache-tomcat-9.0.46/webapps/ROOT && \
+    chmod +x /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh
 
 #CMD ["mongo", "host.docker.internal:27017"]
 CMD ["/root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh", "run"]

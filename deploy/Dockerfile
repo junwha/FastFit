@@ -33,5 +33,5 @@ COPY ./cse364-project.war /root/tomcat/apache-tomcat-9.0.46/webapps/
 
 RUN chmod +x /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh
 
-CMD ["mongo", "host.docker.internal:27017"]
+#CMD ["mongo", "host.docker.internal:27017"]
 CMD ["/root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh", "run"]

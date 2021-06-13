@@ -29,6 +29,7 @@ function searchWithTitle() {
                 <div class="col-8 mb-3"><input type="text" class="form-control" id="title"></div>
             </div>
             <button onclick="searchWithTitle()" class="btn btn-primary">Get movie recommendation!</button>
+            <div class="col-12 form-text" style="color:red;" th:text="${wrong}"></div>
         </form>
     </div>
 </div>

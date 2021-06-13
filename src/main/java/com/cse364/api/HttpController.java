@@ -114,14 +114,16 @@ public class HttpController {
     void moviesrecommendationsFill(String title, Model model) {
 
         // Top 10 search results
-        List<Movie> top10custom = new ArrayList<>();
+        List<Movie> top10custom;
+        String wrong = "";
         try {
             top10custom = posterPlaceholder(recommendByMovieService.recommendMoviesFromTitle(title, 10));
         } catch (NoMovieWithGivenNameException exception) {
-            //TODO : Movie with given name not found
-            return;
+            top10custom = new ArrayList<>();
+            wrong = title;
         }
         model.addAttribute("top10custom", top10custom);
+        model.addAttribute("wrong", wrong);
     }
 
     List<Movie> posterPlaceholder(List<Movie> movieList) {

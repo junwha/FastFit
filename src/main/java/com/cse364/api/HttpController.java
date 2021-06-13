@@ -77,9 +77,32 @@ public class HttpController {
 
     void usersrecommendationsFill(String gender, String age, String occupation, String genres, Model model) {
 
-        // Top 10 search results
-        List<Movie> top10custom = posterPlaceholder(getTop10Movies(gender, age, occupation, genres));
+        UserInfo userInfo = null;
+        List<Genre> genres_list = null;
+        List<String> wrongInput = new ArrayList<>();
+
+        try {
+            userInfo = validationService.validateUserInfo(gender, age, occupation);
+        } catch (UserInfoValidationException e) {
+            wrongInput.add(e.getValue());
+            //TODO:error
+        }
+
+        try {
+            genres_list = validationService.validateGenres(Arrays.asList(genres.split("\\|")));
+        } catch (GenreValidationException e) {
+            wrongInput.add(e.getName());
+            //TODO error
+        }
+
+        List<Movie> top10custom;
+        try {
+            top10custom = posterPlaceholder(rankingService.getTopNMovie(userInfo, 10, genres_list));
+        } catch (Exception e) {
+            top10custom = new ArrayList<>();
+        }
         model.addAttribute("top10custom", top10custom);
+        model.addAttribute("wrongInput", wrongInput);
     }
 
     @RequestMapping("/movies/recommendations.html")

@@ -9,7 +9,11 @@
 ### Roles
 
 한동규 @queuedq
+- Webpage Design & Enhance
 
 심재환 @jaehwan1912
+- Webpage Implementation
 
 홍준화 @junwha0511
+- GitHub Actions Setup
+- MongoDB Setup

@@ -9,7 +9,7 @@ Webpage can be accessed from port 8080.
 
 ### Main Page
 
-- **Endpoint :** `/` `/index.html`
+- **Endpoint :** `/`, `/index.html`
 
 #### All Movies
 

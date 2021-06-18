@@ -1,5 +1,7 @@
 # FastFit Web App
 
+When you run a server locally, it uses the port 8080 by default. So you can access the web page by connecting to http://localhost:8080/.
+
 ## Pages
 
 ### Main page

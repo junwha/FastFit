@@ -10,13 +10,13 @@
 
 "Our recommendations" section shows the overall top 10 recommended movies. Then comes the "by-genre" sections. They show top 10 recommended movies by each genre.
 
-### Recommendation by your information page
+### Recommendation by your information
 
 - **Address :** `/users/recommendations.html`
 
 > TODO
 
-### Related Movie Recommendation
+### Recommendation by your favorite movie
 
 - **Address :** `/movies/recommendations.html`
 

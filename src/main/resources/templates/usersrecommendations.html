@@ -50,7 +50,6 @@ function searchWithUserInfo() {
                 <div class="col-3 form-label"><label for="genres" class="form-label">Genres</label></div>
                 <div class="col-8 mb-3"><input type="text" class="form-control" id="genres"></div>
                 <div id="genres-help" class="col-12 form-text">To enter multiple genres, please use "|" as a separator.</div>
-                <div class="col-12 form-text" style="color:red;" th:if="${wrongInput.isEmpty() == false}">Wrong input: </div>
                 <div class="col-12 form-text" style="color:red;" th:each="wrong : ${wrongInput}">
                     <span style="color:red;" th:text="${wrong}"></span>
                 </div>

@@ -84,15 +84,23 @@ public class HttpController {
         try {
             userInfo = validationService.validateUserInfo(gender, age, occupation);
         } catch (UserInfoValidationException e) {
-            wrongInput.add(e.getValue());
-            //TODO:error
+            if (e.getField().equals("gender")) {
+                wrongInput.add("Invalid gender: \"" + e.getValue() + "\". Please enter either \"F\" or \"M\".");
+            }
+            if (e.getField().equals("age")) {
+                wrongInput.add("Invalid age: \"" + e.getValue() + "\". Age should be a non-negative integer.");
+            }
+            if (e.getField().equals("occupation")) {
+                wrongInput.add("Invalid occupation: \"" + e.getValue() + "\". " +
+                        "Please check the \"Available Inputs\" page in the documentation.");
+            }
         }
 
         try {
             genres_list = validationService.validateGenres(Arrays.asList(genres.split("\\|")));
         } catch (GenreValidationException e) {
-            wrongInput.add(e.getName());
-            //TODO error
+            wrongInput.add("Invalid genre name: \"" + e.getName() + "\". " +
+                    "Please check the \"Available Inputs\" page in the documentation.");
         }
 
         List<Movie> top10custom;
@@ -120,7 +128,10 @@ public class HttpController {
             top10custom = posterPlaceholder(recommendByMovieService.recommendMoviesFromTitle(title, 10));
         } catch (NoMovieWithGivenNameException exception) {
             top10custom = new ArrayList<>();
-            wrong = title;
+            if (!title.equals("")) {
+                wrong = "A movie named \"" + title + "\" does not exist in the database. " +
+                        "Note that you have to include the year information, e.g. \"Toy Story (1995)\".";
+            }
         }
         model.addAttribute("top10custom", top10custom);
         model.addAttribute("wrong", wrong);

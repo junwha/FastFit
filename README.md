@@ -35,3 +35,4 @@ How to check coverage: After running the test command, open `target/site/jacoco/
 
 - [Command Line Program](/docs/cli.md)
 - [REST API Server](/docs/api.md)
+- [FastFit Webapp](/docs/web.md)

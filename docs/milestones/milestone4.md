@@ -2,6 +2,9 @@
 
 ### What We've Finished
 
+- Created webapp "FastFit"
+- Adopted GitHub Actions for continuous integration1
+
 ### Roles
 
 한동규 @queuedq

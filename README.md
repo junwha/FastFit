@@ -5,6 +5,7 @@
 - [Milestone 1](/docs/milestones/milestone1.md)
 - [Milestone 2](/docs/milestones/milestone2.md)
 - [Milestone 3](/docs/milestones/milestone3.md)
+- [Milestone 4](/docs/milestones/milestone4.md)
 
 ---
 

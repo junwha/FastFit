@@ -57,7 +57,7 @@ curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:applica
     {"title":"Our Town (1940)","genres":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
     {"title":"Two Women (La Ciociara) (1961)","genres":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
     {"title":"Criminal Lovers (Les Amants Criminels) (1999)","genres":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
-    // ...
+    ...
 ]
 ```
 
@@ -113,6 +113,6 @@ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:applic
     {"title":"Goofy Movie, A (1995)","genres":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},
     {"title":"Aladdin (1992)","genres":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},
     {"title":"Space Jam (1996)","genres":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},
-    // ...
+    ...
 ]
 ```

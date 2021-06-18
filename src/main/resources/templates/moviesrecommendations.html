@@ -5,14 +5,6 @@
     <title>Movie From Movie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/designs/design.css}">
-<script>
-function searchWithTitle() {
-    var title = document.getElementById("title").value;
-    var addr = "recommendations.html?";
-    if (title != "") {addr = addr + "title=" + title;}
-    window.open(addr, "_self");
-}
-</script>
 </head>
 
 <body>
@@ -23,13 +15,13 @@ function searchWithTitle() {
         <div class="col-lg-6 mx-auto text-center">
             <p class="lead mb-4">Get movie recommendations by your favourite movie</p>
         </div>
-        <form style="width:50%; margin: 0 auto; text-align: center" action="javascript:void(0);">
+        <form style="width:50%; margin: 0 auto; text-align: center" action="recommendations.html" method="GET">
             <div class="row mb-4">
                 <div class="col-3 form-label"><label for="title" class="form-label">Title</label></div>
-                <div class="col-8 mb-3"><input type="text" class="form-control" id="title"></div>
+                <div class="col-8 mb-3"><input type="text" name="title" class="form-control" id="title"></div>
+                <div class="col-12 form-text" style="color:red;" th:text="${wrong}"></div>
             </div>
-            <button onclick="searchWithTitle()" class="btn btn-primary">Get movie recommendation!</button>
-            <div class="col-12 form-text" style="color:red;" th:text="${wrong}"></div>
+            <input type="submit" class="btn btn-primary" value="Get movie recommendation!">
         </form>
     </div>
 </div>

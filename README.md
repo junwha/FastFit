@@ -57,7 +57,6 @@ After running the test command, open `target/site/jacoco/index.html` file in the
 ## References
 
 - [Web App](/docs/web.md)
-
 - [REST API](/docs/api.md)
 - [Command Line Program (Deprecated)](/docs/cli.md)
 

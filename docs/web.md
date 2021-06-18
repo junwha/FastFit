@@ -1,29 +1,23 @@
-# Usage (FastFit Webapp)
+# FastFit Web App
 
-## Running the Server
+## Pages
 
-Running a Docker container with the Dockerfile will automatically set up the server.
-Webpage can be accessed from port 8080.
+### Main page
 
-## Webpage
+- **Address :** `/`, `/index.html`
 
-### Main Page
+> TODO: describe the page structure, including the buttons and sections
 
-- **Endpoint :** `/`, `/index.html`
+"Our recommendations" section shows the overall top 10 recommended movies. Then comes the "by-genre" sections. They show top 10 recommended movies by each genre.
 
-#### All Movies
+### Recommendation by your information page
 
-Shows the overall top 10 recommendable movies.
+- **Address :** `/users/recommendations.html`
 
-#### Per Genre
-
-Shows top 10 recommendable movies for some genres.
-
-### Movie Recommendation Based on User Information
-
-- **Endpoint :** `/users/recommendations.html`
+> TODO
 
 ### Related Movie Recommendation
 
-- **Endpoint :** `/movies/recommendations.html`
+- **Address :** `/movies/recommendations.html`
 
+> TODO

@@ -1,4 +1,4 @@
-## Usage (Command Line Program)
+## Command Line Program (Deprecated)
 
 ### Preliminaries
 

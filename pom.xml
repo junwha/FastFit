@@ -46,7 +46,7 @@
         <profile>
             <id>docker</id>
             <properties>
-                <host.ip>host.docker.internal</host.ip>
+                <host.ip>0.0.0.0</host.ip>
             </properties>
         </profile>
         <!-- War build -->

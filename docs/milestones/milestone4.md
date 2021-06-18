@@ -3,7 +3,7 @@
 ### What We've Finished
 
 - Created webapp "FastFit"
-- Adopted GitHub Actions for continuous integration1
+- Adopted GitHub Actions for continuous integration
 
 ### Roles
 

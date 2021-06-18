@@ -24,7 +24,7 @@ function searchWithUserInfo() {
     }
     if (genres != "") {
         if (toggle == 1) {addr = addr + "&";}
-        addr = addr + "genres=" + genres.replace("|", "%7C"); toggle = 1;
+        addr = addr + "genres=" + genres.replaceAll("|", "%7C"); toggle = 1;
     }
     window.open(addr, "_self");
 }

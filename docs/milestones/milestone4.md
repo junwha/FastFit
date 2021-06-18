@@ -4,6 +4,7 @@
 
 - Created webapp "FastFit"
 - Adopted GitHub Actions for continuous integration
+- Changed package to .war for Tomcat deployment
 
 ### Roles
 

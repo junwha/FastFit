@@ -37,7 +37,7 @@ To use FastFit, you first need to run the server.
 
 #### Running JAR manually
 
-1. Install MongoDB on the host machine, and start the mongod service.
+1. Install MongoDB on the host machine, and start the `mongod` service.
 
 2. Build a .jar file.
 
@@ -69,7 +69,7 @@ For more information, please see the [Web App](/docs/web.md) reference page.
 
 ### Using the REST API
 
-For developers, there is a REST API to fetch the data in JSON format. This is a standard way to communicate the data programmatically and it allows you to handle the data in any way you desire.
+For developers, there is a REST API to fetch the data in JSON format. This is a standard way to communicate the data programmatically, and it allows you to handle the data in any way you desire.
 
 For example, you can get movie recommendations by your information as follows:
 

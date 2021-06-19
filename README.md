@@ -78,7 +78,7 @@ For developers, there is a REST API to fetch the data in JSON format. This is a 
 For example, you can get movie recommendations by your information as follows:
 
 ```shell
-curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "24",	"occupation": "college student", "genres": "animation|sci-fi"}'
+curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "24", "occupation": "college student", "genres": "animation|sci-fi"}'
 ```
 
 FastFit API will send the movie recommendations.

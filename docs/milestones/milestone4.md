@@ -9,15 +9,19 @@
 ### Roles
 
 한동규 @queuedq
-- Webpage Design & Enhance
-- Service Performance Enhance
-- README documentation
+- Database schema improvement
+- Performance optimization
+- Webpage design & enhance
+- User documentation
 
 심재환 @jaehwan1912
 - Webpage Implementation & Enhance
-- README documentation
+- Adopt thymeleaf for webpage construction automation
+- User documentation
 
 홍준화 @junwha0511
 - GitHub Actions Setup
 - MongoDB Setup
-- Build & Deploy Enhance
+- MongoDB-Repository adaptor implementation
+- Tomcat setup & Dockerfile modification
+- Maven profile setting enhancement

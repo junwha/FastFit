@@ -6,7 +6,11 @@
 
 FastFit is a movie recommendation system. We quickly(*fast*) find movies that *fits* your taste.
 
-> TODO: add introductory paragraph (refer to the presentation): goals, features, a screenshot
+IMDb, an online database of movies, provide numerous information about movies. However, they don't have a recommendation system to look for more movies that fit your taste. So we created FastFit. We'll recommend movies based on your information or favorite movies.
+
+FastFit provides both a web app and a REST API. Whether you are an end user or a developer, choose the service that is right for you.
+
+Curious to see how it works? Feel free to check the [How It Works](/docs/how-it-works.md) page.
 
 ## Getting Started
 
@@ -131,6 +135,10 @@ After running the test command, open `target/site/jacoco/index.html` file in the
 - [Web App](/docs/web.md)
 - [REST API](/docs/api.md)
 - [Command Line Program (Deprecated)](/docs/cli.md)
+
+- [Available Inputs](/docs/available-inputs.md)
+
+- [How It Works](/docs/how-it-works.md)
 
 ## Update History
 

@@ -22,6 +22,25 @@ We provide a simple web application that serves as an interface for end users.
 
 > TODO: describe each page (main, recommendation w/ user info, recommendation w/ favorite movie)
 
+#### Main Page
+
+On the top, there are Service name, button to two custom recommendation page, and some introductions.
+Lower, there are 10 overall recommended movies by our algorithm, and 10 recommended movies from chosen genres.
+
+#### Recommendation by User Information
+
+You can use our Recommendation by User Information Algorithm to search for movies that people of similarity rated the best.
+On the top, you can either input some values, or leave them empty if you do not want to specify.
+After filling it up, hit the button below, and the top 10 similar recommendable movies will show.
+
+Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
+
+#### Recommendation by Movie Title
+
+You can use our Recommendation by Movie Title Algorithm to search for movies that who watched the movie rated the best.
+On the top, you can input the movie title and the year the movie was released (ex) Toy Story (1995)).
+After filling it up, hit the button below, and the top 10 similar recommendable movies will show.
+
 Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
 
 For more information, please see the [Web App](/docs/web.md) reference page.

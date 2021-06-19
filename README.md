@@ -80,14 +80,39 @@ For more information, please see the [Web App](/docs/web.md) reference page.
 
 ### Using the REST API
 
-For developers, there is a REST API to fetch data in the JSON format. This is a standard way to communicate the data programmatically and it allows you to handle the data in any way you desire.
+For developers, there is a REST API to fetch the data in JSON format. This is a standard way to communicate the data programmatically and it allows you to handle the data in any way you desire.
 
-```
-curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "", "occupation": "other", "genres": ""}'
-curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story (1995)", "limit": "10"}'
+For example, you can get movie recommendations by your information as follows:
+
+```shell
+curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "24",	"occupation": "college student", "genres": "animation|sci-fi"}'
 ```
 
-(Upper example is done by curl, but any correct GET request will qualify)
+FastFit API will send the movie recommendations.
+
+```json
+[
+  {
+    "title": "Make Mine Music (1946)",
+    "genres": "Animation|Children's|Musical",
+    "imdb": "http://www.imdb.com/title/tt0038718",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Faust (1994)",
+    "genres": "Animation|Comedy|Thriller",
+    "imdb": "http://www.imdb.com/title/tt0109781",
+    "poster": ""
+  },
+  {
+    "title": "Brother from Another Planet, The (1984)",
+    "genres": "Drama|Sci-Fi",
+    "imdb": "http://www.imdb.com/title/tt0087004",
+    "poster": "https://....jpg"
+  },
+  "..."
+]
+```
 
 For more information, please see the [REST API](/docs/api.md) reference page.
 

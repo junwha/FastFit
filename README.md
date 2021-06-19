@@ -10,7 +10,7 @@ IMDb, an online database of movies, provide numerous information about movies. H
 
 FastFit provides both a web app and a REST API. Whether you are an end user or a developer, choose the service that is right for you.
 
-Curious to see how it works? Feel free to check the [How It Works](/docs/how-it-works.md) page.
+Curious to see how it works? Feel free to check [How It Works](/docs/how-it-works.md) page.
 
 ## Getting Started
 
@@ -135,9 +135,7 @@ After running the test command, open `target/site/jacoco/index.html` file in the
 - [Web App](/docs/web.md)
 - [REST API](/docs/api.md)
 - [Command Line Program (Deprecated)](/docs/cli.md)
-
 - [Available Inputs](/docs/available-inputs.md)
-
 - [How It Works](/docs/how-it-works.md)
 
 ## Update History

@@ -1,6 +1,7 @@
 package com.cse364.database;
 
 import com.cse364.database.dtos.*;
+import com.cse364.database.repositories.DBValidRepository;
 import com.cse364.database.schemas.RatingSchema;
 import com.cse364.database.processors.*;
 import com.cse364.database.repositories.DBMovieRepository;
@@ -13,12 +14,15 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.item.data.MongoItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +35,9 @@ import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.index.IndexOperations;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EnableBatchProcessing
 @Configuration
 @EnableMongoRepositories(basePackages = "com.cse364.database.repositories")
@@ -41,16 +48,55 @@ public class LoadJob {
     private StepBuilderFactory stepBuilderFactory;
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private DBValidRepository valid;
+
+    @Bean
+    public Map<Integer, Movie> movieMap(){
+        return new HashMap<>();
+    }
+
+    @Bean
+    public Map<Integer, User> userMap(){
+        return new HashMap<>();
+    }
 
     @Bean
     public Job loadDB(DBMovieRepository movies, DBUserRepository users, DBRatingRepository ratings) {
-        return jobBuilderFactory.get("loadDB").incrementer(new RunIdIncrementer())
-                .start(stepUser())
-                .next(stepMovie())
-                .next(stepLink())
-                .next(stepPoster())
-                .next(stepRating())
+        return jobBuilderFactory.get("loadDB")
+                .start(init())
+                .next(dbLoadDecider())
+                .from(dbLoadDecider())
+                    .on("NOT_LOADED")
+                    .to(stepUser())
+                    .next(stepMovie())
+                    .next(stepLink())
+                    .next(stepPoster())
+                    .next(stepRating())
+                    .next(stepEndDB())
+                .from(dbLoadDecider())
+                    .on("LOADED").end()
+                .end()
                 .build();
+
+    }
+
+
+    @Bean
+    public JobExecutionDecider dbLoadDecider(){
+        return new DBLoadDecider(valid);
+    }
+
+    @Bean
+    Step init(){
+        return stepBuilderFactory.get("stepInit").tasklet((contribution, context)->{
+            return RepeatStatus.FINISHED;
+        }).build();
+    }
+
+    @Bean
+    Step stepEndDB(){
+        return stepBuilderFactory.get("stepEndDB").tasklet(new DBCompleteCheckTasklet(valid)).build();
     }
 
     @Bean

@@ -16,7 +16,7 @@ Or, you can check our own recommendations at the bottom. "All Movies" section sh
 
 - **Address :** `/users/recommendations.html`
 
-Enter your gender, age, occupation, or a list of your favorite movie genres here. we'll suggest movies you might enjoy according to the provided information. You can omit some fields if you want.
+Enter your gender, age, occupation, or a list of your favorite movie genres here. We'll suggest 10 movies you might enjoy according to the provided information. You can omit some fields if you want.
 
 Some input fields only accepts a limited number of values. If you enter an invalid input, an error message will be displayed. Please see the [Available Inputs](/docs/available-inputs.md) page to check which values are allowed.
 

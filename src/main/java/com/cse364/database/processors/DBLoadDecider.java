@@ -24,8 +24,8 @@ public class DBLoadDecider implements JobExecutionDecider {
     public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
         if(!valid.existsById(0)) {
             System.out.println("-------------------------------- Database Loading Start --------------------------------");
-            System.out.println("[DB Loading Job] DB Loading job takes about 15 minute.");
-            System.out.println("[DB Loading Job] If you insert a request while the job is running, the job will crash.");
+            System.out.println("[DB Loading Job] DB Loading job takes about 10 minute.");
+            System.out.println("[DB Loading Job] Warning: If you insert a request while the job is running, the job will crash.");
             return new FlowExecutionStatus("NOT_LOADED");
         } else {
             System.out.println("-------------------------------- Start Service --------------------------------");

@@ -11,7 +11,6 @@ import org.springframework.batch.repeat.RepeatStatus;
 public class DBCompleteCheckTasklet implements Tasklet {
     DBValidRepository valid;
 
-
     public DBCompleteCheckTasklet(DBValidRepository valid){
         this.valid = valid;
     }

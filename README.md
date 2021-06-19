@@ -51,24 +51,13 @@ To use FastFit, you first need to run the server.
 
 We provide a simple web application that serves as an interface for end users.
 
-#### Main Page
+You can get movie recommendations by your information or your favorite movie. There are buttons on the main page that links to each recommendation page.
 
-On the top, there are Service name, button to two custom recommendation page, and some introductions.
-Lower, there are 10 overall recommended movies by our algorithm, and 10 recommended movies from chosen genres.
+- **Recommendation by your information :** Enter your gender, age, occupation, or a list of your favorite movie genres. We'll suggest 10 movies you might enjoy according to the provided information. You can omit some fields if you want.
 
-#### Recommendation by User Information
+- **Recommendation by your favorite movie :** Enter your favorite movie title with its release year in the parentheses. (e.g. `Toy Story (1995)`) We'll recommend 10 similar movies for you.
 
-You can use our Recommendation by User Information Algorithm to search for movies that people of similarity rated the best.
-On the top, you can either input some values, or leave them empty if you do not want to specify.
-After filling it up, hit the button below, and the top 10 similar recommendable movies will show.
-
-Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
-
-#### Recommendation by Movie Title
-
-You can use our Recommendation by Movie Title Algorithm to search for movies that who watched the movie rated the best.
-On the top, you can input the movie title and the year the movie was released (ex) Toy Story (1995)).
-After filling it up, hit the button below, and the top 10 similar recommendable movies will show.
+Or, you can check our own recommendations on the main page. "All Movies" section shows the overall top 10 recommended movies. Next comes the genre sections. They show top 10 recommended movies by each genre.
 
 Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
 

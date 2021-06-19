@@ -51,15 +51,9 @@ public class LoadJob {
     @Autowired
     private DBValidRepository valid;
 
-    @Bean
-    public Map<Integer, Movie> movieMap(){
-        return new HashMap<>();
-    }
+    Map<Integer, Movie> movieMap = new HashMap<>();
+    Map<Integer, User> userMap = new HashMap<>();
 
-    @Bean
-    public Map<Integer, User> userMap(){
-        return new HashMap<>();
-    }
 
     @Bean
     public Job loadDB(DBMovieRepository movies, DBUserRepository users, DBRatingRepository ratings) {
@@ -131,7 +125,7 @@ public class LoadJob {
 
     @Bean
     public UserProcessor userProcessor() {
-        return new UserProcessor();
+        return new UserProcessor(userMap);
     }
 
     @Bean
@@ -166,7 +160,7 @@ public class LoadJob {
 
     @Bean
     public MovieProcessor movieProcessor() {
-        return new MovieProcessor();
+        return new MovieProcessor(movieMap);
     }
 
     @Bean
@@ -202,7 +196,7 @@ public class LoadJob {
 
     @Bean
     public RatingProcessor ratingProcessor() {
-        return new RatingProcessor();
+        return new RatingProcessor(movieMap, userMap);
     }
 
 
@@ -231,7 +225,7 @@ public class LoadJob {
 
     @Bean
     public LinkProcessor linkProcessor() {
-        return new LinkProcessor();
+        return new LinkProcessor(movieMap);
     }
 
 
@@ -259,7 +253,7 @@ public class LoadJob {
 
     @Bean
     public PosterProcessor posterProcessor() {
-        return new PosterProcessor();
+        return new PosterProcessor(movieMap);
     }
 
     @EventListener(ApplicationReadyEvent.class)

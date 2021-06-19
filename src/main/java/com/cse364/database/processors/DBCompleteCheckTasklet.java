@@ -8,7 +8,6 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
-
 public class DBCompleteCheckTasklet implements Tasklet {
     DBValidRepository valid;
 
@@ -18,6 +17,7 @@ public class DBCompleteCheckTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception{
+        // Save valid bit
         valid.save(new ValidSchema(0));
         contribution.setExitStatus(ExitStatus.COMPLETED);
         System.out.println("[DB Loading Job] The job is COMPLETED!");

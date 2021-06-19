@@ -11,9 +11,9 @@ import org.springframework.batch.repeat.RepeatStatus;
 public class DBCompleteCheckTasklet implements Tasklet {
     DBValidRepository valid;
 
-    public DBCompleteCheckTasklet(DBValidRepository valid, ApplicationContext applicationContext){
+
+    public DBCompleteCheckTasklet(DBValidRepository valid){
         this.valid = valid;
-        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -22,7 +22,8 @@ public class DBCompleteCheckTasklet implements Tasklet {
         valid.save(new ValidSchema(0));
         contribution.setExitStatus(ExitStatus.COMPLETED);
         System.out.println("[DB Loading Job] The job is COMPLETED!");
-  
+        System.out.println("-------------------------------- Start Service --------------------------------");
+
         return RepeatStatus.FINISHED;
     }
 }

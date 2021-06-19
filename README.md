@@ -42,7 +42,7 @@ To use FastFit, you first need to run the server.
 
 - Run the .jar file on the target folder. On first time run, you should run with the initialization profile for loading DB.
 
-`$java -jar [jar_file] (-P init)`
+`$ java -jar [jar_file] (-P init)`
 
 - Enjoy!
 

@@ -11,17 +11,17 @@
 한동규 @queuedq
 - Database schema improvement
 - Performance optimization
-- Webpage design & enhance
+- Webpage design & enhancement
 - User documentation
 
 심재환 @jaehwan1912
-- Webpage Implementation & Enhance
-- Adopt thymeleaf for webpage construction automation
+- Webpage implementation & enhancement
+- Adopted Thymeleaf for webpage generation
 - User documentation
 
 홍준화 @junwha0511
-- GitHub Actions Setup
-- MongoDB Setup
-- MongoDB-Repository adaptor implementation
+- GitHub Actions setup
+- MongoDB setup
+- MongoDB-repository adaptor implementation
 - Tomcat setup & Dockerfile modification
 - Maven profile setting enhancement

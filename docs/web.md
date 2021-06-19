@@ -6,6 +6,8 @@ When you run a server locally, it uses the port 8080 by default. So you can acce
 
 ### Main page
 
+![main_page](images/main_page.png)
+
 - **Address :** `/`, `/index.html`
 
 In FastFit, you can get movie recommendations by your information or your favorite movie. There are buttons on the main page that links to each recommendation page.
@@ -13,6 +15,8 @@ In FastFit, you can get movie recommendations by your information or your favori
 Or, you can check our own recommendations at the bottom. "All Movies" section shows the overall top 10 recommended movies. Next comes the genre sections. They show top 10 recommended movies by each genre.
 
 ### Recommendation by your information
+
+![by_user](images/by_user.png)
 
 - **Address :** `/users/recommendations.html`
 
@@ -23,6 +27,8 @@ Some input fields only accepts a limited number of values. If you enter an inval
 The recommendation system works as follows: We first find the users similar to you in the database. Then we gather the movies they enjoyed. We sort them by average rating and then provide you the top 10 movies as a recommendation.
 
 ### Recommendation by your favorite movie
+
+![by_movie](images/by_movie.png)
 
 - **Address :** `/movies/recommendations.html`
 

@@ -2,6 +2,10 @@
 
 (This project is for UNIST CSE364 Software Engineering course.)
 
+![main_page](docs/images/main_page.png)
+
+
+
 ## What is FastFit?
 
 FastFit is a movie recommendation system. We quickly(*fast*) find movies that *fits* your taste.

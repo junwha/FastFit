@@ -11,12 +11,14 @@ public class MovieDto {
     String title;
     String genres;
     String imdb;
+    String poster;
 
     public static MovieDto fromMovie(Movie movie) {
         return new MovieDto(
                 movie.getTitle(),
                 formatGenres(movie.getGenres(), "|"),
-                movie.getLink()
+                movie.getLink(),
+                movie.getPoster()
         );
     }
 

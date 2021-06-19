@@ -12,7 +12,7 @@
 - Webpage Design & Enhance
 
 심재환 @jaehwan1912
-- Webpage Implementation
+- Webpage Implementation & Enhance
 
 홍준화 @junwha0511
 - GitHub Actions Setup

@@ -44,6 +44,8 @@ To use FastFit, you first need to run the server.
 
 `$java -jar [jar_file] (-P init)`
 
+- Enjoy!
+
 ### Using the web application
 
 We provide a simple web application that serves as an interface for end users.

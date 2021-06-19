@@ -3,4 +3,4 @@ git clone https://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:x-oauth-basic@github.
 git checkout shellfile # TODO: remove this part!
 
 mvn package -P init
-java -jar target/cse364-project-1.0-SNAPSHOT.jar
+java -jar target/cse364-project.jar

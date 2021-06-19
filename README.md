@@ -20,7 +20,7 @@ Curious to see how it works? Feel free to check [How It Works](/docs/how-it-work
 
 ### Running the server
 
-To use FastFit, you first need to run the server.
+To use FastFit, you first need to run the server. After successfully running the server, **please wait about 10 minuites** until the database is filled. When you see the message `--- Start Service ---`, you can start sending requests to the server.
 
 #### Deploying WAR file to Apache Tomcat on Docker (Recommended)
 

@@ -96,7 +96,7 @@ For more information, please see the [REST API](/docs/api.md) reference page.
 ### Build
 
 ```
-$ mvn package
+$ mvn package [-p profile1 -p profile2 ...]
 ```
 
 #### Profile

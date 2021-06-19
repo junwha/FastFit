@@ -90,6 +90,7 @@ curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:applic
 ```
 
 (Upper example is done by curl, but any correct GET request will qualify)
+
 For more information, please see the [REST API](/docs/api.md) reference page.
 
 ## Development Guide

@@ -20,14 +20,14 @@ To use FastFit, you first need to run the server.
 
 - Build a docker .war build with maven.
 
-> mvn clean package -P war-build -P docker
+`mvn clean package -P war-build -P docker`
 
 - Move the .war file in target folder, Dockerfile and run.sh file in main folder to deploy folder.
 
 - In the deploy folder, build a docker image, and start a container. (expose port to be able to connect from outside)
 
-> docker build -t [image_tag] ./
-> docker run -p [host_port]:[container_port] -it [image_tag]
+`docker build -t [image_tag] ./`
+`docker run -p [host_port]:[container_port] -it [image_tag]`
 
 - Enjoy!
 
@@ -37,17 +37,15 @@ To use FastFit, you first need to run the server.
 
 - Build a .jar build with maven.
 
-> mvn clean package
+`mvn clean package`
 
 - Run the .jar file on the target folder. On first time run, you should run with the initialization profile for loading DB.
 
-> java -jar [jar_file] (-P init)
+`java -jar [jar_file] (-P init)`
 
 ### Using the web application
 
 We provide a simple web application that serves as an interface for end users.
-
-> TODO: describe each page (main, recommendation w/ user info, recommendation w/ favorite movie)
 
 #### Main Page
 

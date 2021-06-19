@@ -42,13 +42,6 @@
                 <job.name>loadDB</job.name>
             </properties>
         </profile>
-        <!-- Docker setting -->
-        <profile>
-            <id>docker</id>
-            <properties>
-                <host.ip>0.0.0.0</host.ip>
-            </properties>
-        </profile>
         <!-- War build -->
         <profile>
             <id>war-build</id>

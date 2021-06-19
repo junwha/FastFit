@@ -25,6 +25,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
@@ -50,6 +51,8 @@ public class LoadJob {
     private MongoTemplate mongoTemplate;
     @Autowired
     private DBValidRepository valid;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     Map<Integer, Movie> movieMap = new HashMap<>();
     Map<Integer, User> userMap = new HashMap<>();
@@ -90,7 +93,7 @@ public class LoadJob {
 
     @Bean
     Step stepEndDB(){
-        return stepBuilderFactory.get("stepEndDB").tasklet(new DBCompleteCheckTasklet(valid)).build();
+        return stepBuilderFactory.get("stepEndDB").tasklet(new DBCompleteCheckTasklet(valid, applicationContext)).build();
     }
 
     @Bean

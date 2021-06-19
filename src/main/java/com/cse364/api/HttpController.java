@@ -8,10 +8,8 @@ import com.cse364.domain.Genre;
 import com.cse364.domain.Movie;
 import com.cse364.domain.MovieRepository;
 import com.cse364.domain.UserInfo;
-import com.cse364.domain.GenreRepository;
 
 import com.cse364.infra.Config;
-import com.cse364.cli.Controller;
 import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Controller
 public class HttpController {
@@ -168,14 +167,12 @@ public class HttpController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "At least one of gender, age, occupation or genres are not specified.\n"
             );
-        } 
-
-        List<MovieDto> movies = new ArrayList<>();
-
-        for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
-            movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
-        return movies;
+
+        return getTop10Movies(gender, age, occupation, genre)
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {
@@ -227,25 +224,31 @@ public class HttpController {
             );
         }
 
-        List<MovieDto> movies = new ArrayList<>();
+        List<Movie> movies;
 
         try {
-           for (Movie movie : recommendByMovieService.recommendMoviesFromTitle(title, limit)) {
-               movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
-           }
+            movies = recommendByMovieService.recommendMoviesFromTitle(title, limit);
         } catch (NoMovieWithGivenNameException exception) {
            throw new ResponseStatusException(
                    HttpStatus.BAD_REQUEST, String.format("Error : The movie %s does not exist in database\n", title)
            );
         }
 
-        return movies;
+        return movies
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @GetMapping("/movies")
-    public List<Movie> getAllMovies(){
-        return movies.all();
+    @ResponseBody
+    public List<MovieDto> getAllMovies() {
+        return movies.all()
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
+
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(ResponseStatusException exception){
         Map<String, String> jsonObject = new HashMap<>();

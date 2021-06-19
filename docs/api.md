@@ -1,5 +1,16 @@
 # REST API
 
+## Schema Definitions
+
+### Movie
+
+- `title` (string) : The title of the movie.
+- `genres` (string) : The genres of the movie. Multiple genres will be separated by vertical bars (`|`).
+- `imdb` (string) : IMDB link of the movie.
+- `poster` (string) : Poster image link of the movie.
+
+> TODO: add poster links to the example responses
+
 ## API Specification
 
 ### Preliminaries
@@ -38,11 +49,7 @@ Gender and occupation are matched case-insensitively. Also, any special characte
 
 #### Response
 
-Returns a list of movie information objects. Movie information objects has following fields:
-
-- `title` (string) : The title of the movie.
-- `genres` (string) : The genres of the movie.
-- `imdb` (string) : IMDB link of the movie.
+Returns a list of `Movie` objects.
 
 #### Example Request
 
@@ -68,7 +75,25 @@ curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:applica
 
 #### Description
 
-> TODO: describe /movies API spec
+Returns all movies in the database.
+
+#### Request
+
+No parameters.
+
+#### Response
+
+Returns a list of `Movie` objects.
+
+#### Example Request
+
+```shell
+curl -X GET http://localhost:8080/movies
+```
+
+#### Example Response
+
+> TODO: add example response
 
 ### Related Movie Recommendation
 
@@ -94,11 +119,7 @@ You should include the year of release for the movie in the title field, because
 
 #### Response
 
-Returns a list of movie information objects. Movie information objects has following fields:
-
-- `title` (string) : The title of the movie.
-- `genres` (string) : The genres of the movie.
-- `imdb` (string) : IMDB link of the movie.
+Returns a list of `Movie` objects.
 
 #### Example Request
 

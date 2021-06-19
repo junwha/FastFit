@@ -20,7 +20,7 @@ Enter your gender, age, occupation, or a list of your favorite movie genres here
 
 Some input fields only accepts a limited number of values. If you enter an invalid input, an error message will be displayed. Please see the [Available Inputs](/docs/available-inputs.md) page to check which values are allowed.
 
-The recommendation system works as follows: We first find the users similar to you in the database. Then we gather the movies they enjoyed. We sort them by views and then provide you the top 10 movies as a recommendation.
+The recommendation system works as follows: We first find the users similar to you in the database. Then we gather the movies they enjoyed. We sort them by average rating and then provide you the top 10 movies as a recommendation.
 
 ### Recommendation by your favorite movie
 
@@ -30,4 +30,4 @@ If you enjoyed a movie and are looking for similar ones, you've come to the righ
 
 If you miswrite the movie title or don't include the release year, an error message will be displayed.
 
-The recommendation system works as follows: We first find users who enjoyed the movie in the database. Then we gather the movies they enjoyed. We sort them by views and then provide you the top 10 movies as a recommendation.
+The recommendation system works as follows: We first find users who enjoyed the movie in the database. Then we gather the movies they enjoyed. We sort them by average rating and then provide you the top 10 movies as a recommendation.

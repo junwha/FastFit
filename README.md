@@ -16,7 +16,7 @@ To use FastFit, you first need to run the server.
 
 > TODO: describe how to run in two ways: using Docker and building directly
 
-#### via Docker
+#### via Docker-Tomcat
 
 - Build a docker .war build with maven.
 

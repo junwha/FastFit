@@ -30,9 +30,6 @@ $ mvn clean package -P war-build -P docker
 
 ```
 $ docker build -t [image_tag] ./
-```
-
-```
 $ docker run -p [host_port]:[container_port] -it [image_tag]
 ```
 
@@ -87,8 +84,12 @@ For more information, please see the [Web App](/docs/web.md) reference page.
 
 For developers, there is a REST API to fetch data in the JSON format. This is a standard way to communicate the data programmatically and it allows you to handle the data in any way you desire.
 
-> TODO: put examples of API calls
+```
+curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "", "occupation": "other", "genres": ""}'
+curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story (1995)", "limit": "10"}'
+```
 
+(Upper example is done by curl, but any correct GET request will qualify)
 For more information, please see the [REST API](/docs/api.md) reference page.
 
 ## Development Guide

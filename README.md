@@ -96,16 +96,15 @@ For more information, please see the [REST API](/docs/api.md) reference page.
 ### Build
 
 ```
-$ mvn package [-p profile1 -p profile2 ...]
+$ mvn package [-P profile1 -P profile2 ...]
 ```
 
-#### Profile
+#### Maven profiles
 
-You can build with different profiles depending on your situation.
+We use Maven profiles to customize build configurations.
 
-- init: MongoDB initialization
-- docker: use docker.internal.host instead of localhost
-- war-build: build war instead of seperate jar
+- `init` : Enables a Spring batch job to initialize the MongoDB and fill the data. The batch job doesn't run when the database is already filled. Use this option in most cases.
+- `war-build` : Builds a WAR package instead of a JAR package.
 
 ### Test
 

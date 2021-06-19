@@ -14,42 +14,38 @@ FastFit is a movie recommendation system. We quickly(*fast*) find movies that *f
 
 To use FastFit, you first need to run the server.
 
-#### via Docker-Tomcat
+#### Deploying WAR file to Apache Tomcat on Docker (Recommended)
 
-- Build a docker .war build with maven.
+1. First, prepare the `cse364-project.war` file. You can find it in the releases page of the repository, or you can build it manually. To build the WAR file manually, run the following command.
 
-```
-$ mvn clean package -P war-build -P docker
-```
+   ```shell
+   mvn clean package -P war-build -P init
+   ```
 
-- Move the .war file in target folder, Dockerfile and run.sh file in main folder to deploy folder.
+2. Move the .war file into `./target` directory. If you built it manually, it will be already there.
 
-- In the deploy folder, build a docker image, and start a container. (expose port to be able to connect from outside)
+3. Build the Docker image and run it. FastFit uses the port 8080 by default, and you might want to publish the port using the `-p` option.
+  
+   ```shell
+   docker build -t cse364 ./
+   docker run -p 8080:8080 -it cse364
+   ```
 
-```
-$ docker build -t [image_tag] ./
-$ docker run -p [host_port]:[container_port] -it [image_tag]
-```
+#### Running JAR manually
 
-- Enjoy!
+1. Install MongoDB on the host machine, and start the mongod service.
 
-#### via JAR directly
+2. Build a .jar file.
 
-- Install mongoDB on the host machine, and start the service.
+   ```shell
+   mvn clean package -P init
+   ```
 
-- Build a .jar build with maven.
+3. Run the .jar file in the target folder.
 
-```
-$ mvn clean package
-```
-
-- Run the .jar file on the target folder. On first time run, you should run with the initialization profile for loading DB.
-
-```
-$ java -jar [jar_file] (-P init)
-```
-
-- Enjoy!
+   ```shell
+   java -jar target/cse364-project-1.0-SNAPSHOT.jar
+   ```
 
 ### Using the web application
 

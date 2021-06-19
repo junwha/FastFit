@@ -55,6 +55,4 @@ COPY ./target/cse364-project.war /root/tomcat/apache-tomcat-9.0.46/webapps/ROOT.
 RUN rm -rf /root/tomcat/apache-tomcat-9.0.46/webapps/ROOT && \
     chmod +x /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh
 
-#CMD ["mongo", "host.docker.internal:27017"]
-
-CMD mongod --bind_ip=0.0.0.0 --fork --logpath /var/log/mongodb.log; /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh run
+CMD mongod --fork --logpath /var/log/mongodb.log; /root/tomcat/apache-tomcat-9.0.46/bin/catalina.sh run

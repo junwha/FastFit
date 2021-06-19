@@ -8,38 +8,26 @@ When you run a server locally, it uses the port 8080 by default. So you can acce
 
 - **Address :** `/`, `/index.html`
 
-> TODO: describe the page structure, including the buttons and sections
+In FastFit, you can get movie recommendations by your information or your favorite movie. There are buttons on the main page that links to each recommendation page.
 
-On the top part, there are some introduction texts and buttons that goes to each custom recommendation page.
-
-"Our recommendations" section below the top part shows the overall top 10 recommended movies. Then comes the "by-genre" sections. They show top 10 recommended movies by each genre.
-
-The entry/number of Genres and Movies to be shown per each section is determined by entry of list in server program by Thymeleaf.
-You can change it by modifying it.
+Or, you can check our own recommendations at the bottom. "All Movies" section shows the overall top 10 recommended movies. Next comes the genre sections. They show top 10 recommended movies by each genre.
 
 ### Recommendation by your information
 
 - **Address :** `/users/recommendations.html`
 
-On the top part, there are some introduction texts, field where one can input Gender, Age, Occupation and Genres, and a button to send the argument to server. If there is a wrong input, it will be notified with a red text.
+Enter your gender, age, occupation, or a list of your favorite movie genres here. we'll suggest movies you might enjoy according to the provided information. You can omit some fields if you want.
 
-"Our recommendations" section below the top part showes the top 10 recommended movies by our "recommendation by information" algorithm.
+Some input fields only accepts a limited number of values. If you enter an invalid input, an error message will be displayed. Please see the [Available Inputs](/docs/available-inputs.md) page to check which values are allowed.
 
-Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
-
-The number of movies to be shown in "Our recommendations" section is determined by entry of list in server program by Thymeleaf.
-You can change it by modifying it.
+The recommendation system works as follows: We first find the users similar to you in the database. Then we gather the movies they enjoyed. We sort them by views and then provide you the top 10 movies as a recommendation.
 
 ### Recommendation by your favorite movie
 
 - **Address :** `/movies/recommendations.html`
 
-On the top part, there are some introduction texts, field where one can input movie title with year, and a button to send the argument to server. If there is a wrong input, it will be notified with a red text.
+If you enjoyed a movie and are looking for similar ones, you've come to the right place. Enter your favorite movie title with its release year in the parentheses. (e.g. `Toy Story (1995)`) We'll recommend 10 similar movies for you.
 
-"Our recommendations" section below the top part showes the top 10 recommended movies by our "recommendation by movie" algorithm.
+If you miswrite the movie title or don't include the release year, an error message will be displayed.
 
-Some input fields only accepts a limited number of values. To check which values are allowed, please see the [Available Inputs](/docs/available-inputs.md) page.
-
-The number of movies to be shown in "Our recommendations" section is determined by entry of list in server program by Thymeleaf.
-You can change it by modifying it.
-
+The recommendation system works as follows: We first find users who enjoyed the movie in the database. Then we gather the movies they enjoyed. We sort them by views and then provide you the top 10 movies as a recommendation.

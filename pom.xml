@@ -26,15 +26,27 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <package.type>jar</package.type>
+        <host.ip>localhost</host.ip>
+        <test.ip>localhost</test.ip>
     </properties>
-
+    <packaging>${package.type}</packaging>
+    
     <!-- For conditional job execution -->
     <!-- specify by -P -->
     <profiles>
+        <!-- Enable MongoDB initializing Job -->
         <profile>
             <id>init</id>
             <properties>
                 <job.name>loadDB</job.name>
+            </properties>
+        </profile>
+        <!-- War build -->
+        <profile>
+            <id>war-build</id>
+            <properties>
+                <package.type>war</package.type>
             </properties>
         </profile>
         <profile>
@@ -102,13 +114,23 @@
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <!-- Tomcat -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

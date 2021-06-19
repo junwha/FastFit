@@ -22,6 +22,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static java.util.stream.Collectors.toList;
+
 @org.springframework.stereotype.Controller
 public class HttpController {
     private final AverageRatingService averageRatingService;
@@ -243,9 +245,14 @@ public class HttpController {
     }
 
     @GetMapping("/movies")
-    public List<Movie> getAllMovies(){
-        return movies.all();
+    @ResponseBody
+    public List<MovieDto> getAllMovies() {
+        return movies.all()
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(toList());
     }
+
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(ResponseStatusException exception){
         Map<String, String> jsonObject = new HashMap<>();

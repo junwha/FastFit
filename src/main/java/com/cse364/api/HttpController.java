@@ -259,6 +259,7 @@ public class HttpController {
     @GetMapping("/movies")
     @ResponseBody
     public List<MovieDto> getAllMovies() {
+        checkDB();
         return movies.all()
                 .stream()
                 .map(MovieDto::fromMovie)

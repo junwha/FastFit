@@ -48,7 +48,7 @@ public class HttpController {
     private void checkDB(){
         if(!validRepository.isValid()){
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Database is not completely loaded yet. Please wait about 10 minute.\n"
+                    HttpStatus.SERVICE_UNAVAILABLE, "Database is not completely loaded yet. Please wait about 10 minute.\n"
             );
         }
     }

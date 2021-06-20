@@ -1,9 +1,8 @@
 package com.cse364;
 
-import com.cse364.database.repositories.DBMovieRepository;
-import com.cse364.database.repositories.DBRatingRepository;
-import com.cse364.database.repositories.DBUserRepository;
+import com.cse364.domain.ValidRepository;
 import com.cse364.infra.Config;
+import com.cse364.infra.DBValidRepositoryForTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,7 +10,10 @@ import org.springframework.context.annotation.Profile;
 @Profile("test")
 @Configuration
 public class TestServerConfig {
-    Config config;
+    @Bean
+    public ValidRepository validRepository(){
+        return new DBValidRepositoryForTest();
+    }
 
     @Bean
     public Config configBean(){

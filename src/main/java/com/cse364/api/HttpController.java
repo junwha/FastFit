@@ -4,12 +4,12 @@ import com.cse364.api.dtos.MovieDto;
 import com.cse364.app.*;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
-import com.cse364.domain.Genre;
-import com.cse364.domain.Movie;
-import com.cse364.domain.MovieRepository;
-import com.cse364.domain.UserInfo;
+import com.cse364.database.repositories.DBValidRepository;
+import com.cse364.domain.*;
 
 import com.cse364.infra.Config;
+import com.cse364.cli.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,10 @@ public class HttpController {
     private final RecommendByMovieService recommendByMovieService;
 
     private MovieRepository movies;
+
+    @Autowired
+    ValidRepository validRepository;
+
     /*
      * Config instance(Singleton) come from Beans of Spring
      */
@@ -41,10 +45,18 @@ public class HttpController {
         this.recommendByMovieService = config.recommendByMovieService;
         this.movies = config.movies;
     }
-    
+
+    private void checkDB(){
+        if(!validRepository.isValid()){
+            throw new ResponseStatusException(
+                    HttpStatus.SERVICE_UNAVAILABLE, "Database is not completely loaded yet. Please wait about 10 minute.\n"
+            );
+        }
+    }
+
     @RequestMapping(value={"", "/", "/index.html"})
     public String index(Model model) {
-
+        checkDB();
         indexFill(model);
         return "index";
     }
@@ -70,6 +82,7 @@ public class HttpController {
                                         @RequestParam(name="occupation", defaultValue="") String occupation,
                                         @RequestParam(name="genres", defaultValue="") String genres,
                                         Model model) {
+        checkDB();
         usersrecommendationsFill(gender, age, occupation, genres, model);
         return "usersrecommendations";
     }
@@ -114,6 +127,7 @@ public class HttpController {
 
     @RequestMapping("/movies/recommendations.html")
     public String moviesrecommendations(@RequestParam(name="title", defaultValue="") String title, Model model) {
+        checkDB();
         moviesrecommendationsFill(title, model);
         return "moviesrecommendations";
     }
@@ -158,6 +172,7 @@ public class HttpController {
     @GetMapping("/users/recommendations")
     @ResponseBody
     public List<MovieDto> recommendationsByUserinfo(@RequestBody Map<String, String> jsonObject) {
+        checkDB();
         String gender = jsonObject.get("gender");
         String age = jsonObject.get("age");
         String occupation = jsonObject.get("occupation");
@@ -202,6 +217,7 @@ public class HttpController {
     @GetMapping("/movies/recommendations")
     @ResponseBody
     public List<MovieDto> recommendationsByMovie(@RequestBody Map<String, String> jsonObject) {
+        checkDB();
         String title = jsonObject.get("title");
 
         if (title == null) {

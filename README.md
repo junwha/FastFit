@@ -40,22 +40,21 @@ To use FastFit, you first need to run the server. After successfully running the
    ```
    
    
-#### Running JAR in Docker Container
-If Docker image is created, you can run JAR in the Docker container instead of Tomcat webapp.
+#### Running JAR on Docker using run.sh
 
-1. Run docker conatiner with entry point bash.
+Once the Docker image is created, you can run JAR in the Docker container instead of deploying to Tomcat.
+
+1. Run Docker conatiner with entry point bash.
 
    ```shell
    docker run -it --entrypoint=bash cse364
    ```
    
-2. Execute run.sh
+2. Execute `run.sh`
 
    ```shell
    . run.sh
    ```
-   
-   
 
 #### Running JAR manually
 

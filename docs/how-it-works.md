@@ -10,7 +10,7 @@
 
 ### Algorithm Description
 
-1. Find all similar users according to the given user information.
+1. Find all similar users according to the given user information. If there's too many of them, sample up to 100 users.
 2. Calculate average of all ratings for each movie rated by similar users.
 3. If the number of movie rated by similar user is larger or equal than `N`, return top `N` movies.
 4. Otherwise, repeat finding secondary similar users by decrementing match count.
@@ -30,7 +30,7 @@ Thus, in a large scale, filtering it by matching number of genres and average ra
 ### Algorithm Description
 
 1. Find the movie by given title.
-2. Find all users who rated the movie.
+2. Find all users who rated the movie. If there's too many of them, sample up to 100 users.
 3. Find all ratings from users of step 2.
 4. Group all movies that had ratings in step 3, in decreasing order of number of matching genres.
 5. Calculate average per movie from all ratings in step 3.

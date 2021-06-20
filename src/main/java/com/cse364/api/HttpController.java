@@ -5,11 +5,7 @@ import com.cse364.app.*;
 import com.cse364.app.exceptions.GenreValidationException;
 import com.cse364.app.exceptions.UserInfoValidationException;
 import com.cse364.database.repositories.DBValidRepository;
-import com.cse364.domain.Genre;
-import com.cse364.domain.Movie;
-import com.cse364.domain.MovieRepository;
-import com.cse364.domain.UserInfo;
-import com.cse364.domain.GenreRepository;
+import com.cse364.domain.*;
 
 import com.cse364.infra.Config;
 import com.cse364.cli.Controller;
@@ -34,8 +30,7 @@ public class HttpController {
     private MovieRepository movies;
 
     @Autowired
-    DBValidRepository validRepo;
-
+    ValidRepository validRepository;
 
     /*
      * Config instance(Singleton) come from Beans of Spring
@@ -51,7 +46,7 @@ public class HttpController {
     }
 
     private void checkDB(){
-        if(!validRepo.existsById(0)){
+        if(!validRepository.isValid()){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Database is not completely loaded yet. Please wait about 10 minute.\n"
             );

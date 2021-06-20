@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Controller
 public class HttpController {
@@ -88,9 +89,40 @@ public class HttpController {
 
     void usersrecommendationsFill(String gender, String age, String occupation, String genres, Model model) {
 
-        // Top 10 search results
-        List<Movie> top10custom = posterPlaceholder(getTop10Movies(gender, age, occupation, genres));
+        UserInfo userInfo = null;
+        List<Genre> genres_list = null;
+        List<String> wrongInput = new ArrayList<>();
+
+        try {
+            userInfo = validationService.validateUserInfo(gender, age, occupation);
+        } catch (UserInfoValidationException e) {
+            if (e.getField().equals("gender")) {
+                wrongInput.add("Invalid gender: \"" + e.getValue() + "\". Please enter either \"F\" or \"M\".");
+            }
+            if (e.getField().equals("age")) {
+                wrongInput.add("Invalid age: \"" + e.getValue() + "\". Age should be a non-negative integer.");
+            }
+            if (e.getField().equals("occupation")) {
+                wrongInput.add("Invalid occupation: \"" + e.getValue() + "\". " +
+                        "Please check the \"Available Inputs\" page in the documentation.");
+            }
+        }
+
+        try {
+            genres_list = validationService.validateGenres(Arrays.asList(genres.split("\\|")));
+        } catch (GenreValidationException e) {
+            wrongInput.add("Invalid genre name: \"" + e.getName() + "\". " +
+                    "Please check the \"Available Inputs\" page in the documentation.");
+        }
+
+        List<Movie> top10custom;
+        try {
+            top10custom = posterPlaceholder(rankingService.getTopNMovie(userInfo, 10, genres_list));
+        } catch (Exception e) {
+            top10custom = new ArrayList<>();
+        }
         model.addAttribute("top10custom", top10custom);
+        model.addAttribute("wrongInput", wrongInput);
     }
 
     @RequestMapping("/movies/recommendations.html")
@@ -103,14 +135,19 @@ public class HttpController {
     void moviesrecommendationsFill(String title, Model model) {
 
         // Top 10 search results
-        List<Movie> top10custom = new ArrayList<>();
+        List<Movie> top10custom;
+        String wrong = "";
         try {
             top10custom = posterPlaceholder(recommendByMovieService.recommendMoviesFromTitle(title, 10));
         } catch (NoMovieWithGivenNameException exception) {
-            //TODO : Movie with given name not found
-            return;
+            top10custom = new ArrayList<>();
+            if (!title.equals("")) {
+                wrong = "A movie named \"" + title + "\" does not exist in the database. " +
+                        "Note that you have to include the year information, e.g. \"Toy Story (1995)\".";
+            }
         }
         model.addAttribute("top10custom", top10custom);
+        model.addAttribute("wrong", wrong);
     }
 
     List<Movie> posterPlaceholder(List<Movie> movieList) {
@@ -145,14 +182,12 @@ public class HttpController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "At least one of gender, age, occupation or genres are not specified.\n"
             );
-        } 
-
-        List<MovieDto> movies = new ArrayList<>();
-
-        for(Movie movie : getTop10Movies(gender, age, occupation, genre)){
-            movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
         }
-        return movies;
+
+        return getTop10Movies(gender, age, occupation, genre)
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     List<Movie> getTop10Movies(String gender, String age, String occupation, String genreNames) {
@@ -205,26 +240,31 @@ public class HttpController {
             );
         }
 
-        List<MovieDto> movies = new ArrayList<>();
+        List<Movie> movies;
 
         try {
-           for (Movie movie : recommendByMovieService.recommendMoviesFromTitle(title, limit)) {
-               movies.add(new MovieDto(movie.getTitle(), Controller.formatGenres(movie.getGenres(), "|"), movie.getLink()));
-           }
+            movies = recommendByMovieService.recommendMoviesFromTitle(title, limit);
         } catch (NoMovieWithGivenNameException exception) {
            throw new ResponseStatusException(
                    HttpStatus.BAD_REQUEST, String.format("Error : The movie %s does not exist in database\n", title)
            );
         }
 
-        return movies;
+        return movies
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @GetMapping("/movies")
-    public List<Movie> getAllMovies(){
-        checkDB();
-        return movies.all();
+    @ResponseBody
+    public List<MovieDto> getAllMovies() {
+        return movies.all()
+                .stream()
+                .map(MovieDto::fromMovie)
+                .collect(Collectors.toUnmodifiableList());
     }
+
     @ExceptionHandler(ResponseStatusException.class)
     public Object handleError(ResponseStatusException exception){
         Map<String, String> jsonObject = new HashMap<>();

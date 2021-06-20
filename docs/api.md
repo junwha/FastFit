@@ -1,17 +1,13 @@
-# Usage (REST API Server)
+# REST API
 
-## Running a Server
+## Schema Definitions
 
-```
-$ mvn spring-boot:run
-```
+### Movie
 
-or
-
-
-```
-$ java -jar target/cse364-project-1.0-SNAPSHOT.jar
-```
+- `title` (string) : The title of the movie.
+- `genres` (string) : The genres of the movie. Multiple genres are separated by vertical bars (`|`).
+- `imdb` (string) : IMDB link of the movie.
+- `poster` (string) : Poster image link of the movie. It will be an empty string when the movie doesn't have a poster.
 
 ## API Specification
 
@@ -51,32 +47,92 @@ Gender and occupation are matched case-insensitively. Also, any special characte
 
 #### Response
 
-Returns a list of movie information objects. Movie information objects has following fields:
-
-- `title` (string) : The title of the movie.
-- `genres` (string) : The genres of the movie.
-- `imdb` (string) : IMDB link of the movie.
+A list of `Movie` objects.
 
 #### Example Request
 
 ```shell
-curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "", "occupation": "other", "genres": ""}'
+curl -X GET http://localhost:8080/users/recommendations -H 'Content-type:application/json' -d '{"gender": "M", "age": "24",	"occupation": "college student", "genres": "animation|sci-fi"}'
 ```
 
 #### Example Response
 
 ```json
 [
-    {"title":"Our Town (1940)","genres":"Drama","imdb":"http://www.imdb.com/title/tt0032881"},
-    {"title":"Two Women (La Ciociara) (1961)","genres":"Drama|War","imdb":"http://www.imdb.com/title/tt0054749"},
-    {"title":"Criminal Lovers (Les Amants Criminels) (1999)","genres":"Drama|Romance","imdb":"http://www.imdb.com/title/tt0205735"},
-    ...
+  {
+    "title": "Make Mine Music (1946)",
+    "genres": "Animation|Children's|Musical",
+    "imdb": "http://www.imdb.com/title/tt0038718",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Faust (1994)",
+    "genres": "Animation|Comedy|Thriller",
+    "imdb": "http://www.imdb.com/title/tt0109781",
+    "poster": ""
+  },
+  {
+    "title": "Brother from Another Planet, The (1984)",
+    "genres": "Drama|Sci-Fi",
+    "imdb": "http://www.imdb.com/title/tt0087004",
+    "poster": "https://....jpg"
+  },
+  "..."
+]
+```
+
+### List of All Movies
+
+- **Endpoint :** `/movies`
+- **HTTP Method :** `GET`
+
+#### Description
+
+Returns all movies in the database.
+
+#### Request
+
+No parameters.
+
+#### Response
+
+A list of `Movie` objects.
+
+#### Example Request
+
+```shell
+curl -X GET http://localhost:8080/movies
+```
+
+#### Example Response
+
+```json
+[
+  {
+    "title": "Toy Story (1995)",
+    "genres": "Animation|Children's|Comedy",
+    "imdb": "http://www.imdb.com/title/tt0114709",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Jumanji (1995)",
+    "genres": "Adventure|Children's|Fantasy",
+    "imdb": "http://www.imdb.com/title/tt0113497",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Grumpier Old Men (1995)",
+    "genres": "Comedy|Romance",
+    "imdb": "http://www.imdb.com/title/tt0113228",
+    "poster": "https://....jpg"
+  },
+  "..."
 ]
 ```
 
 ### Related Movie Recommendation
 
-- **Endpoint :** `/users/recommendations`
+- **Endpoint :** `/movies/recommendations`
 
 - **HTTP Method :** `GET`
 
@@ -98,25 +154,35 @@ You should include the year of release for the movie in the title field, because
 
 #### Response
 
-Returns a list of movie information objects. Movie information objects has following fields:
-
-- `title` (string) : The title of the movie.
-- `genres` (string) : The genres of the movie.
-- `imdb` (string) : IMDB link of the movie.
+A list of `Movie` objects.
 
 #### Example Request
 
 ```shell
-curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story (1995)", "limit": "10"}'
+curl -X GET http://localhost:8080/movies/recommendations -H 'Content-type:application/json' -d '{"title": "Toy story (1995)", "limit": "3"}'
 ```
 
 #### Example Response
 
 ```json
 [
-    {"title":"Goofy Movie, A (1995)","genres":"Animation|Children's|Comedy|Romance","imdb":"http://www.imdb.com/title/tt0113198"},
-    {"title":"Aladdin (1992)","genres":"Animation|Children's|Comedy|Musical","imdb":"http://www.imdb.com/title/tt0827990"},
-    {"title":"Space Jam (1996)","genres":"Adventure|Animation|Children's|Comedy|Fantasy","imdb":"http://www.imdb.com/title/tt0117705"},
-    ...
+  {
+    "title": "Goofy Movie, A (1995)",
+    "genres": "Animation|Children's|Comedy|Romance",
+    "imdb": "http://www.imdb.com/title/tt0113198",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Aladdin (1992)",
+    "genres": "Animation|Children's|Comedy|Musical",
+    "imdb": "http://www.imdb.com/title/tt0827990",
+    "poster": "https://....jpg"
+  },
+  {
+    "title": "Space Jam (1996)",
+    "genres": "Adventure|Animation|Children's|Comedy|Fantasy",
+    "imdb": "http://www.imdb.com/title/tt0117705",
+    "poster": "https://....jpg"
+  }
 ]
 ```

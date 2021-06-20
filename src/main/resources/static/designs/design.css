@@ -1,0 +1,18 @@
+h2.submaintext {
+    border-style: solid 3px green;
+    border-radius: 5px;
+    color: darkgreen;
+}
+
+.hero {
+    background-color: #cdf;
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-label {
+    text-align: right;
+}

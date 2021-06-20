@@ -43,8 +43,12 @@ public class RecommendByMovieService {
     List<Rating> getAllRatingsFromUsersOfSelectedRatings(List<Rating> ratings) {
         List<Rating> allRatings = new ArrayList<>();
 
-        for (Rating rating : ratings) {
-            allRatings.addAll(ratingRepository.filterByUser(rating.getUser()));
+        // Iterating all ratings is time consuming, so let's sample some of them.
+        List<Rating> sampledRatings = new ArrayList<>(ratings);
+        Collections.shuffle(sampledRatings, new Random(12345));
+
+        for (int i = 0; i < Math.min(ratings.size(), 100); i++) {
+            allRatings.addAll(ratingRepository.filterByUser(sampledRatings.get(i).getUser()));
         }
         
         return allRatings;

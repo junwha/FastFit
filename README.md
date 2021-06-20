@@ -69,7 +69,7 @@ Once the Docker image is created, you can run JAR in the Docker container instea
 3. Run the .jar file in the target folder.
 
    ```shell
-   java -jar target/cse364-project-1.0-SNAPSHOT.jar
+   java -jar target/cse364-project.jar
    ```
 
 ### Using the web application

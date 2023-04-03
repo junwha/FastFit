@@ -158,6 +158,7 @@ After running the test command, open `target/site/jacoco/index.html` file in the
 - [Command Line Program (Deprecated)](/docs/cli.md)
 - [Available Inputs](/docs/available-inputs.md)
 - [How It Works](/docs/how-it-works.md)
+- [Presentation](https://docs.google.com/presentation/d/1Sfc_JcOC9VNoQRpx6oe2AehTP-rtVzXSnRz0iKYGxfQ/edit?usp=sharing)
 
 ## Update History
 
